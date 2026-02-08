@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Raceway | Ultimate Go-Kart Experience</title>
+    <meta name="description"
+        content="Experience high-speed electric go-karting on Europe's most challenging track. Book your race today at Velocity Raceway.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Teko:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            /* Brand Colors */
+            --primary-color: #ff3e3e;
+            /* Racing Red */
+            --accent-color: #ffd700;
+            /* Checkered Yellow */
+
+            /* Fonts & Layout */
+            --font-heading: 'Teko', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --container-width: 1200px;
+            --transition: all 0.3s ease;
+
+            /* --- DARK MODE (Default) --- */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #252525;
+            --text-primary: #f4f4f4;
+            --text-secondary: #a0a0a0;
+            --border-color: #333333;
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --overlay-gradient: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7));
+        }
+
+        /* --- LIGHT MODE OVERRIDES --- */
+        [data-theme="light"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e4e6eb;
+            --text-primary: #121212;
+            --text-secondary: #555555;
+            --border-color: #dddddd;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --overlay-gradient: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7));
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--bg-primary);
+            /* Dynamic text color */
+            background-color: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            transform: skew(-10deg);
+            transition: var(--transition);
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .btn span {
+            display: inline-block;
+            transform: skew(10deg);
+        }
+
+        .btn:hover {
+            background-color: var(--text-primary);
+            transform: skew(-10deg) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin-top: -10px;
+        }
+
+        .section-subtitle {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- THEME & RTL TOGGLE BUTTONS --- */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-body);
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--primary-color);
+        }
+
+        .toggle-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #menu-checkbox {
+            display: none;
+        }
+
+        /* --- RTL OVERRIDES --- */
+        [dir="rtl"] .nav-links {
+            /* In RTL mode, 'Book Now' (end of list) should appear on the left (start) */
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .logo span {
+            margin-left: 0;
+            margin-right: 5px;
+            /* In RTL, the accent is on the right of the text */
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/kartrace1/1920/1080') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%) 50% / 40px 40px;
+            opacity: 0.5;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #ddd;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- STATS --- */
+        .stats-section {
+            background-color: var(--bg-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        /* --- FLEET --- */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .kart-card {
+            background-color: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .kart-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: var(--transition);
+        }
+
+        .kart-card:hover .kart-image {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .kart-details {
+            padding: 25px;
+        }
+
+        .kart-name {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .kart-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-value {
+            display: block;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .spec-key {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        /* --- TEAM --- */
+        .team-section {
+            background-color: var(--bg-primary);
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            background-color: var(--bg-secondary);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .team-img-container {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-img {
+            transform: scale(1.1);
+        }
+
+        .team-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 20%, rgba(255, 62, 62, 0.8) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .team-card:hover .team-overlay {
+            transform: translateY(0);
+        }
+
+        .team-info-static {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, #121212 0%, transparent 100%);
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover .team-info-static {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .team-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .team-role {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .team-social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .team-social-icon:hover {
+            background: var(--accent-color);
+            color: black;
+        }
+
+        /* --- SAFETY --- */
+        .safety-section {
+            background-color: var(--bg-tertiary);
+            text-align: center;
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .safety-item {
+            padding: 20px;
+        }
+
+        .safety-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .safety-item h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- EVENTS --- */
+        .events-section {
+            background-color: var(--bg-primary);
+        }
+
+        .events-layout {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .events-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .events-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .events-image img {
+            border-radius: 4px;
+            box-shadow: 20px 20px 0 var(--primary-color);
+        }
+
+        .event-list li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .check-icon {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* --- REVIEWS --- */
+        .reviews-section {
+            background-color: var(--bg-secondary);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .review-card {
+            background-color: var(--bg-primary);
+            padding: 30px;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+
+        .stars {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .reviewer {
+            margin-top: 20px;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--primary-color);
+        }
+
+        /* --- PRICING --- */
+        .pricing-section {
+            background-color: #1a1a1a;
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .price-card {
+            background-color: var(--bg-primary);
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 62, 62, 0.2);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+
+        .plan-name {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+
+        .features-list {
+            margin-bottom: 30px;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* In RTL, checkmark should be on right */
+        [dir="rtl"] .features-list li {
+            padding-left: 0;
+            padding-right: 25px;
+        }
+
+        [dir="rtl"] .features-list li::before {
+            left: auto;
+            right: 0;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 250px);
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .g-1 {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .g-2 {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .g-3 {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+
+        .g-4 {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            border: 3px solid var(--primary-color);
+            padding: 10px 30px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- FAQ --- */
+        .faq-section {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        details {
+            background-color: var(--bg-primary);
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        details[open] {
+            border-color: var(--primary-color);
+        }
+
+        summary {
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            list-style: none;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* RTL Arrow Adjustment */
+        [dir="ltr"] summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        [dir="rtl"] summary::after {
+            content: '+';
+            position: absolute;
+            left: 0;
+            right: auto;
+        }
+
+        [dir="ltr"] details[open] summary::after {
+            content: '-';
+        }
+
+        [dir="rtl"] details[open] summary::after {
+            content: '-';
+        }
+
+        details p {
+            margin-top: 15px;
+            color: var(--text-dim);
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-primary);
+            padding: 60px 0 20px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        [dir="rtl"] .footer-links a:hover {
+            padding-left: 0;
+            padding-right: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-dim);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: var(--primary-color);
+            border: none;
+            padding: 0 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-box {
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-tertiary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .social-box:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+
+            .price-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: 2px solid var(--primary-color);
+            }
+
+            #menu-checkbox:checked~.nav-links {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .events-image {
+                margin-top: 30px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .g-1,
+            .g-4 {
+                grid-column: span 2;
+                grid-row: auto;
+                height: 300px;
+            }
+
+            .gallery-item {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .g-1,
+            .g-4 {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SECTION 1: HEADER -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">Velocity<span>Raceway</span></a>
+
+            <label for="menu-checkbox" class="menu-toggle">☰</label>
+            <input type="checkbox" id="menu-checkbox">
+
+            <nav class="nav-links">
+                <a href="about.html">About</a>
+                <a href="#fleet">Our Karts</a>
+                <a href="#team">Team</a>
+                <a href="#events">Events</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#faq">FAQ</a>
+
+                <!-- TOGGLES GROUP -->
+                <div class="toggle-group">
+                    <!-- RTL Toggle -->
+                    <button id="rtl-toggle" class="toggle-btn">LTR</button>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="toggle-btn">🌙</button>
+
+                    <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 1rem;"><span>Book Now</span></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SECTION 2: HERO -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Unleash Your <br><span>Inner Speed Demon</span></h1>
+            <p>Experience the thrill of professional electric karting on our championship-grade track. No exhaust, just
+                pure adrenaline.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn"><span>Start Racing</span></a>
+                <a href="#about" class="btn btn-outline"><span>Explore Track</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: STATS -->
+    <section class="stats-section" id="about">
+        <div class="container">
+            <span class="section-subtitle">The Experience</span>
+            <h2 class="section-title">Why Race With Us?</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1.2km</div>
+                    <div class="stat-label">Track Length</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">80km/h</div>
+                    <div class="stat-label">Top Speed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Electric Power</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: FLEET -->
+    <section id="fleet">
+        <div class="container">
+            <span class="section-subtitle">Our Machines</span>
+            <h2 class="section-title">Choose Your Weapon</h2>
+            <div class="fleet-grid">
+                <div class="kart-card">
+                    <img src="https://picsum.photos/seed/kart1/400/300" alt="Pro Kart" class="kart-image">
+                    <div class="kart-details">
+                        <h3 class="kart-name">Sodi GT Pro</h3>
+                        <div class="kart-specs">
+                            <div class="spec-item"><span class="spec-value">80 km/h</span><span
+                                    class="spec-key">Speed</span></div>
+                            <div class="spec-item"><span class="spec-value">25hp</span><span
+                                    class="spec-key">Power</span></div>
+                            <div class="spec-item"><span class="spec-value">14+</span><span class="spec-key">Age</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kart-card">
+                    <img src="https://picsum.photos/seed/kart2/400/300" alt="Junior Kart" class="kart-image">
+                    <div class="kart-details">
+                        <h3 class="kart-name">Sodi LR5</h3>
+                        <div class="kart-specs">
+                            <div class="spec-item"><span class="spec-value">45 km/h</span><span
+                                    class="spec-key">Speed</span></div>
+                            <div class="spec-item"><span class="spec-value">10hp</span><span
+                                    class="spec-key">Power</span></div>
+                            <div class="spec-item"><span class="spec-value">8-13</span><span class="spec-key">Age</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kart-card">
+                    <img src="https://picsum.photos/seed/kart3/400/300" alt="Double Kart" class="kart-image">
+                    <div class="kart-details">
+                        <h3 class="kart-name">2Drive Twin</h3>
+                        <div class="kart-specs">
+                            <div class="spec-item"><span class="spec-value">50 km/h</span><span
+                                    class="spec-key">Speed</span></div>
+                            <div class="spec-item"><span class="spec-value">Dual</span><span
+                                    class="spec-key">Seating</span></div>
+                            <div class="spec-item"><span class="spec-value">Family</span><span
+                                    class="spec-key">Use</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TEAM -->
+    <section class="team-section" id="team">
+        <div class="container">
+            <span class="section-subtitle">The Professionals</span>
+            <h2 class="section-title">Meet The Crew</h2>
+            <p style="color:var(--text-dim); max-width: 600px; margin: 0 auto;">Led by industry veterans and racing
+                champions, our team is dedicated to safety and speed.</p>
+
+            <div class="team-grid">
+                <!-- Member 1 -->
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://picsum.photos/seed/teamdriver1/400/500" alt="Marcus Steel" class="team-img">
+                        <div class="team-overlay">
+                            <h3 class="team-name">Marcus Steel</h3>
+                            <div class="team-role">Track Manager</div>
+                            <p style="margin: 10px 0; font-size: 0.9rem; opacity: 0.9;">Former F3 driver with 10 years
+                                of track management experience.</p>
+                            <div class="team-socials"><a href="#" class="team-social-icon">tw</a><a href="#"
+                                    class="team-social-icon">in</a></div>
+                        </div>
+                        <div class="team-info-static">
+                            <h3 class="team-name">Marcus Steel</h3>
+                            <div class="team-role">Track Manager</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Member 2 -->
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://picsum.photos/seed/teammgr1/400/500" alt="Elena Rossi" class="team-img">
+                        <div class="team-overlay">
+                            <h3 class="team-name">Elena Rossi</h3>
+                            <div class="team-role">Chief Instructor</div>
+                            <p style="margin: 10px 0; font-size: 0.9rem; opacity: 0.9;">Certified racing instructor
+                                specialized in high-performance driving.</p>
+                            <div class="team-socials"><a href="#" class="team-social-icon">fb</a><a href="#"
+                                    class="team-social-icon">in</a></div>
+                        </div>
+                        <div class="team-info-static">
+                            <h3 class="team-name">Elena Rossi</h3>
+                            <div class="team-role">Chief Instructor</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Member 3 -->
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://picsum.photos/seed/teammec1/400/500" alt="David Chen" class="team-img">
+                        <div class="team-overlay">
+                            <h3 class="team-name">David Chen</h3>
+                            <div class="team-role">Head Mechanic</div>
+                            <p style="margin: 10px 0; font-size: 0.9rem; opacity: 0.9;">Keeping the fleet running at
+                                peak performance 24/7.</p>
+                            <div class="team-socials"><a href="#" class="team-social-icon">tw</a><a href="#"
+                                    class="team-social-icon">ig</a></div>
+                        </div>
+                        <div class="team-info-static">
+                            <h3 class="team-name">David Chen</h3>
+                            <div class="team-role">Head Mechanic</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: SAFETY -->
+    <section class="safety-section" id="safety">
+        <div class="container">
+            <span class="section-subtitle">Safety First</span>
+            <h2 class="section-title">Race Protected</h2>
+            <div class="safety-grid">
+                <div class="safety-item">
+                    <div class="safety-icon">⛑️</div>
+                    <h4>Pro Helmets</h4>
+                    <p style="color:var(--text-dim)">Full-face racing helmets included with every rental.</p>
+                </div>
+                <div class="safety-item">
+                    <div class="safety-icon">👕</div>
+                    <h4>Race Suits</h4>
+                    <p style="color:var(--text-dim)">Clean, fire-retardant suits for all sizes.</p>
+                </div>
+                <div class="safety-item">
+                    <div class="safety-icon">🎥</div>
+                    <h4>Live Marshals</h4>
+                    <p style="color:var(--text-dim)">Trained track officials monitoring every corner.</p>
+                </div>
+                <div class="safety-item">
+                    <div class="safety-icon">🛡️</div>
+                    <h4>Bumpers</h4>
+                    <p style="color:var(--text-dim)">Full wrap-around bumpers on all karts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: EVENTS -->
+    <section class="events-section" id="events">
+        <div class="container">
+            <div class="events-layout">
+                <div class="events-content">
+                    <span class="section-subtitle">Groups & Parties</span>
+                    <h2 class="section-title">Host The Ultimate Event</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-dim);">Whether it's a birthday bash, a corporate
+                        team building day, or a bachelor party, Velocity Raceway offers tailored packages for groups of
+                        any size.</p>
+                    <ul class="event-list">
+                        <li><span class="check-icon">✓</span> Private race briefing and meeting room</li>
+                        <li><span class="check-icon">✓</span> Dedicated track time for your group</li>
+                        <li><span class="check-icon">✓</span> Podium ceremony with trophies</li>
+                        <li><span class="check-icon">✓</span> Catering options available</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline" style="margin-top: 20px;"><span>Inquire Now</span></a>
+                </div>
+                <div class="events-image">
+                    <img src="https://picsum.photos/seed/party/600/400" alt="Group Party">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: REVIEWS -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <span class="section-subtitle">Testimonials</span>
+            <h2 class="section-title">What Racers Say</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The fastest karts I've ever driven. The track layout is challenging and really tests your
+                        skills. The staff was incredibly professional."</p>
+                    <div class="reviewer">- Jake M.</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Took my son here for his 12th birthday and he was over the moon. The junior karts were safe but
+                        still fast enough to be fun. Highly recommended!"</p>
+                    <div class="reviewer">- Sarah T.</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Great facility for corporate events. We had a blast competing against each other. The timing
+                        system is top notch."</p>
+                    <div class="reviewer">- TechStart Inc.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: PRICING -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <span class="section-subtitle">Rates & Packages</span>
+            <h2 class="section-title">Select Your Plan</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3 class="plan-name">Single Race</h3>
+                    <div class="price">$25 <span>/ race</span></div>
+                    <ul class="features-list">
+                        <li>10 Minute Heat</li>
+                        <li>Live Lap Timing</li>
+                        <li>Rental Equipment Included</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline"><span>Book Now</span></a>
+                </div>
+                <div class="price-card featured">
+                    <div class="badge">Best Value</div>
+                    <h3 class="plan-name">Grand Prix</h3>
+                    <div class="price">$75 <span>/ driver</span></div>
+                    <ul class="features-list">
+                        <li>Practice + Qualifying + Final</li>
+                        <li>Total 25 Minutes of Track Time</li>
+                        <li>Podium Ceremony</li>
+                        <li>Trophy for Top 3</li>
+                    </ul>
+                    <a href="#" class="btn"><span>Book Now</span></a>
+                </div>
+                <div class="price-card">
+                    <h3 class="plan-name">Group Hour</h3>
+                    <div class="price">$300 <span>/ hour</span></div>
+                    <ul class="features-list">
+                        <li>Exclusive Track Use</li>
+                        <li>Up to 8 Drivers</li>
+                        <li>Endurance Format</li>
+                        <li>Personal Marshal</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline"><span>Enquire</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: GALLERY -->
+    <section id="gallery">
+        <div class="container">
+            <span class="section-subtitle">Action Shots</span>
+            <h2 class="section-title">Life in the Fast Lane</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item g-1">
+                    <img src="https://picsum.photos/seed/racecarturn/800/800" alt="Race car drifting">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Apex Turn</div>
+                    </div>
+                </div>
+                <div class="gallery-item g-2">
+                    <img src="https://picsum.photos/seed/racingtire/400/400" alt="Racing Tire Detail">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Grip</div>
+                    </div>
+                </div>
+                <div class="gallery-item g-2">
+                    <img src="https://picsum.photos/seed/racingdriver/400/400" alt="Driver Portrait">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Focus</div>
+                    </div>
+                </div>
+                <div class="gallery-item g-4">
+                    <img src="https://picsum.photos/seed/circuitline/400/800" alt="Empty Circuit Track">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Circuit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <span class="section-subtitle">Common Questions</span>
+            <h2 class="section-title" style="display:block; text-align:center;">F.A.Q</h2>
+            <div class="faq-container">
+                <details>
+                    <summary>Do I need a reservation?</summary>
+                    <p>Reservations are highly recommended, especially on weekends. While we accept walk-ins if space is
+                        available, booking online guarantees your spot.</p>
+                </details>
+                <details>
+                    <summary>Is there a height requirement?</summary>
+                    <p>Yes. For our Junior karts, minimum height is 4'3". For our Adult karts, minimum height is 4'10".
+                        All drivers must also fit safely in kart.</p>
+                </details>
+                <details>
+                    <summary>Do you provide safety gear?</summary>
+                    <p>Absolutely. We provide a full-face helmet, a balaclava (head sock), and a racing suit at no extra
+                        cost with your rental.</p>
+                </details>
+                <details>
+                    <summary>Can I bring my own helmet?</summary>
+                    <p>Yes, provided it is a full-face helmet with a clear visor and meets DOT safety standards. Our
+                        marshals reserve right to inspect it before use.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 12: FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">Velocity<span>Raceway</span></a>
+                    <p style="color:var(--text-dim); margin-top:20px;">The premier destination for electric karting
+                        enthusiasts. Safe, fun, and fast for all ages.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-box">FB</a>
+                        <a href="#" class="social-box">IG</a>
+                        <a href="#" class="social-box">YT</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li>📍 12 Apex Boulevard, Speedville</li>
+                        <li>📞 (555) 123-4567</li>
+                        <li>✉️ race@velocityraceway.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color:var(--text-dim); font-size: 0.9rem; margin-bottom:10px;">Join our mailing list for
+                        exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit">GO</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Velocity Raceway. All rights reserved. Designed for Speed.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR THEME & RTL TOGGLE -->
+     <script src="../assets/js/main.js"></script>
+    <script>
+        // --- THEME LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
+
+        if (currentTheme) {
+            htmlElement.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+        }
+
+        themeToggleBtn.addEventListener('click', function () {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggleBtn.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+       
+    </script>
+</body>
+
+</html>

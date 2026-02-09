@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" dir="ltr" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -11,17 +11,912 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="../assets/css/style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Teko:wght@400;600;700&display=swap"
         rel="stylesheet">
 
-    
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            /* Brand Colors */
+            --primary-color: #ff3e3e;
+            /* Racing Red */
+            --accent-color: #ffd700;
+            /* Checkered Yellow */
+
+            /* Fonts & Layout */
+            --font-heading: 'Teko', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --container-width: 1200px;
+            --transition: all 0.3s ease;
+
+            /* --- DARK MODE (Default) --- */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #252525;
+            --text-primary: #f4f4f4;
+            --text-secondary: #a0a0a0;
+            --border-color: #333333;
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --overlay-gradient: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+        }
+
+        /* --- LIGHT MODE OVERRIDES --- */
+        [data-theme="light"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e4e6eb;
+            --text-primary: #121212;
+            --text-secondary: #555555;
+            --border-color: #dddddd;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --overlay-gradient: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--bg-primary);
+            background-color: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            transform: skew(-10deg);
+            transition: var(--transition);
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .btn span {
+            display: inline-block;
+            transform: skew(10deg);
+        }
+
+        .btn:hover {
+            background-color: var(--text-primary);
+            transform: skew(-10deg) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin-top: -10px;
+        }
+
+        .section-subtitle {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- THEME & RTL TOGGLE BUTTONS --- */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-body);
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--primary-color);
+        }
+
+        .toggle-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #menu-checkbox {
+            display: none;
+        }
+
+        /* --- RTL OVERRIDES --- */
+        [dir="rtl"] .nav-links {
+            /* In RTL mode, Book Now (end of list) appears on left (start) */
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .logo span {
+            margin-left: 0;
+            margin-right: 5px;
+            /* In RTL, accent is on the right of the text */
+        }
+
+        /* --- SECTION 2: HERO (UPDATED WITH OVERLAY) --- */
+        .hero-about {
+            height: 70vh;
+            /* 
+               Overlay Added: 
+               linear-gradient(...) sits ON TOP of the image url(...)
+               The opacity (0.7 to 0.9) creates the dark overlay effect.
+            */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://picsum.photos/seed/racingtrack/1920/1080') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            /* Offset for fixed header */
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            /* Strong text shadow ensures readability against the image */
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #fff;
+            /* White text */
+            /* Text shadow for subtitle */
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* --- STORY --- */
+        .story-section {
+            background-color: var(--bg-primary);
+        }
+
+        .story-layout {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .story-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .story-image img {
+            border-radius: 4px;
+            box-shadow: 20px 20px 0 var(--accent-color);
+            filter: grayscale(40%);
+            transition: var(--transition);
+        }
+
+        .story-image img:hover {
+            filter: grayscale(0%);
+        }
+
+        .story-text {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        /* --- VALUES --- */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+            background-color: var(--bg-secondary);
+        }
+
+        .value-card:hover {
+            background-color: var(--bg-tertiary);
+            border-color: var(--accent-color);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .value-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- SUSTAINABILITY --- */
+        .eco-section {
+            background-color: var(--bg-primary);
+            text-align: center;
+        }
+
+        .eco-layout {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+            background-color: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .eco-content {
+            flex: 2;
+            text-align: left;
+        }
+
+        .eco-visual {
+            flex: 1;
+        }
+
+        .eco-icon-circle {
+            width: 120px;
+            height: 120px;
+            background-color: var(--bg-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 4rem;
+            transition: background-color 0.3s;
+        }
+
+        .green-text {
+            color: #4ade80;
+        }
+
+        /* --- CIRCUIT --- */
+        .circuit-section {
+            background-color: var(--bg-tertiary);
+            transition: background-color 0.3s;
+        }
+
+        .circuit-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .circuit-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .circuit-map {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .circuit-map img {
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(255, 62, 62, 0.2);
+        }
+
+        .track-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .track-list strong {
+            color: var(--text-primary);
+            margin-right: 10px;
+            min-width: 120px;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+
+        /* --- PARTNERS --- */
+        .partners-section {
+            background-color: var(--bg-primary);
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: var(--transition);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 4px;
+            background-color: var(--bg-secondary);
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* --- TEAM --- */
+        .team-section {
+            background-color: var(--bg-secondary);
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            background-color: var(--bg-primary);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .team-img-container {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-img {
+            transform: scale(1.1);
+        }
+
+        .team-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 20%, rgba(255, 62, 62, 0.8) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .team-card:hover .team-overlay {
+            transform: translateY(0);
+        }
+
+        .team-info-static {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, #121212 0%, transparent 100%);
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover .team-info-static {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .team-name {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .team-role {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .team-social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .team-social-icon:hover {
+            background: var(--accent-color);
+            color: black;
+        }
+
+        /* --- CAREERS CTA --- */
+        .cta-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://picsum.photos/seed/mechanic/1920/600') center/cover no-repeat;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-box h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #000;
+            padding: 60px 0 20px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: var(--primary-color);
+            border: none;
+            padding: 0 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-box {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .social-box:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                border-bottom: 2px solid var(--primary-color);
+            }
+
+            #menu-checkbox:checked~.nav-links {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .story-image,
+            .eco-layout,
+            .circuit-container {
+                flex-direction: column;
+            }
+
+            .eco-content {
+                text-align: center;
+                order: 2;
+            }
+
+            .eco-visual {
+                order: 1;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* --- SECTION 6: STATS (REDESIGNED DASHBOARD STYLE) --- */
+        .stats-section {
+            background-color:var(--bg-primary);
+            padding: 100px 0;
+            /* Increased padding for impact */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grid Layout */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            /* RTL Support: Grid automatically respects dir="rtl" */
+        }
+
+        /* Tech Card Style */
+        .stat-card {
+            background: rgba(255, 62, 62, 0.05);
+            /* Very subtle red tint */
+            /* border: 1px solid var(--border-color); */
+            border-radius: 12px;
+            padding: 30px 20px;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-card::before {
+            /* Neon glow effect on top border */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            /* background: var(--primary-color); */
+            box-shadow: 0 0 10px var(--primary-color);
+            transition: width 0.4s;
+            opacity: 0.5;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            /* background: rgba(255, 62, 62, 0.1); */
+            /* border-color: var(--primary-color); */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card:hover::before {
+            width: 100%;
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(255, 62, 62, 0.4));
+        }
+
+        .stat-content {
+            z-index: 1;
+            position: relative;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-number-wrapper {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-unit {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        /* RTL Specific Adjustments */
+        [dir="rtl"] .stat-number-wrapper {
+            /* Swap order of icon and text in RTL if flex direction is column, but here it's column per card */
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                /* Force 2 columns on mobile */
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-icon {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- SECTION 1: HEADER -->
     <header>
         <div class="container nav-container">
             <a href="index.html" class="logo">Velocity<span>Raceway</span></a>
@@ -32,32 +927,35 @@
             <nav class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="about.html" class="active">About</a>
-                <a href="index.html#team">Team</a>
-                <a href="index.html#events">Events</a>
+                <a href="service.html">Services</a>
+                <a href="blog.html">Blog</a>
                 <a href="index.html#pricing">Pricing</a>
                 <a href="index.html#gallery">Gallery</a>
 
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
-                    🌙
-                </button>
+                <!-- TOGGLES GROUP -->
+                <div class="toggle-group">
+                    <!-- RTL Toggle -->
+                    <button id="rtl-toggle" class="toggle-btn">LTR</button>
 
-                <a href="index.html#contact" class="btn" style="padding: 8px 20px; font-size: 1rem;"><span>Book
-                        Now</span></a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="toggle-btn">🌙</button>
+
+                    <a href="index.html#contact" class="btn" style="padding: 8px 20px; font-size: 1rem;"><span>Book
+                            Now</span></a>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- SECTION 2: HERO (UPDATED WITH OVERLAY) -->
     <section class="hero-about">
         <div class="container hero-content">
             <h1>Driven By <br><span>Passion</span></h1>
-            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: #ddd;">Discover the track built for
-                champions, driven by technology.</p>
+            <p>Discover the track built for champions, driven by technology.</p>
         </div>
     </section>
 
-    <!-- OUR STORY SECTION -->
+    <!-- SECTION 3: STORY -->
     <section class="story-section">
         <div class="container">
             <div class="story-layout">
@@ -82,7 +980,7 @@
         </div>
     </section>
 
-    <!-- VALUES SECTION -->
+    <!-- SECTION 4: VALUES -->
     <section style="background-color: var(--bg-tertiary); text-align: center;">
         <div class="container">
             <span class="section-subtitle">What Drives Us</span>
@@ -110,7 +1008,7 @@
         </div>
     </section>
 
-    <!-- SUSTAINABILITY SECTION -->
+    <!-- SECTION 5: SUSTAINABILITY -->
     <section class="eco-section">
         <div class="container">
             <span class="section-subtitle green-text">Zero Emissions</span>
@@ -137,7 +1035,7 @@
         </div>
     </section>
 
-    <!-- STATS SECTION -->
+    <!-- SECTION 6: STATS -->
     <section class="stats-section">
         <div class="container">
             <span class="section-subtitle">The Numbers</span>
@@ -159,7 +1057,7 @@
         </div>
     </section>
 
-    <!-- CIRCUIT SECTION -->
+    <!-- SECTION 7: CIRCUIT -->
     <section class="circuit-section">
         <div class="container">
             <span class="section-subtitle">Technical Specs</span>
@@ -185,7 +1083,7 @@
         </div>
     </section>
 
-    <!-- PARTNERS SECTION -->
+    <!-- SECTION 8: PARTNERS -->
     <section class="partners-section">
         <div class="container">
             <span class="section-subtitle">Trusted Brands</span>
@@ -202,11 +1100,14 @@
         </div>
     </section>
 
-    <!-- TEAM SECTION -->
-    <section class="team-section" id="team">
+    <!-- SECTION 9: TEAM -->
+    <section class="team-section">
         <div class="container">
             <span class="section-subtitle">The Professionals</span>
             <h2 class="section-title">Meet The Crew</h2>
+            <p style="color:var(--text-secondary); max-width: 600px; margin: 0 auto;">Led by industry veterans and
+                racing champions, our team is dedicated to safety and speed.</p>
+
             <div class="team-grid">
                 <!-- Member 1 -->
                 <div class="team-card">
@@ -226,6 +1127,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Member 2 -->
                 <div class="team-card">
                     <div class="team-img-container">
@@ -244,6 +1146,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Member 3 -->
                 <div class="team-card">
                     <div class="team-img-container">
@@ -266,11 +1169,11 @@
         </div>
     </section>
 
-    <!-- CAREERS CTA SECTION -->
+    <!-- SECTION 10: CAREERS CTA -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-box">
-                <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px;">Join The Crew</h2>
+                <h2 style="color: var(--text-secondary);">Join The Crew</h2>
                 <p style="margin-bottom: 30px; color: #ddd;">
                     We are always looking for passionate individuals who love racing. From marshals to mechanics, find
                     your place on the grid.
@@ -299,8 +1202,8 @@
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="index.html#pricing">Pricing</a></li>
-                        <li><a href="index.html#gallery">Gallery</a></li>
+                        <li><a href="service.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -327,8 +1230,57 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR THEME TOGGLE -->
-    <script src="../assets/js/main.js"></script>
+    <!-- JAVASCRIPT FOR THEME & RTL TOGGLE -->
+    <script>
+        // --- THEME LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
+
+        if (currentTheme) {
+            htmlElement.setAttribute('data-theme', currentTheme);
+            updateThemeIcon(currentTheme);
+        }
+
+        themeToggleBtn.addEventListener('click', function () {
+            const theme = htmlElement.getAttribute('data-theme');
+            const newTheme = theme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggleBtn.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        // --- RTL LOGIC ---
+        const rtlToggleBtn = document.getElementById('rtl-toggle');
+        const currentDir = localStorage.getItem('dir') || 'ltr';
+
+        // Apply initial state
+        htmlElement.setAttribute('dir', currentDir);
+        updateRtlButton(currentDir);
+
+        rtlToggleBtn.addEventListener('click', function () {
+            const dir = htmlElement.getAttribute('dir');
+            const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
+
+            htmlElement.setAttribute('dir', newDir);
+            localStorage.setItem('dir', newDir);
+            updateRtlButton(newDir);
+        });
+
+        function updateRtlButton(dir) {
+            if (dir === 'rtl') {
+                rtlToggleBtn.textContent = 'RTL';
+                rtlToggleBtn.classList.add('active');
+            } else {
+                rtlToggleBtn.textContent = 'LTR';
+                rtlToggleBtn.classList.remove('active');
+            }
+        }
+    </script>
 </body>
 
 </html>

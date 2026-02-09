@@ -1,5 +1,6 @@
 /* home page design started */
 
+
 /* --- CSS VARIABLES & RESET --- */
 :root {
     --primary-color: #ff3e3e;
@@ -354,6 +355,7 @@ header {
     overflow: hidden;
     border: 1px solid #333;
     position: relative;
+    /* group; */
 }
 
 .team-img-container {
@@ -959,7 +961,6 @@ footer {
     }
 }
 
-
 /* home page design ended */
 
 
@@ -969,7 +970,7 @@ footer {
 
 /* about page design started */
 
- 
+
 /* --- CSS VARIABLES --- */
 :root {
     /* Brand Colors (Same in both modes) */

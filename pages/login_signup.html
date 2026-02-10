@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | VELOCITY Karting</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="dark-mode">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <!-- LOGO: Image (White/Black) + Text -->
+            <a href="index.html" class="logo">
+                <!-- 
+                   1. This is the image source. 
+                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
+                -->
+                <img src="../assets/images/logo.png" alt="Racing Car Logo">
+            </a>
+
+            <div class="nav-right-wrapper" id="navWrapper">
+                <ul class="nav-links">
+                    <!-- DROPDOWN SECTION -->
+                    <li class="dropdown">
+                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Home Classic</a></li>
+                            <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="login_signup.html">Login / Signup</a></li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
+                        <i class="fas fa-language"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- AUTH WRAPPER -->
+    <main class="auth-wrapper">
+        <div class="auth-container">
+
+            <!-- Left: Visual/Brand -->
+            <div class="auth-visual">
+                <div class="visual-content">
+                    <h2>JOIN THE<br>LEAGUE</h2>
+                    <p>Join the elite community of racers. Book sessions, track your lap times, and compete in
+                        championships.</p>
+                </div>
+            </div>
+
+            <!-- Right: Forms -->
+            <div class="auth-forms">
+
+                <!-- Toggle Switch -->
+                <div class="auth-toggle">
+                    <div class="toggle-btn active" id="showLogin" onclick="switchAuth('login')">Login</div>
+                    <div class="toggle-btn" id="showSignup" onclick="switchAuth('signup')">Sign Up</div>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <div id="loginForm" class="form-section active">
+                    <h3 class="auth-title">Welcome Back</h3>
+                    <form onsubmit="event.preventDefault(); alert('Logged in successfully!');">
+                        <div class="input-group">
+                            <label class="input-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="racer@velocity.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Password</label>
+                            <input type="password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <div style="text-align: right; margin-bottom: 1rem;">
+                            <a href="#" style="font-size: 0.85rem; color: var(--accent-color);">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn-auth">Start Engine</button>
+                    </form>
+                    <div class="auth-footer">
+                        Don't have an account? <a href="#" onclick="switchAuth('signup')">Create one</a>
+                    </div>
+                </div>
+
+                <!-- SIGNUP FORM -->
+                <div id="signupForm" class="form-section">
+                    <h3 class="auth-title">Create Account</h3>
+                    <form onsubmit="event.preventDefault(); alert('Account created!');">
+                        <div class="input-group">
+                            <label class="input-label">Full Name</label>
+                            <input type="text" class="form-input" placeholder="Lewis Hamilton" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="racer@velocity.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Password</label>
+                            <input type="password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Confirm Password</label>
+                            <input type="password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-auth">Register</button>
+                    </form>
+                    <div class="auth-footer">
+                        Already a member? <a href="#" onclick="switchAuth('login')">Login here</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggling ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+
+                if (body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+        });
+
+        // --- Auth Switching Logic ---
+        function switchAuth(type) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const loginBtn = document.getElementById('showLogin');
+            const signupBtn = document.getElementById('showSignup');
+
+            if (type === 'login') {
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+                loginBtn.classList.add('active');
+                signupBtn.classList.remove('active');
+            } else {
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+                signupBtn.classList.add('active');
+                loginBtn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

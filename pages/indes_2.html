@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home 2 | VELOCITY Lifestyle</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+   
+</head>
+
+<body class="dark-mode">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <!-- LOGO: Image (White/Black) + Text -->
+            <a href="index.html" class="logo">
+                <!-- 
+                   1. This is the image source. 
+                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
+                -->
+                <img src="../assets/images/logo.png" alt="Racing Car Logo">
+            </a>
+
+            <div class="nav-right-wrapper" id="navWrapper">
+                <ul class="nav-links">
+                    <!-- DROPDOWN SECTION -->
+                    <li class="dropdown">
+                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Home Classic</a></li>
+                            <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="login_signup.html">Login / Signup</a></li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
+                        <i class="fas fa-language"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO (Lifestyle Focus) -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Live The Speed</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-primary);">Experience the pinnacle of
+                electric karting luxury. A sanctuary for speed enthusiasts.</p>
+            <a href="#fleet" class="btn">Discover More</a>
+        </div>
+    </section>
+
+    <!-- SECTION 2: PHILOSOPHY -->
+    <section class="section">
+        <div class="container">
+            <div class="philosophy-grid">
+                <div class="philosophy-text">
+                    <div class="section-title">
+                        <span>OUR PHILOSOPHY</span>
+                        <h2>More Than Just Racing</h2>
+                    </div>
+                    <p>At Velocity, we believe racing is an art form. We have curated an environment that blends
+                        high-performance engineering with sophisticated hospitality.</p>
+                    <p>Whether you are here for the thrill of the track or the ambiance of the lounge, every detail has
+                        been crafted to perfection. Welcome to the future of motorsport entertainment.</p>
+                    <a href="about.html" class="btn"
+                        style="margin-top: 1rem; background: transparent; border: 2px solid var(--accent-color); color: var(--text-primary);">Read
+                        Our Story</a>
+                </div>
+                <div class="philosophy-img">
+                    <img src="https://picsum.photos/seed/driverhelmet/600/500" alt="Driver Helmet"
+                        style="border-radius: 8px; box-shadow: var(--shadow);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: EXPERIENCE -->
+    <section class="section bg-alt">
+        <div class="container">
+            <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+                <span>THE EXPERIENCE</span>
+                <h2>World Class Facilities</h2>
+            </div>
+            <div class="experience-grid">
+                <div class="exp-card">
+                    <i class="fas fa-bolt exp-icon"></i>
+                    <h3>Electric Power</h3>
+                    <p>Zero emissions, instant torque. Our fleet delivers performance that rivals gas engines without
+                        the noise.</p>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-road exp-icon"></i>
+                    <h3>Pro Circuit</h3>
+                    <p>1.2km of challenging asphalt designed by F1 consultants. Test your limits on 18 technical
+                        corners.</p>
+                </div>
+                <div class="exp-card">
+                    <i class="fas fa-glass-cheers exp-icon"></i>
+                    <h3>Luxury Lounge</h3>
+                    <p>Relax in style before and after your race. Gourmet dining and premium beverages await.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: FLEET (Large Cards) -->
+    <section id="fleet" class="section">
+        <div class="container">
+            <div class="section-title">
+                <span>THE MACHINES</span>
+                <h2>Choose Your Weapon</h2>
+            </div>
+            <div class="fleet-large-grid">
+                <div class="fleet-card-lg">
+                    <img src="https://picsum.photos/seed/kartpro/800/600" alt="Pro Kart">
+                    <div class="fleet-overlay">
+                        <h3>Velocity Pro</h3>
+                        <p style="margin:0; color:#ddd;">For the experienced racer. 90km/h top speed.</p>
+                    </div>
+                </div>
+                <div class="fleet-card-lg">
+                    <img src="https://picsum.photos/seed/kartgt/800/600" alt="GT Kart">
+                    <div class="fleet-overlay">
+                        <h3>Velocity GT</h3>
+                        <p style="margin:0; color:#ddd;">Perfect balance. 75km/h. Available for all.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: STATS BAR -->
+    <section class="stats-bar">
+        <div class="container" style="display:flex; justify-content:space-around; flex-wrap:wrap;">
+            <div class="stat-item">
+                <div class="stat-number">50k+</div>
+                <span class="stat-label">Laps Driven</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <span class="stat-label">Pro Karts</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <span class="stat-label">Events</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5 Star</div>
+                <span class="stat-label">Rated</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: TESTIMONIALS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+                <span>COMMUNITY</span>
+                <h2>What Racers Say</h2>
+            </div>
+            <div class="test-grid">
+                <div class="test-card">
+                    <p class="test-text">"The best karting experience I've ever had. The karts are fast, the track is
+                        technical, and the staff treats you like a VIP."</p>
+                    <div class="test-author">- Michael R.</div>
+                </div>
+                <div class="test-card">
+                    <p class="test-text">"We hosted our company event here and it was flawless. The timing system is
+                        professional grade."</p>
+                    <div class="test-author">- Sarah Jenkins, CEO</div>
+                </div>
+                <div class="test-card">
+                    <p class="test-text">"I bring my kids here every weekend. Safe, clean, and incredibly fun. The
+                        Junior league is top notch."</p>
+                    <div class="test-author">- David L.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="logo"
+                style="font-size: 2.5rem; margin-bottom: 1rem; display: inline-block;">VELO<span>CITY</span></a>
+            <p style="color: #888; margin-bottom: 2rem;">The ultimate destination for speed enthusiasts.</p>
+            <div style="font-size: 0.8rem; color: #666; border-top: 1px solid #222; padding-top: 1.5rem;">
+                &copy; 2023 Velocity Karting. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggling ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+
+                if (body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // --- RTL Toggling ---
+            const rtlToggle = document.getElementById('rtlToggle');
+            rtlToggle.addEventListener('click', () => {
+                body.classList.toggle('rtl');
+                const isRtl = body.classList.contains('rtl');
+                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
+            });
+
+            // --- Mobile Menu & Dropdown Logic ---
+            const hamburger = document.getElementById('hamburger');
+            const navWrapper = document.getElementById('navWrapper');
+            const dropdowns = document.querySelectorAll('.dropdown');
+
+            hamburger.addEventListener('click', () => {
+                navWrapper.classList.toggle('active');
+            });
+
+            // Handle Mobile Dropdown Clicks (since hover doesn't work well on touch)
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        // Prevent link navigation if it's just a toggle
+                        const link = dropdown.querySelector('a');
+                        if (link.getAttribute('href') === '#') {
+                            e.preventDefault();
+                            dropdown.classList.toggle('active');
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                // Close menu on link click (except dropdowns on mobile)
+                link.addEventListener('click', (e) => {
+                    if (!link.parentElement.classList.contains('dropdown') || window.innerWidth > 768) {
+                        navWrapper.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- Toast Utility ---
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = 'var(--accent-color)';
+                toast.style.color = 'var(--bg-primary)';
+                toast.style.padding = '10px 20px';
+                toast.style.borderRadius = '5px';
+                toast.style.fontWeight = 'bold';
+                toast.style.zIndex = '2000';
+                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+
+                document.body.appendChild(toast);
+
+                void toast.offsetWidth;
+                toast.style.opacity = '1';
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+
+</html>

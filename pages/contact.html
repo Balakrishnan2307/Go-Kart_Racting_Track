@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | VELOCITY Karting</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="dark-mode">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <!-- LOGO: Image (White/Black) + Text -->
+            <a href="index.html" class="logo">
+                <!-- 
+                   1. This is the image source. 
+                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
+                -->
+                <img src="../assets/images/logo.png" alt="Racing Car Logo">
+            </a>
+
+            <div class="nav-right-wrapper" id="navWrapper">
+                <ul class="nav-links">
+                    <!-- DROPDOWN SECTION -->
+                    <li class="dropdown">
+                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Home Classic</a></li>
+                            <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="login_signup.html">Login / Signup</a></li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
+                        <i class="fas fa-language"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Get In Touch</h1>
+            <p>Ready to race? Have questions? We're here to help.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+
+                <!-- Left Column: Info -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <h3>Visit Us</h3>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-content">
+                                <h4>Address</h4>
+                                <p>123 Speedway Blvd, Racing City, RC 90210</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-content">
+                                <h4>Phone</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-content">
+                                <h4>Email</h4>
+                                <p>info@velocitykart.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Opening Hours</h3>
+                        <p style="margin-bottom:0.5rem; display:flex; justify-content:space-between;">
+                            <strong>Mon - Thu:</strong> <span>12:00 PM - 10:00 PM</span>
+                        </p>
+                        <p style="margin-bottom:0.5rem; display:flex; justify-content:space-between;">
+                            <strong>Fri - Sun:</strong> <span>10:00 AM - 12:00 AM</span>
+                        </p>
+                        <p
+                            style="margin-bottom:0; color:var(--accent-color); font-weight:600; display:flex; justify-content:space-between;">
+                            <strong>Private Events:</strong> <span>24/7</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="contact-form-wrapper">
+                    <div
+                        style="background-color: var(--bg-card); padding: 2.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                        <h3>Send a Message</h3>
+                        <form onsubmit="event.preventDefault(); alert('Message Sent!');">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select class="form-control">
+                                    <option>General Inquiry</option>
+                                    <option>Booking a Session</option>
+                                    <option>Corporate Events</option>
+                                    <option>Technical Support</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" placeholder="Tell us what you need..."></textarea>
+                            </div>
+                            <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class="map-section">
+        <!-- Using a generic placeholder map centered on a racing circuit area -->
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537353153169!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvoy%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1635959481000!5m2!1sen!2sin"
+            class="map-frame" allowfullscreen="" loading="lazy">
+        </iframe>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="logo" style="font-size: 2rem;">VELO<span>CITY</span></a>
+            <p style="color: #888; margin-top: 1rem;">The ultimate destination for speed enthusiasts.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Velocity Karting. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggling ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+
+                if (body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // --- RTL Toggling ---
+            const rtlToggle = document.getElementById('rtlToggle');
+            rtlToggle.addEventListener('click', () => {
+                body.classList.toggle('rtl');
+                const isRtl = body.classList.contains('rtl');
+                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
+            });
+
+            // --- Mobile Menu ---
+            const hamburger = document.getElementById('hamburger');
+            const navWrapper = document.getElementById('navWrapper');
+
+            hamburger.addEventListener('click', () => {
+                navWrapper.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navWrapper.classList.remove('active');
+                });
+            });
+
+            // --- Toast Utility ---
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = 'var(--accent-color)';
+                toast.style.color = 'var(--bg-primary)';
+                toast.style.padding = '10px 20px';
+                toast.style.borderRadius = '5px';
+                toast.style.fontWeight = 'bold';
+                toast.style.zIndex = '2000';
+                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s ease';
+
+                document.body.appendChild(toast);
+
+                void toast.offsetWidth;
+                toast.style.opacity = '1';
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+
+</html>

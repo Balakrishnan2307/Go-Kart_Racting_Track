@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | VELOCITY Karting</title>
+    <title>Coming Soon | VELOCITY Karting</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,6 @@
 </head>
 
 <body class="dark-mode">
-
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="container nav-container">
@@ -75,183 +74,48 @@
     </header>
 
 
-    <!-- HERO SECTION -->
+    <!-- HERO & COUNTDOWN SECTION -->
     <section class="hero">
         <canvas id="speedCanvas"></canvas>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Our Story</h1>
-            <p class="hero-subtitle">Built for Speed. Driven by Passion.</p>
-            <a href="#philosophy" class="btn">Discover More</a>
-        </div>
-    </section>
+            <h1 class="hero-title">Velocity 2.0</h1>
+            <p class="hero-subtitle">The Track Is Evolving</p>
 
-    <!-- SECTION 1: OUR PHILOSOPHY -->
-    <section id="philosophy" class="section">
-        <div class="container">
-            <div class="philosophy-grid">
-                <div>
-                    <div class="section-title">
-                        <span>WHO WE ARE</span>
-                        <h2>More Than Just A Track</h2>
-                    </div>
-                    <p>Velocity was founded in 2015 with a single, radical idea: Go-karting shouldn't just be a casual
-                        pastime—it should be a professional-grade motorsport experience accessible to everyone.</p>
-                    <p>We poured our hearts into designing a facility that blends the adrenaline of a race track with
-                        the luxury of a private club. Every corner of our 1.2km circuit was engineered by former F1
-                        consultants to challenge your limits safely.</p>
-                    <p>Whether you are a novice driver or a seasoned pro, our mission remains the same: to provide the
-                        ultimate racing experience.</p>
+            <!-- Countdown Timer -->
+            <div class="countdown-container" id="countdown">
+                <div class="time-box">
+                    <span class="time-number" id="days">00</span>
+                    <span class="time-label">Days</span>
                 </div>
-                <div>
-                    <img src="https://picsum.photos/seed/mechanic/600/400" alt="Mechanic working on kart"
-                        style="border-radius: 8px; box-shadow: var(--shadow);">
+                <div class="time-box">
+                    <span class="time-number" id="hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number" id="minutes">00</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number" id="seconds">00</span>
+                    <span class="time-label">Seconds</span>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- SECTION 2: STATISTICS BAR -->
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">8+</div>
-            <div class="stat-label">Years of Racing</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">50k</div>
-            <div class="stat-label">Races Completed</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">12</div>
-            <div class="stat-label">Pro Karts</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Private Events</div>
-        </div>
-    </div>
+            <p>We are upgrading our karts and expanding the circuit. Be the first to know when the green flag drops.</p>
 
-    <!-- SECTION 3: THE TEAM -->
-    <section id="team" class="section bg-alt">
-        <div class="container">
-            <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
-                <span>THE CREW</span>
-                <h2>Meet The Experts</h2>
-            </div>
-
-            <div class="team-grid">
-                <!-- Member 1 -->
-                <div class="team-card">
-                    <div class="team-img-wrapper">
-                        <img src="https://picsum.photos/seed/person1/400/400" alt="Team Member">
-                    </div>
-                    <div class="team-info">
-                        <h3>Alex Sterling</h3>
-                        <span class="team-role">Track Director</span>
-                        <p>Former karting champion with 15 years of track management experience.</p>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Member 2 -->
-                <div class="team-card">
-                    <div class="team-img-wrapper">
-                        <img src="https://picsum.photos/seed/person2/400/400" alt="Team Member">
-                    </div>
-                    <div class="team-info">
-                        <h3>Sarah Jenkins</h3>
-                        <span class="team-role">Head Mechanic</span>
-                        <p>Ensures every vehicle is tuned to perfection for maximum performance.</p>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Member 3 -->
-                <div class="team-card">
-                    <div class="team-img-wrapper">
-                        <img src="https://picsum.photos/seed/person3/400/400" alt="Team Member">
-                    </div>
-                    <div class="team-info">
-                        <h3>Marcus Thorne</h3>
-                        <span class="team-role">VIP Manager</span>
-                        <p>Expert in creating bespoke luxury events for corporate clients.</p>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 4: TECHNICAL SPECS -->
-    <section id="specs" class="section">
-        <div class="container">
-            <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
-                <span>THE MACHINE</span>
-                <h2>Track Specifications</h2>
-            </div>
-
-            <div class="specs-container">
-                <div class="spec-group">
-                    <h4>Circuit Details</h4>
-                    <div class="spec-row">
-                        <span>Total Length</span>
-                        <span>1,200 Meters</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Track Width</span>
-                        <span>8 - 10 Meters</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Turns</span>
-                        <span>18 Corners</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Surface</span>
-                        <span>Asphalt</span>
-                    </div>
-                </div>
-
-                <div class="spec-group">
-                    <h4>Facilities</h4>
-                    <div class="spec-row">
-                        <span>Pit Boxes</span>
-                        <span>20 Units</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Timing System</span>
-                        <span>MyLaps Transponders</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Safety Barriers</span>
-                        <span>Polyethylene Energy</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>Viewing Capacity</span>
-                        <span>200 Guests</span>
-                    </div>
-                </div>
-            </div>
+            <!-- Newsletter Form -->
+            <form class="newsletter-wrapper" onsubmit="event.preventDefault(); alert('You have been notified!');">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-submit">Notify Me</button>
+            </form>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
-            <a href="#" class="logo" style="font-size: 2.5rem;">VELO<span>CITY</span></a>
-            <p style="margin: 1rem auto; max-width: 600px; color: #888;">The ultimate destination for speed enthusiasts.
-            </p>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Velocity Karting. All rights reserved.</p>
-            </div>
+            <p style="margin: 0; color: #888;">&copy; 2023 Velocity Karting. All rights reserved.</p>
         </div>
     </footer>
 
@@ -297,6 +161,35 @@
                     navWrapper.classList.remove('active');
                 });
             });
+
+            // --- Countdown Timer Logic ---
+            // Set date to 14 days from now for demo purposes
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 14);
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    document.getElementById("countdown").innerHTML = "<h2 style='width:100%'>WE ARE LIVE!</h2>";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Pad with zeros
+                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Run immediately
 
             // --- Canvas Speed Animation (Theme Aware) ---
             const canvas = document.getElementById('speedCanvas');

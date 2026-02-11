@@ -58,7 +58,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -874,7 +874,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -1027,7 +1027,7 @@ body.light-mode .navbar {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     opacity: 0;
-    visibility: hidden;
+    /* visibility: hidden; */
     transform: translateY(10px);
     transition: var(--transition);
     padding: 0.5rem 0;
@@ -1047,7 +1047,7 @@ body.rtl .dropdown-menu {
 
 .dropdown-menu li a {
     padding: 10px 20px;
-    display: block;
+    /* display: block; */
     color: var(--text-secondary);
     font-size: 0.85rem;
 }
@@ -1420,7 +1420,7 @@ body.rtl .test-card {
         border: none;
         background: transparent;
         padding-left: 20px;
-        display: none;
+        /* display: none; */
     }
 
     body.rtl .dropdown-menu {
@@ -1430,7 +1430,7 @@ body.rtl .test-card {
 
     /* JS will toggle display block for dropdown in mobile */
     .dropdown.active .dropdown-menu {
-        display: block;
+        /* display: block; */
     }
 
     .nav-controls {
@@ -1505,7 +1505,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -2064,7 +2064,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -2550,7 +2550,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -3139,7 +3139,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -3760,7 +3760,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
     min-height: 100vh;
     display: flex;
@@ -4063,7 +4063,8 @@ body.rtl .auth-toggle {
 
     .navbar .nav-links,
     .navbar .nav-controls {
-        display: none;
+        /* display: none; */
+        text-align: start;
     }
 
     /* Simple mobile nav for login page */
@@ -4130,7 +4131,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
     display: flex;
     flex-direction: column;
@@ -4194,129 +4195,7 @@ img {
     transform: translateY(-2px);
 }
 
-/* =========================================
-           NAVBAR (RIGHT ALIGNED)
-           ========================================= */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    transition: var(--transition);
-}
 
-body.light-mode .navbar {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--text-primary);
-    z-index: 1001;
-}
-
-.logo span {
-    color: var(--accent-color);
-}
-
-.nav-right-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-body.rtl .nav-links a::after {
-    left: auto;
-    right: 0;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-.nav-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    border-left: 1px solid var(--border-color);
-    padding-left: 1rem;
-}
-
-body.rtl .nav-controls {
-    border-left: none;
-    border-right: 1px solid var(--border-color);
-    padding-left: 0;
-    padding-right: 1rem;
-}
-
-.control-btn {
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-.control-btn:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-}
-
-.hamburger {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-primary);
-    margin-left: 1rem;
-}
-
-body.rtl .hamburger {
-    margin-left: 0;
-    margin-right: 1rem;
-}
 
 /* =========================================
            404 HERO SECTION
@@ -4514,7 +4393,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -4575,223 +4454,6 @@ img {
     transform: translateY(-2px);
 }
 
-/* =========================================
-           NAVBAR
-           ========================================= */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    transition: var(--transition);
-}
-
-body.light-mode .navbar {
-    background-color: rgba(255, 255, 255, 0.95);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* LOGO STYLES */
-.logo {
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-}
-
-/* 
-           IMAGE COLOR CHANGE LOGIC 
-           Dark Mode: Forces image to WHITE
-           Light Mode: Forces image to BLACK
-        */
-.logo img {
-    height: 45px;
-    width: auto;
-    display: block;
-    /* FILTER: Grayscale -> Black -> Invert (White) */
-    filter: grayscale(100%) brightness(0) invert(1);
-    transition: filter 0.3s ease;
-}
-
-body.light-mode .logo img {
-    /* FILTER: Grayscale -> Black -> Keep Black */
-    filter: grayscale(100%) brightness(0);
-}
-
-.logo-text {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--text-primary);
-    line-height: 1;
-    letter-spacing: 1px;
-}
-
-.logo-text span {
-    color: var(--accent-color);
-}
-
-.nav-right-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-links>li {
-    list-style: none;
-    position: relative;
-}
-
-.nav-links a {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    position: relative;
-    display: block;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* Dropdown Styles */
-.dropdown {
-    cursor: pointer;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--bg-secondary);
-    min-width: 180px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: var(--transition);
-    padding: 0.5rem 0;
-    z-index: 1002;
-}
-
-body.rtl .dropdown-menu {
-    left: auto;
-    right: 0;
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-menu li a {
-    padding: 10px 20px;
-    display: block;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-}
-
-.dropdown-menu li a:hover {
-    background-color: rgba(204, 255, 0, 0.1);
-    color: var(--accent-color);
-}
-
-/* Dropdown Arrow Animation */
-.fa-chevron-down {
-    transition: transform 0.3s;
-    font-size: 0.7em;
-    margin-left: 5px;
-}
-
-body.rtl .fa-chevron-down {
-    margin-left: 0;
-    margin-right: 5px;
-    transform: rotate(-90deg);
-}
-
-.dropdown:hover .fa-chevron-down {
-    transform: rotate(180deg);
-}
-
-
-.nav-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    border-left: 1px solid var(--border-color);
-    padding-left: 1rem;
-}
-
-body.rtl .nav-controls {
-    border-left: none;
-    border-right: 1px solid var(--border-color);
-    padding-left: 0;
-    padding-right: 1rem;
-}
-
-.control-btn {
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-.control-btn:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-}
-
-.hamburger {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-primary);
-    margin-left: 1rem;
-}
-
-body.rtl .hamburger {
-    margin-left: 0;
-    margin-right: 1rem;
-}
 
 /* =========================================
            HERO SECTION (Section 1)
@@ -5088,7 +4750,7 @@ body.rtl .test-card {
         border: none;
         background: transparent;
         padding-left: 20px;
-        display: none;
+        /* display: none; */
     }
 
     body.rtl .dropdown-menu {
@@ -5098,7 +4760,7 @@ body.rtl .test-card {
 
     /* JS will toggle display block for dropdown in mobile */
     .dropdown.active .dropdown-menu {
-        display: block;
+        /* display: block; */
     }
 
     .nav-controls {
@@ -5171,7 +4833,7 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     transition: background-color 0.5s ease, color 0.5s ease;
     display: flex;
     flex-direction: column;
@@ -5216,129 +4878,7 @@ img {
     padding: 0 15px;
 }
 
-/* =========================================
-           NAVBAR (RIGHT ALIGNED - FULL)
-           ========================================= */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    transition: var(--transition);
-}
 
-body.light-mode .navbar {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--text-primary);
-    z-index: 1001;
-}
-
-.logo span {
-    color: var(--accent-color);
-}
-
-.nav-right-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-body.rtl .nav-links a::after {
-    left: auto;
-    right: 0;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-.nav-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    border-left: 1px solid var(--border-color);
-    padding-left: 1rem;
-}
-
-body.rtl .nav-controls {
-    border-left: none;
-    border-right: 1px solid var(--border-color);
-    padding-left: 0;
-    padding-right: 1rem;
-}
-
-.control-btn {
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-.control-btn:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-}
-
-.hamburger {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-primary);
-    margin-left: 1rem;
-}
-
-body.rtl .hamburger {
-    margin-left: 0;
-    margin-right: 1rem;
-}
 
 /* =========================================
            HERO & COUNTDOWN SECTION

@@ -1,402 +1,460 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog & News | VELOCITY Karting</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
-        rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Blog - TurboTrack</title>
 
-   <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #ff3b3b;
+            --secondary-color: #2c2c2c;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        /* --- CONTROLS --- */
+        .nav-control-btn i {
+            color: var(--primary-color) !important;
+            transition: color 0.3s;
+        }
+
+        .rtl-text {
+            color: var(--accent-color) !important;
+            font-weight: 700;
+        }
+
+        .nav-control-btn:hover {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .nav-control-btn:hover i,
+        .nav-control-btn:hover .rtl-text {
+            color: white !important;
+        }
+
+        /* --- THEME --- */
+        [data-bs-theme="dark"] body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="light"] body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-control-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: inherit;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            margin-inline-start: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- HERO --- */
+        .page-header {
+            height: 40vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/bloghero/1920/600.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+
+        /* --- BLOG CARDS --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .blog-card {
+            background: var(--bs-body-bg);
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .blog-body {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .btn-read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn-read-more:hover {
+            color: #d32f2f;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        /* --- SIDEBAR --- */
+        .widget {
+            background: var(--bs-body-bg);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .widget h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .category-list a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .category-list a:hover {
+            color: var(--primary-color);
+            padding-inline-start: 5px;
+        }
+
+        /* --- PAGINATION --- */
+        .page-link {
+            color: var(--primary-color);
+            background-color: var(--bs-body-bg);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f0f0f;
+            color: #aaa;
+            padding: 70px 0 30px;
+        }
+
+        footer h5 {
+            color: white;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+            padding-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
-<body class="dark-mode">
+<body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-container">
-
-            <!-- LOGO: Image (White/Black) + Text -->
-            <a href="index.html" class="logo">
-                <!-- 
-                   1. This is the image source. 
-                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
-                -->
-                <img src="../assets/images/logo.png" alt="Racing Car Logo">
-            </a>
-
-            <div class="nav-right-wrapper" id="navWrapper">
-                <ul class="nav-links">
-                    <!-- DROPDOWN SECTION -->
-                    <li class="dropdown">
-                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="index.html">Home Classic</a></li>
-                            <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li class="dropdown">
-                        <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="login_signup.html">Login / Signup</a></li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="coming_soon.html">Coming Soon</a></li>
-                        </ul>
-                    </li>
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html"><i
+                    class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span></a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
                 </ul>
-
-                <div class="nav-controls">
-                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
-                        <i class="fas fa-language"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
-
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <canvas id="speedCanvas"></canvas>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">The Pit Lane</h1>
-            <p class="hero-subtitle">News, Tips, and Racing Stories</p>
-        </div>
-    </section>
-
-    <!-- SECTION 1: FEATURED POST -->
-    <section class="section">
-        <div class="container">
-            <div class="featured-wrapper">
-                <div class="featured-img">
-                    <img src="https://picsum.photos/seed/trophy/800/600" alt="Winner on Podium">
-                </div>
-                <div class="featured-content">
-                    <span class="featured-tag">Event Recap</span>
-                    <div class="featured-meta">
-                        <span><i class="far fa-calendar"></i> Oct 24, 2023</span>
-                        <span><i class="far fa-user"></i> Alex Sterling</span>
-                    </div>
-                    <h2>2023 Championship Finals: A Night to Remember</h2>
-                    <p>The dust has settled on our biggest event of the year. Over 50 drivers competed in the Grand
-                        Finals, with record-breaking lap times and intense wheel-to-wheel action.</p>
-                    <!-- Link to Blog Detail Page -->
-                    <a href="blog-detail.html" class="btn-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <button id="themeToggle" class="nav-control-btn"><i class="fa-solid fa-moon"></i></button>
+                    <button id="rtlToggle" class="nav-control-btn"><i class="fa-solid fa-language"></i> <span
+                            class="rtl-text">RTL</span></button>
                 </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- SECTION 2: CATEGORIES -->
-    <section class="section bg-alt">
+    <!-- HEADER -->
+    <div class="page-header">
         <div class="container">
-            <div class="categories-container">
-                <button class="cat-btn active">All Posts</button>
-                <button class="cat-btn">Racing Tips</button>
-                <button class="cat-btn">Track News</button>
-                <button class="cat-btn">Community</button>
-            </div>
-
-            <div class="section-header" style="margin-bottom: 3rem;">
-                <span>LATEST UPDATES</span>
-                <h2>Recent Articles</h2>
-            </div>
-
-            <!-- SECTION 3: BLOG GRID -->
-            <div class="blog-grid">
-                <!-- Post 1 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/helmet/600/400" alt="Racing Helmet">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Oct 20, 2023</span>
-                        <h3><a href="blog-detail.html">5 Tips to Improve Your Lap Time</a></h3>
-                        <p>It's not just about speed. It's about the line. Learn how to conquer the chicanes like a pro.
-                        </p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Post 2 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/mechanic/600/400" alt="Mechanic Tools">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Oct 15, 2023</span>
-                        <h3><a href="blog-detail.html">Maintaining Your Kart: Tires & Pressures</a></h3>
-                        <p>The secret to grip is in the rubber. We break down tire temperatures and pressure settings.
-                        </p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Post 3 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/party/600/400" alt="Birthday Party">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Oct 10, 2023</span>
-                        <h3><a href="blog-detail.html">Hosting the Ultimate Birthday Bash</a></h3>
-                        <p>Planning a party? Here is why Go-Karting is the best way to celebrate with friends and
-                            family.</p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Post 4 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/flag/600/400" alt="Racing Flag">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Oct 05, 2023</span>
-                        <h3><a href="blog-detail.html">Understanding Racing Flags</a></h3>
-                        <p>Yellow, Blue, or Red? Do you know what each flag means on the track? Safety first!</p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Post 5 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/steering/600/400" alt="Steering Wheel">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Sep 28, 2023</span>
-                        <h3><a href="blog-detail.html">The Physics of Drifting</a></h3>
-                        <p>Breaking traction intentionally. Is it faster or just for show? We analyze the physics.</p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Post 6 -->
-                <article class="blog-card">
-                    <div class="blog-thumb">
-                        <img src="https://picsum.photos/seed/medal/600/400" alt="Gold Medal">
-                    </div>
-                    <div class="blog-body">
-                        <span class="blog-date">Sep 20, 2023</span>
-                        <h3><a href="blog-detail.html">Junior League Winners Announced</a></h3>
-                        <p>Congratulations to our under-15 champions! See the standings and photos from the finals.</p>
-                        <a href="blog-detail.html" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
-
-            <!-- SECTION 4: PAGINATION -->
-            <div class="pagination">
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
-            </div>
+            <h1>Racing <span class="text-primary-custom">News</span></h1>
+            <p>Tips, updates, and stories from the track</p>
         </div>
-    </section>
+    </div>
 
-    <!-- SECTION 5: NEWSLETTER -->
-    <section class="newsletter-section">
+    <!-- SECTION: BLOG LIST -->
+    <section>
         <div class="container">
-            <h2>Join the Velocity Club</h2>
-            <p>Get the latest news, exclusive discounts, and racing tips delivered to your inbox.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
-                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
-                <button type="submit" class="btn">Subscribe</button>
-            </form>
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="row">
+                        <!-- Featured Post -->
+                        <div class="col-md-12">
+                            <div class="blog-card">
+                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing1/800/400.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 24, 2023 | By
+                                        Alex Rossi</div>
+                                    <a href="blog-details.html">
+                                        <h3 class="blog-title">New Track Surface Installation Completed</h3>
+                                    </a>
+                                    <p>We have officially resurfaced the main circuit with the latest high-grip asphalt.
+                                        Here is what you need to know about the new lap times.</p>
+                                    <a href="blog-details.html" class="btn-read-more">Read More <i
+                                            class="fas fa-arrow-right ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post 2 -->
+                        <div class="col-md-6">
+                            <div class="blog-card">
+                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing2/400/250.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 18, 2023</div>
+                                    <a href="blog-details.html">
+                                        <h5 class="blog-title">Top 5 Tips for Faster Cornering</h5>
+                                    </a>
+                                    <p class="small">Mastering the apex is easier said than done. Our instructors share
+                                        their secrets.</p>
+                                    <a href="blog-details.html" class="btn-read-more">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post 3 -->
+                        <div class="col-md-6">
+                            <div class="blog-card">
+                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing3/400/250.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 10, 2023</div>
+                                    <a href="blog-details.html">
+                                        <h5 class="blog-title">Winter League Registration Open</h5>
+                                        </p>
+                                        <p class="small">Secure your spot in our competitive winter championship
+                                            starting next month.</p>
+                                        <a href="blog-details.html" class="btn-read-more">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Search -->
+                    <div class="widget">
+                        <h3>Search</h3>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-transparent text-body border-secondary"
+                                placeholder="Search...">
+                            <button class="btn btn-danger"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <!-- Categories -->
+                    <div class="widget">
+                        <h3>Categories</h3>
+                        <ul class="category-list">
+                            <li><a href="#">Track News <span>(12)</span></a></li>
+                            <li><a href="#">Racing Tips <span>(8)</span></a></li>
+                            <li><a href="#">Events <span>(5)</span></a></li>
+                            <li><a href="#">Kart Tech <span>(3)</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Recent Posts -->
+                    <div class="widget">
+                        <h3>Recent Posts</h3>
+                        <div class="d-flex mb-3">
+                            <img src="https://picsum.photos/seed/small1/100/100.jpg" class="rounded me-3" width="70"
+                                alt="">
+                            <div>
+                                <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">How to fit a
+                                    helmet</a>
+                                <small class="text-muted">Oct 05, 2023</small>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <img src="https://picsum.photos/seed/small2/100/100.jpg" class="rounded me-3" width="70"
+                                alt="">
+                            <div>
+                                <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">Championship
+                                    Results</a>
+                                <small class="text-muted">Sep 28, 2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer
-        style="background-color: #050505; color: #fff; padding: 4rem 0 1rem; text-align: center; border-top: 4px solid var(--accent-color);">
-        <div class="container">
-            <a href="#" class="logo" style="font-size: 2rem;">VELO<span>CITY</span></a>
-            <p style="color: #888; margin-top: 1rem;">The ultimate destination for speed enthusiasts.</p>
-            <div
-                style="margin-top: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #222; padding-top: 1.5rem;">
-                &copy; 2023 Velocity Karting. All rights reserved.
-            </div>
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2023 TurboTrack Racing. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include JS logic for Theme/RTL from previous files here -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-
-                if (body.classList.contains('light-mode')) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
+            const htmlElement = document.documentElement;
+            // --- Dark Mode ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+            themeToggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
             });
-
-            // --- RTL Toggling ---
-            const rtlToggle = document.getElementById('rtlToggle');
-            rtlToggle.addEventListener('click', () => {
-                body.classList.toggle('rtl');
-                const isRtl = body.classList.contains('rtl');
-                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
+            // --- RTL ---
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            htmlElement.setAttribute('dir', currentDir);
+            rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (currentDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                htmlElement.setAttribute('dir', newDir);
+                localStorage.setItem('dir', newDir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (newDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
             });
-
-            // --- Mobile Menu ---
-            const hamburger = document.getElementById('hamburger');
-            const navWrapper = document.getElementById('navWrapper');
-
-            hamburger.addEventListener('click', () => {
-                navWrapper.classList.toggle('active');
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navWrapper.classList.remove('active');
-                });
-            });
-
-            // --- Category Filter Interaction (Visual Only) ---
-            const catBtns = document.querySelectorAll('.cat-btn');
-            catBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    catBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // --- Canvas Speed Animation (Theme Aware) ---
-            const canvas = document.getElementById('speedCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let width, height;
-            let lines = [];
-            const lineCount = 60;
-            const speed = 15;
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                initLines();
-            }
-
-            function initLines() {
-                lines = [];
-                for (let i = 0; i < lineCount; i++) {
-                    lines.push({
-                        x: Math.random() * width - width / 2,
-                        y: Math.random() * height - height / 2,
-                        z: Math.random() * width,
-                        pz: 0
-                    });
-                }
-            }
-
-            function drawLines() {
-                if (body.classList.contains('light-mode')) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
-                } else {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-                    ctx.strokeStyle = 'rgba(204, 255, 0, 0.5)';
-                }
-
-                ctx.fillRect(0, 0, width, height);
-
-                const cx = width / 2;
-                const cy = height / 2;
-                ctx.lineWidth = 2;
-
-                lines.forEach(line => {
-                    line.z -= speed;
-
-                    if (line.z <= 0) {
-                        line.z = width;
-                        line.x = Math.random() * width - width / 2;
-                        line.y = Math.random() * height - height / 2;
-                        line.pz = line.z;
-                    }
-
-                    const sx = (line.x / line.z) * width + cx;
-                    const sy = (line.y / line.z) * height + cy;
-
-                    const px = (line.x / (line.z + speed)) * width + cx;
-                    const py = (line.y / (line.z + speed)) * height + cy;
-
-                    if (sx > 0 && sx < width && sy > 0 && sy < height) {
-                        ctx.beginPath();
-                        ctx.moveTo(px, py);
-                        ctx.lineTo(sx, sy);
-                        ctx.stroke();
-                    }
-                });
-
-                requestAnimationFrame(drawLines);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            drawLines();
-
-            // --- Toast Utility ---
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.textContent = message;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = 'var(--accent-color)';
-                toast.style.color = 'var(--bg-primary)';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '5px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '2000';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-
-                document.body.appendChild(toast);
-
-                void toast.offsetWidth;
-                toast.style.opacity = '1';
-
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 300);
-                }, 2000);
-            }
         });
     </script>
 </body>

@@ -24,7 +24,7 @@
             --bg-secondary: #141414;
             --bg-card: #1f1f1f;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
+            --text-secondary: #a0a0a0a;
             --accent-color: #ccff00;
             /* Neon Lime */
             --accent-hover: #b3e600;
@@ -180,7 +180,7 @@
         }
 
         /* =========================================
-           NAVBAR (WITH DROPDOWN)
+           NAVBAR (FULL WIDTH & THEME FIXES)
            ========================================= */
         .navbar {
             position: fixed;
@@ -188,23 +188,30 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(10, 10, 10, 0.9);
+            background-color: rgba(10, 10, 10, 0.95);
+            /* Dark Mode BG */
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
-            transition: var(--transition);
+            transition: background-color 0.5s ease, border-bottom 1px solid var(--border-color);
             overflow: visible;
         }
 
+        /* Light Mode Navbar Override */
         body.light-mode .navbar {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
+            /* Light Mode BG */
+            border-bottom: 1px solid var(--border-color);
+            /* Light Mode Border */
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
+            width: 100%;
+            /* FULL WIDTH */
+            padding: 0 5%;
         }
 
         .logo {
@@ -212,10 +219,50 @@
             font-size: 1.8rem;
             color: var(--text-primary);
             z-index: 1002;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .logo span {
-            color: var(--accent-color);
+        /* IMAGE LOGO COLOR */
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+            /* Dark Mode: White filter */
+            filter: grayscale(100%) brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        /* Light Mode: Black filter */
+        body.light-mode .logo img {
+            filter: grayscale(100%) brightness(0);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            line-height: 1;
+            letter-spacing: 1px;
+            font-weight: 800;
+            text-transform: uppercase;
+            /* Inherits color from .logo (which uses --text-primary) */
+            transition: color 0.3s ease;
+        }
+
+        /* FORCE LOGO TEXT COLOR (Dark Mode Override) */
+        body.dark-mode .logo-text,
+        .logo-text {
+            color: #ccff00 !important;
+            /* FORCE Neon Lime in Dark Mode */
+            text-shadow: 0 0 10px rgba(204, 255, 0, 0.4);
+            /* Glow */
+        }
+
+        /* LOGO TEXT COLOR (Light Mode Override) */
+        body.light-mode .logo-text {
+            color: #1a1a1a1a !important;
+            /* Force Black in Light Mode */
+            text-shadow: none !important;
         }
 
         /* Wrapper to align everything to the right */
@@ -236,8 +283,6 @@
             position: relative;
         }
 
-        /* Relative for absolute dropdown */
-
         .nav-links a {
             font-size: 0.9rem;
             font-weight: 600;
@@ -257,7 +302,6 @@
             transition: width 0.3s ease;
         }
 
-        /* RTL specific underline alignment */
         body.rtl .nav-links a::after {
             left: auto;
             right: 0;
@@ -278,9 +322,11 @@
             top: 100%;
             left: 0;
             background-color: var(--bg-secondary);
+            /* Dark Menu BG in Light Mode */
             min-width: 180px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
+            /* Border color matches theme */
             border-radius: 4px;
             opacity: 0;
             visibility: hidden;
@@ -295,7 +341,7 @@
             right: 0;
         }
 
-        /* Show Dropdown on Hover */
+        /* Show Dropdown on Hover (Desktop) */
         .dropdown:hover .dropdown-menu {
             opacity: 1;
             visibility: visible;
@@ -306,6 +352,7 @@
             padding: 10px 20px;
             display: block;
             color: var(--text-secondary);
+            /* Text color updates via variables */
             font-size: 0.85rem;
             text-transform: uppercase;
         }
@@ -315,7 +362,6 @@
             color: var(--accent-color);
         }
 
-        /* Dropdown Arrow Animation */
         .fa-chevron-down {
             transition: transform 0.3s;
             font-size: 0.7em;
@@ -385,7 +431,7 @@
         }
 
         /* =========================================
-           HERO SECTION (FIXED DARK MODE OVERLAY)
+           HERO SECTION
            ========================================= */
         .hero {
             height: 100vh;
@@ -437,7 +483,6 @@
             z-index: 3;
             padding: 2rem;
             max-width: 800px;
-            color: var(--text-primary);
         }
 
         .hero-title {
@@ -485,7 +530,7 @@
         }
 
         /* =========================================
-           ABOUT SECTION (Section 2)
+           ABOUT SECTION
            ========================================= */
         .about {
             padding: 6rem 0;
@@ -539,7 +584,7 @@
         }
 
         /* =========================================
-           THE FLEET SECTION (Section 3)
+           THE FLEET SECTION
            ========================================= */
         .fleet {
             padding: 6rem 0;
@@ -614,7 +659,7 @@
         }
 
         /* =========================================
-           TRACK FEATURES SECTION (Section 4)
+           TRACK FEATURES SECTION
            ========================================= */
         .features {
             padding: 6rem 0;
@@ -648,7 +693,7 @@
         }
 
         /* =========================================
-           PRICING / VIP SECTION (Section 5)
+           PRICING / VIP SECTION
            ========================================= */
         .pricing {
             padding: 6rem 0;
@@ -717,7 +762,7 @@
         }
 
         /* =========================================
-           GALLERY SECTION (Section 6)
+           GALLERY SECTION
            ========================================= */
         .gallery {
             padding: 6rem 0;
@@ -764,7 +809,7 @@
         }
 
         /* =========================================
-           CONTACT / FOOTER SECTION (Section 7)
+           CONTACT / FOOTER SECTION
            ========================================= */
         .footer {
             background-color: #050505;
@@ -821,7 +866,7 @@
         }
 
         /* =========================================
-           RESPONSIVE (WITH MOBILE DROPDOWN FIX)
+           RESPONSIVE
            ========================================= */
         @media (max-width: 992px) {
             .nav-controls {
@@ -869,7 +914,7 @@
                 gap: 1.5rem;
             }
 
-            /* Mobile Dropdown Logic: Show it statically under the parent */
+            /* Mobile Dropdown Logic */
             .dropdown-menu {
                 position: static;
                 visibility: visible;
@@ -879,25 +924,25 @@
                 border: none;
                 background: transparent;
                 padding-left: 20px;
-                /* Indentation to show hierarchy */
+                /* Indent */
                 display: none;
-                /* Hidden by default, shown via JS click usually, or CSS hover */
                 width: 100%;
+                border-left: 2px solid var(--accent-color);
+                /* Visual guide */
+                margin-top: 5px;
+                padding-top: 5px;
             }
 
             body.rtl .dropdown-menu {
                 padding-left: 0;
                 padding-right: 20px;
+                border-left: none;
+                border-right: 2px solid var(--accent-color);
             }
 
-            /* Show dropdown on mobile when parent is hovered/clicked */
-            /* Note: Since mobile relies on hover for desktop, we need a way to open it on mobile. 
-               Simplified approach: Make it always visible indented for this specific CSS-only setup */
-            .dropdown-menu {
+            /* Show when active class is added via JS */
+            .dropdown.active .dropdown-menu {
                 display: block;
-                border-left: 2px solid var(--accent-color);
-                margin-top: 5px;
-                padding-top: 5px;
             }
 
             /* Controls in mobile menu */
@@ -942,15 +987,23 @@
 
     <!-- NAVBAR -->
     <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">VELO<span>CITY</span></a>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <!-- Car Icon (Stays White in Dark Mode) -->
+                <img src="https://cdn-icons-png.flaticon.com/512/2972/2972856.png" alt="Racing Car Logo">
+
+                <!-- Text Logo (Changes to #ccff00 in Dark Mode) -->
+                <div class="logo-text">
+                    VELO<span>CITY</span>
+                </div>
+            </a>
 
             <!-- Wrapper to align everything to the right -->
             <div class="nav-right-wrapper" id="navWrapper">
                 <nav class="nav-links">
-                    <!-- ADDED: HOME DROPDOWN -->
+                    <!-- DROPDOWN HOME -->
                     <li class="dropdown">
-                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
+                        <a href="#" id="dropdownHome">Home <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="index.html" style="color:var(--accent-color)">Home Classic</a></li>
                             <li><a href="home-2.html">Home 2</a></li>
@@ -973,10 +1026,9 @@
                 </div>
             </div>
 
-            <!-- Hamburger Menu (Outside wrapper so it stays visible on mobile) -->
-            <button class="hamburger" id="hamburger" aria-label="Toggle Navigation">
+            <div class="hamburger" id="hamburger" aria-label="Toggle Navigation">
                 <i class="fas fa-bars"></i>
-            </button>
+            </div>
         </div>
     </header>
 
@@ -1149,287 +1201,4 @@
     <!-- SECTION 5: PRICING -->
     <section id="pricing" class="pricing">
         <div class="container">
-            <div class="section-header scroll-reveal">
-                <span>PRICING</span>
-                <h2>Race Packages</h2>
-            </div>
-            <div class="pricing-grid">
-                <div class="price-card scroll-reveal">
-                    <h3>Arrive & Drive</h3>
-                    <div class="price">$35 <span>/ heat</span></div>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> 10 Minute Session</li>
-                        <li><i class="fas fa-check"></i> Rental Gear Included</li>
-                        <li><i class="fas fa-check"></i> Printout of Lap Times</li>
-                        <li><i class="fas fa-times" style="color:#666"></i> Reserved Slot</li>
-                    </ul>
-                    <a href="#" class="btn btn-outline" style="margin-top:1rem">Book Now</a>
-                </div>
-
-                <div class="price-card featured scroll-reveal">
-                    <h3>The Grand Prix</h3>
-                    <div class="price">$85 <span>/ person</span></div>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> Practice & Qualifying</li>
-                        <li><i class="fas fa-check"></i> 15 Lap Final Race</li>
-                        <li><i class="fas fa-check"></i> Trophy Presentation</li>
-                        <li><i class="fas fa-check"></i> Podium Photo</li>
-                    </ul>
-                    <a href="#" class="btn" style="margin-top:1rem">Book Now</a>
-                </div>
-
-                <div class="price-card scroll-reveal">
-                    <h3>Season Pass</h3>
-                    <div class="price">$499 <span>/ year</span></div>
-                    <ul class="price-features">
-                        <li><i class="fas fa-check"></i> Unlimited Arrive & Drive</li>
-                        <li><i class="fas fa-check"></i> 10% Off Pro Karts</li>
-                        <li><i class="fas fa-check"></i> Free Guest Passes</li>
-                        <li><i class="fas fa-check"></i> VIP Member Events</li>
-                    </ul>
-                    <a href="#" class="btn btn-outline" style="margin-top:1rem">Join Club</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 6: GALLERY -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <span>GALLERY</span>
-                <h2>Action Shots</h2>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item scroll-reveal">
-                    <img src="https://picsum.photos/seed/race1/800/800" alt="Racing Action">
-                </div>
-                <div class="gallery-item scroll-reveal">
-                    <img src="https://picsum.photos/seed/race2/400/400" alt="Helmet detail">
-                </div>
-                <div class="gallery-item scroll-reveal">
-                    <img src="https://picsum.photos/seed/race3/400/400" alt="Tires">
-                </div>
-                <div class="gallery-item scroll-reveal">
-                    <img src="https://picsum.photos/seed/race4/400/400" alt="Start line">
-                </div>
-                <div class="gallery-item scroll-reveal">
-                    <img src="https://picsum.photos/seed/race5/400/400" alt="Winner celebration">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 7: FOOTER / CONTACT -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>VELO<span style="color:var(--accent-color)">CITY</span></h4>
-                    <p>The ultimate destination for speed enthusiasts. Experience the thrill of professional racing in a
-                        safe, luxury environment.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt" style="color:var(--accent-color)"></i> 123 Speedway Blvd, Racing
-                        City</p>
-                    <p><i class="fas fa-phone" style="color:var(--accent-color)"></i> +1 (555) 123-4567</p>
-                    <p><i class="fas fa-envelope" style="color:var(--accent-color)"></i> info@velocitykart.com</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Opening Hours</h4>
-                    <p>Mon - Thu: 12:00 PM - 10:00 PM</p>
-                    <p>Fri - Sun: 10:00 AM - 12:00 AM</p>
-                    <p style="color:var(--accent-color); font-weight:600">Private Events: 24/7</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Velocity Karting. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-
-                if (body.classList.contains('light-mode')) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-            });
-
-            // --- RTL Toggling ---
-            const rtlToggle = document.getElementById('rtlToggle');
-            rtlToggle.addEventListener('click', () => {
-                body.classList.toggle('rtl');
-                const isRtl = body.classList.contains('rtl');
-                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
-            });
-
-            // --- Mobile Menu ---
-            const hamburger = document.getElementById('hamburger');
-            const navWrapper = document.getElementById('navWrapper');
-
-            hamburger.addEventListener('click', () => {
-                navWrapper.classList.toggle('active');
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navWrapper.classList.remove('active');
-                });
-            });
-
-            // --- Scroll Animations (Intersection Observer) ---
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const scrollObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        scrollObserver.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.scroll-reveal').forEach(el => {
-                if (!el.classList.contains('section-header')) {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(30px)';
-                    el.style.transition = 'all 0.6s ease-out';
-                }
-                scrollObserver.observe(el);
-            });
-
-
-            // --- Canvas Speed Animation (Updated for Theme) ---
-            const canvas = document.getElementById('speedCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let width, height;
-            let lines = [];
-            const lineCount = 60;
-            const speed = 15;
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                initLines();
-            }
-
-            function initLines() {
-                lines = [];
-                for (let i = 0; i < lineCount; i++) {
-                    lines.push({
-                        x: Math.random() * width - width / 2,
-                        y: Math.random() * height - height / 2,
-                        z: Math.random() * width,
-                        pz: 0
-                    });
-                }
-            }
-
-            function drawLines() {
-                if (body.classList.contains('light-mode')) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
-                } else {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-                    ctx.strokeStyle = 'rgba(204, 255, 0, 0.5)';
-                }
-
-                ctx.fillRect(0, 0, width, height);
-
-                const cx = width / 2;
-                const cy = height / 2;
-                ctx.lineWidth = 2;
-
-                lines.forEach(line => {
-                    line.z -= speed;
-
-                    if (line.z <= 0) {
-                        line.z = width;
-                        line.x = Math.random() * width - width / 2;
-                        line.y = Math.random() * height - height / 2;
-                        line.pz = line.z;
-                    }
-
-                    const sx = (line.x / line.z) * width + cx;
-                    const sy = (line.y / line.z) * height + cy;
-
-                    const px = (line.x / (line.z + speed)) * width + cx;
-                    const py = (line.y / (line.z + speed)) * height + cy;
-
-                    if (sx > 0 && sx < width && sy > 0 && sy < height) {
-                        ctx.beginPath();
-                        ctx.moveTo(px, py);
-                        ctx.lineTo(sx, sy);
-                        ctx.stroke();
-                    }
-                });
-
-                requestAnimationFrame(drawLines);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            drawLines();
-
-            // --- Simple Toast Notification Utility ---
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.textContent = message;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = 'var(--accent-color)';
-                toast.style.color = 'var(--bg-primary)';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '5px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '2000';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-
-                document.body.appendChild(toast);
-
-                void toast.offsetWidth;
-                toast.style.opacity = '1';
-
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 300);
-                }, 2000);
-            }
-        });
-    </script>
-</body>
-
-</html>
+            <div class

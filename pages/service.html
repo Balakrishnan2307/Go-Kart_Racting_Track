@@ -1,415 +1,672 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services | VELOCITY Karting</title>
+    <title>Services - TurboTrack</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap"
         rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        /* --- CSS VARIABLES (Shared) --- */
+        :root {
+            --primary-color: #ff3b3b;
+            /* Racing Red */
+            --secondary-color: #2c2c2c;
+            /* Asphalt */
+            --accent-color: #ffc107;
+            /* Flag Yellow */
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        /* --- CONTROLS & COLORS --- */
+        .nav-control-btn i {
+            color: var(--primary-color) !important;
+            transition: color 0.3s;
+        }
+
+        .rtl-text {
+            color: var(--accent-color) !important;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .nav-control-btn:hover {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .nav-control-btn:hover i,
+        .nav-control-btn:hover .rtl-text {
+            color: white !important;
+        }
+
+        /* --- THEME --- */
+        [data-bs-theme="dark"] body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="light"] body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary-custom {
+            background-color: var(--primary-color) !important;
+            color: white;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-control-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: inherit;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            margin-inline-start: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/servicegarage/1920/800.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
+        }
+
+        /* --- SERVICE CARDS --- */
+        .service-card {
+            background: var(--bs-body-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* --- MEMBERSHIP CARDS --- */
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* --- PAGINATION --- */
+        .page-link {
+            color: var(--primary-color);
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--bs-body-bg);
+        }
+
+        [data-bs-theme="light"] .page-link {
+            background-color: white;
+            border-color: #dee2e6;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .page-item.disabled .page-link {
+            color: #6c757d;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-img {
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f0f0f;
+            color: #aaa;
+            padding: 70px 0 30px;
+        }
+
+        footer h5 {
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer ul li a:hover {
+            color: var(--primary-color);
+            padding-inline-start: 5px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .nav-control-btn {
+                margin-top: 10px;
+                width: 100%;
+                margin-inline-start: 0;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-mode">
+<body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-container">
-
-            <!-- LOGO: Image (White/Black) + Text -->
-            <a href="index.html" class="logo">
-                <!-- 
-                   1. This is the image source. 
-                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
-                -->
-                <img src="../assets/images/logo.png" alt="Racing Car Logo">
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span>
             </a>
 
-            <div class="nav-right-wrapper" id="navWrapper">
-                <ul class="nav-links">
-                    <!-- DROPDOWN SECTION -->
-                    <li class="dropdown">
-                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="index.html">Home Classic</a></li>
-                            <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
-                        </ul>
-                    </li>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li class="dropdown">
-                        <a href="#">Pages<i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="login_signup.html">Login / Signup</a></li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="coming_soon.html">Coming Soon</a></li>
-                        </ul>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contact</a>
                     </li>
                 </ul>
 
-                <div class="nav-controls">
-                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
-                        <i class="fas fa-sun"></i>
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
                     </button>
-                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
-                        <i class="fas fa-language"></i>
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
                     </button>
                 </div>
             </div>
-
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
-    </header>
+    </nav>
 
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <canvas id="speedCanvas"></canvas>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Our Services</h1>
-            <p class="hero-subtitle">From Adrenaline Rushes to Luxury Events</p>
-            <a href="#racing" class="btn">Explore Packages</a>
-        </div>
-    </section>
-
-    <!-- SECTION 1: RACING PACKAGES -->
-    <section id="racing" class="section">
+    <!-- SECTION 1: HERO HEADER -->
+    <div class="page-header">
         <div class="container">
-            <div class="section-header">
-                <span>ON TRACK</span>
-                <h2>Racing Experiences</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-bolt service-icon"></i>
-                    <h3>Arrive & Drive</h3>
-                    <p>No booking required. Jump into our karts anytime and race against the clock or your friends.
-                        Includes full safety gear and a detailed lap time printout.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-trophy service-icon"></i>
-                    <h3>Grand Prix Events</h3>
-                    <p>Structured tournament style. Includes practice laps, qualifying heats, and a final race. Trophy
-                        presentation included for the top 3 drivers.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-clock service-icon"></i>
-                    <h3>Endurance Racing</h3>
-                    <p>Test your stamina. Teams compete to complete the most laps in a set time (1hr, 2hr, or 24hr).
-                        Strategy, pit stops, and driver swaps are key.</p>
-                </div>
-            </div>
+            <h1>Our <span class="text-primary-custom">Services</span></h1>
+            <p class="lead">From casual rentals to professional coaching, we do it all.</p>
         </div>
-    </section>
+    </div>
 
-    <!-- SECTION 2: CORPORATE EVENTS -->
-    <section id="corporate" class="section bg-alt">
+    <!-- SECTION 2: KART RENTALS -->
+    <section id="rentals">
         <div class="container">
-            <div class="split-section">
-                <div class="split-text">
-                    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
-                        <span>FOR BUSINESS</span>
-                        <h2>Corporate & Team Building</h2>
+            <div class="section-title">
+                <h2>Kart Rental</h2>
+                <p>Choose your speed</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon"><i class="fa-solid fa-child-reaching"></i></div>
+                        <h4>Junior League</h4>
+                        <p>Safe, slow-speed karts for children aged 8-12. Includes briefing and safety gear.</p>
                     </div>
-                    <p>Take your team out of the office and onto the podium. Velocity offers fully customizable
-                        corporate packages designed to foster teamwork and competition in a high-energy environment.</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Private meeting rooms with AV equipment</li>
-                        <li><i class="fas fa-check-circle"></i> Catering options from snacks to gourmet meals</li>
-                        <li><i class="fas fa-check-circle"></i> Exclusive track buyout available</li>
-                        <li><i class="fas fa-check-circle"></i> Branded karts and suits for race day</li>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center border-primary border-2">
+                        <div class="service-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                        <h4>Standard Sprint</h4>
+                        <p>High-performance 270cc karts for adults. Perfect for beginners and seasoned pros.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon"><i class="fa-solid fa-jet-fighter"></i></div>
+                        <h4>Super Pro</h4>
+                        <p>390cc engines capable of 60mph. License check required. Not for the faint-hearted.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MEMBERSHIPS -->
+    <section id="memberships" class="bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Track Membership</h2>
+                <p>Race more, pay less</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <h5 class="text-muted">Monthly Pass</h5>
+                        <div class="price-tag">$50</div>
+                        <ul class="list-unstyled text-start my-4">
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary-custom me-2"></i> 10% Off Karts
+                            </li>
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary-custom me-2"></i> Priority Booking
+                            </li>
+                        </ul>
+                        <button class="btn btn-outline-dark w-100 rounded-0">Join Now</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center shadow">
+                        <span class="badge bg-danger mb-2">BEST VALUE</span>
+                        <h5 class="text-muted">Annual Pass</h5>
+                        <div class="price-tag">$400</div>
+                        <ul class="list-unstyled text-start my-4">
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary-custom me-2"></i> 25% Off Karts
+                            </li>
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary-custom me-2"></i> Free Entry to
+                                Events</li>
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary-custom me-2"></i> 2 Free Race
+                                Passes</li>
+                        </ul>
+                        <button class="btn btn-danger w-100 rounded-0">Join Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: CORPORATE EVENTS -->
+    <section id="corporate">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://picsum.photos/seed/meeting/600/400.jpg" alt="Corporate Event"
+                        class="img-fluid rounded shadow w-100">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h4 class="text-primary-custom text-uppercase">Business at Speed</h4>
+                    <h2>Corporate Events</h2>
+                    <p>Boost team morale with an adrenaline-fueled racing experience. We offer meeting rooms, catering,
+                        and exclusive track buyout options.</p>
+                    <div class="d-flex gap-4 mt-3">
+                        <div>
+                            <i class="fa-solid fa-users text-primary-custom fs-2"></i>
+                            <p>Up to 100 Guests</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-mug-hot text-primary-custom fs-2"></i>
+                            <p>Catering Included</p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-dark mt-3 rounded-0">Plan Event</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: PARTIES -->
+    <section id="parties" class="bg-dark text-white">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">Birthday Parties</h2>
+                <p class="text-secondary">The ultimate party zone</p>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+                    <img src="https://picsum.photos/seed/party/600/400.jpg" alt="Birthday Party"
+                        class="img-fluid rounded shadow w-100">
+                </div>
+                <div class="col-lg-6 order-lg-1 pe-lg-5">
+                    <h2>Celebrate with Speed</h2>
+                    <p>Make your birthday unforgettable. Our party packages include private track time, dedicated party
+                        host, food platters, and podium ceremony with champagne (juice for kids).</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fa-solid fa-cake-candles text-warning me-2"></i> Decorated Party Room
+                        </li>
+                        <li class="mb-2"><i class="fa-solid fa-trophy text-warning me-2"></i> Trophy for Birthday Star
+                        </li>
+                        <li class="mb-2"><i class="fa-solid fa-camera text-warning me-2"></i> Photographer Available
+                        </li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline" style="margin-top: 1rem;">Request Proposal</a>
-                </div>
-                <div class="split-img">
-                    <img src="https://picsum.photos/seed/corporate/600/400" alt="Corporate Meeting">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: PRIVATE CELEBRATIONS -->
-    <section id="celebrations" class="section">
+    <!-- SECTION 6: RACING ACADEMY -->
+    <section id="academy">
         <div class="container">
-            <div class="section-header">
-                <span>PARTIES</span>
-                <h2>Private Celebrations</h2>
+            <div class="section-title">
+                <h2>Racing Academy</h2>
+                <p>Learn from the pros</p>
             </div>
-            <div class="services-grid">
-                <div class="celebration-card">
-                    <div class="celeb-icon"><i class="fas fa-birthday-cake"></i></div>
-                    <h3>Birthday Bashes</h3>
-                    <p>Whether it's a sweet 16 or a 40th, make it unforgettable. We provide the party room, the racing,
-                        and the pizza.</p>
-                </div>
-                <div class="celebration-card">
-                    <div class="celeb-icon"><i class="fas fa-glass-cheers"></i></div>
-                    <h3>Bachelor Parties</h3>
-                    <p>Send the groom off in style. High-octane racing followed by a VIP lounge celebration. Packages
-                        include champagne service.</p>
-                </div>
-                <div class="celebration-card">
-                    <div class="celeb-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>School Groups</h3>
-                    <p>Educational and fun physics lessons on the track. Special rates for school field trips and youth
-                        organizations.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 4: RACING ACADEMY -->
-    <section id="academy" class="section bg-alt">
-        <div class="container">
-            <div class="section-header">
-                <span>LEARN TO RACE</span>
-                <h2>Velocity Racing Academy</h2>
-            </div>
-            <div class="academy-layout">
-                <div>
-                    <img src="https://picsum.photos/seed/instructor/600/400" alt="Instructor"
-                        style="border-radius: 8px; box-shadow: var(--shadow);">
-                </div>
-                <div>
-                    <p>Go from novice to pro with our certified instructors. Our curriculum focuses on racing lines,
-                        braking points, and overtaking techniques.</p>
-
-                    <div class="academy-level">
-                        <h3>Junior League (Ages 8-15)</h3>
-                        <p>8-week program ending in a championship race. Includes license and uniform.</p>
-                        <span class="price-tag">$499 / Season</span>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="service-card d-flex align-items-start">
+                        <i class="fa-solid fa-graduation-cap service-icon me-3"></i>
+                        <div>
+                            <h5>Beginner Course</h5>
+                            <p>Learn the racing line, braking points, and kart control. 2-hour theory and practical
+                                session.</p>
+                        </div>
                     </div>
-
-                    <div class="academy-level">
-                        <h3>Pro License Course</h3>
-                        <p>Intensive 2-day course for adults. Upon passing, receive your National Racing License.</p>
-                        <span class="price-tag">$299 / Course</span>
-                    </div>
-
-                    <div class="academy-level">
-                        <h3>1-on-1 Coaching</h3>
-                        <p>Personalized instruction from our professional drivers. Data analysis included.</p>
-                        <span class="price-tag">$150 / Hour</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card d-flex align-items-start">
+                        <i class="fa-solid fa-stopwatch service-icon me-3"></i>
+                        <div>
+                            <h5>Advanced License Course</h5>
+                            <p>Required to drive Super Pro karts. Includes lap data analysis and instructor feedback.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 5: ADD-ON SERVICES -->
-    <section id="addons" class="section">
+    <!-- SECTION 7: SERVICE GALLERY (WITH PAGINATION) -->
+    <section id="gallery-pagination" class="bg-light">
         <div class="container">
-            <div class="section-header">
-                <span>ENHANCE YOUR DAY</span>
-                <h2>Premium Add-ons</h2>
+            <div class="section-title">
+                <h2>Service Gallery</h2>
+                <p>See our services in action</p>
             </div>
-            <div class="addon-grid">
-                <div class="addon-item">
-                    <i class="fas fa-camera-retro" style="font-size: 2rem; color: var(--accent-color)"></i>
-                    <h4>Photo & Video</h4>
-                    <p>Professional trackside photography and onboard GoPro footage.</p>
-                </div>
-                <div class="addon-item">
-                    <i class="fas fa-utensils" style="font-size: 2rem; color: var(--accent-color)"></i>
-                    <h4>Catering</h4>
-                    <p>From buffet style to plated 3-course meals.</p>
-                </div>
-                <div class="addon-item">
-                    <i class="fas fa-video" style="font-size: 2rem; color: var(--accent-color)"></i>
-                    <h4>Live Streaming</h4>
-                    <p>Broadcast your race live to social media or a private link.</p>
-                </div>
-                <div class="addon-item">
-                    <i class="fas fa-tshirt" style="font-size: 2rem; color: var(--accent-color)"></i>
-                    <h4>Custom Merch</h4>
-                    <p>Branded suits and t-shirts for your group event.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- SECTION 6: CALL TO ACTION -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 style="font-size: 3rem; margin-bottom: 1rem;">Ready to Race?</h2>
-            <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--text-secondary);">Book your session or event
-                today. Spots fill up fast on weekends.</p>
-            <a href="index.html#contact" class="btn">Book Now</a>
+            <div class="row g-3 mb-4">
+                <!-- Gallery Grid -->
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv1/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv2/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv3/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv4/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv5/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <img src="https://picsum.photos/seed/serv6/400/300.jpg" alt="Service Image" class="gallery-img">
+                </div>
+            </div>
+
+            <!-- PAGINATION CONTROLS -->
+            <nav aria-label="Gallery Navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer
-        style="background-color: #050505; color: #fff; padding: 4rem 0 1rem; text-align: center; border-top: 4px solid var(--accent-color);">
+    <footer>
         <div class="container">
-            <a href="#" class="logo" style="font-size: 2rem;">VELO<span>CITY</span></a>
-            <p style="color: #888; margin-top: 1rem;">The ultimate destination for speed enthusiasts.</p>
-            <div
-                style="margin-top: 2rem; font-size: 0.8rem; color: #666; border-top: 1px solid #222; padding-top: 1.5rem;">
-                &copy; 2023 Velocity Karting. All rights reserved.
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a class="navbar-brand text-white mb-3 d-block" href="#">
+                        <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span>
+                    </a>
+                    <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">YouTube</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for latest news and race schedules.</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-secondary bg-dark text-white"
+                            placeholder="Your Email">
+                        <button class="btn btn-danger" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright text-white-50">
+                <p class="mb-0">&copy; 2023 TurboTrack Racing. All Rights Reserved. | Designed for Speed.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
+            // --- Dark Mode Logic ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            const htmlElement = document.documentElement;
 
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
+            // Check local storage or system preference
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme);
 
-                if (body.classList.contains('light-mode')) {
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            function setTheme(theme) {
+                htmlElement.setAttribute('data-bs-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                // Update Icon
+                if (theme === 'dark') {
                     themeIcon.classList.remove('fa-sun');
                     themeIcon.classList.add('fa-moon');
                 } else {
                     themeIcon.classList.remove('fa-moon');
                     themeIcon.classList.add('fa-sun');
                 }
-            });
-
-            // --- RTL Toggling ---
-            const rtlToggle = document.getElementById('rtlToggle');
-            rtlToggle.addEventListener('click', () => {
-                body.classList.toggle('rtl');
-                const isRtl = body.classList.contains('rtl');
-                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
-            });
-
-            // --- Mobile Menu ---
-            const hamburger = document.getElementById('hamburger');
-            const navWrapper = document.getElementById('navWrapper');
-
-            hamburger.addEventListener('click', () => {
-                navWrapper.classList.toggle('active');
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navWrapper.classList.remove('active');
-                });
-            });
-
-            // --- Canvas Speed Animation (Theme Aware) ---
-            const canvas = document.getElementById('speedCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let width, height;
-            let lines = [];
-            const lineCount = 60;
-            const speed = 15;
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                initLines();
             }
 
-            function initLines() {
-                lines = [];
-                for (let i = 0; i < lineCount; i++) {
-                    lines.push({
-                        x: Math.random() * width - width / 2,
-                        y: Math.random() * height - height / 2,
-                        z: Math.random() * width,
-                        pz: 0
-                    });
-                }
-            }
+            // --- RTL / LTR Logic ---
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            setDirection(currentDir);
 
-            function drawLines() {
-                if (body.classList.contains('light-mode')) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                setDirection(newDir);
+            });
+
+            function setDirection(dir) {
+                htmlElement.setAttribute('dir', dir);
+                localStorage.setItem('dir', dir);
+                if (dir === 'rtl') {
+                    rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">LTR</span>';
                 } else {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-                    ctx.strokeStyle = 'rgba(204, 255, 0, 0.5)';
+                    rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>';
                 }
-
-                ctx.fillRect(0, 0, width, height);
-
-                const cx = width / 2;
-                const cy = height / 2;
-                ctx.lineWidth = 2;
-
-                lines.forEach(line => {
-                    line.z -= speed;
-
-                    if (line.z <= 0) {
-                        line.z = width;
-                        line.x = Math.random() * width - width / 2;
-                        line.y = Math.random() * height - height / 2;
-                        line.pz = line.z;
-                    }
-
-                    const sx = (line.x / line.z) * width + cx;
-                    const sy = (line.y / line.z) * height + cy;
-
-                    const px = (line.x / (line.z + speed)) * width + cx;
-                    const py = (line.y / (line.z + speed)) * height + cy;
-
-                    if (sx > 0 && sx < width && sy > 0 && sy < height) {
-                        ctx.beginPath();
-                        ctx.moveTo(px, py);
-                        ctx.lineTo(sx, sy);
-                        ctx.stroke();
-                    }
-                });
-
-                requestAnimationFrame(drawLines);
             }
 
-            window.addEventListener('resize', resize);
-            resize();
-            drawLines();
+            // --- Navbar Background on Scroll ---
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow');
+                } else {
+                    navbar.classList.remove('shadow');
+                }
+            });
 
-            // --- Toast Utility ---
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.textContent = message;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = 'var(--accent-color)';
-                toast.style.color = 'var(--bg-primary)';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '5px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '2000';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-
-                document.body.appendChild(toast);
-
-                void toast.offsetWidth;
-                toast.style.opacity = '1';
-
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 300);
-                }, 2000);
-            }
         });
     </script>
 </body>

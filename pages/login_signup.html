@@ -1,186 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | VELOCITY Karting</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
-        rel="stylesheet">
+    <title>Login - TurboTrack</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
 
-<body class="dark-mode">
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --glass-bg: rgba(20, 20, 20, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-container">
+        body {
+            font-family: var(--font-body);
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 59, 59, 0.15) 0%, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-            <!-- LOGO: Image (White/Black) + Text -->
-            <a href="index.html" class="logo">
-                <!-- 
-                   1. This is the image source. 
-                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
-                -->
-                <img src="../assets/images/logo.png" width="200px" alt="Racing Car Logo">
-            </a>
+        [data-bs-theme="light"] body {
+            background-color: #f0f2f5;
+            background-image: none;
+            --glass-bg: #ffffff;
+            --glass-border: #e0e0e0;
+        }
 
-            <div class="nav-right-wrapper" id="navWrapper">
-                <ul class="nav-links">
-                    <!-- DROPDOWN SECTION -->
-
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="indes_2.html">Home 2</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="login_signup.html"  style="color:var(--accent-color)">Login / Signup</a></li>
-                    <li><a href="404.html">404</a></li>
-
-                </ul>
-
-                <div class="nav-controls">
-                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
-                        <i class="fas fa-language"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
 
 
-    <!-- AUTH WRAPPER -->
-    <main class="auth-wrapper">
-        <div class="auth-container">
+        /* --- AUTH SPLIT LAYOUT --- */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 0 60px;
+            /* Top padding for navbar */
+        }
 
-            <!-- Left: Visual/Brand -->
-            <div class="auth-visual">
-                <div class="visual-content">
-                    <h2>JOIN THE<br>LEAGUE</h2>
-                    <p>Join the elite community of racers. Book sessions, track your lap times, and compete in
-                        championships.</p>
-                </div>
-            </div>
+        .auth-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+        }
 
-            <!-- Right: Forms -->
-            <div class="auth-forms">
+        .auth-image {
+            background: url('../assets/images/Ferrari\ +\ karting.jpg') no-repeat center center/cover;
+            min-height: 400px;
+            position: relative;
+        }
 
-                <!-- Toggle Switch -->
-                <div class="auth-toggle">
-                    <div class="toggle-btn active" id="showLogin" onclick="switchAuth('login')">Login</div>
-                    <div class="toggle-btn" id="showSignup" onclick="switchAuth('signup')">Sign Up</div>
-                </div>
+        .auth-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 59, 59, 0.8), transparent);
+        }
 
-                <!-- LOGIN FORM -->
-                <div id="loginForm" class="form-section active">
-                    <h3 class="auth-title">Welcome Back</h3>
-                    <form onsubmit="event.preventDefault(); alert('Logged in successfully!');">
-                        <div class="input-group">
-                            <label class="input-label">Email Address</label>
-                            <input type="email" class="form-input" placeholder="racer@velocity.com" required>
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Password</label>
-                            <input type="password" class="form-input" placeholder="••••••••" required>
-                        </div>
-                        <div style="text-align: right; margin-bottom: 1rem;">
-                            <a href="#" style="font-size: 0.85rem; color: var(--accent-color);">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="btn-auth">Start Engine</button>
-                    </form>
-                    <div class="auth-footer">
-                        Don't have an account? <a href="#" onclick="switchAuth('signup')">Create one</a>
-                    </div>
-                </div>
+        .auth-text-overlay {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+        }
 
-                <!-- SIGNUP FORM -->
-                <div id="signupForm" class="form-section">
-                    <h3 class="auth-title">Create Account</h3>
-                    <form onsubmit="event.preventDefault(); alert('Account created!');">
-                        <div class="input-group">
-                            <label class="input-label">Full Name</label>
-                            <input type="text" class="form-input" placeholder="Lewis Hamilton" required>
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Email Address</label>
-                            <input type="email" class="form-input" placeholder="racer@velocity.com" required>
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Password</label>
-                            <input type="password" class="form-input" placeholder="••••••••" required>
-                        </div>
-                        <div class="input-group">
-                            <label class="input-label">Confirm Password</label>
-                            <input type="password" class="form-input" placeholder="••••••••" required>
-                        </div>
-                        <button type="submit" class="btn-auth">Register</button>
-                    </form>
-                    <div class="auth-footer">
-                        Already a member? <a href="#" onclick="switchAuth('login')">Login here</a>
-                    </div>
-                </div>
+        /* --- FORM --- */
+        .form-control {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: inherit;
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
 
-            </div>
-        </div>
-    </main>
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-color);
+            color: inherit;
+            box-shadow: none;
+        }
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        [data-bs-theme="light"] .form-control {
+            background: #f8f9fa;
+            border-color: #ddd;
+        }
 
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 8px;
+            width: 100%;
+        }
 
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
+        .btn-primary:hover {
+            background-color: #d32f2f;
+        }
 
-                if (body.classList.contains('light-mode')) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-            });
-        });
+        .social-btn {
+            width: 100%;
+            border: 1px solid var(--glass-border);
+            padding: 10px;
+            border-radius: 8px;
+            color: inherit;
+            background: transparent;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
 
-        // --- Auth Switching Logic ---
-        function switchAuth(type) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginBtn = document.getElementById('showLogin');
-            const signupBtn = document.getElementById('showSignup');
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #888;
+        }
 
-            if (type === 'login') {
-                loginForm.classList.add('active');
-                signupForm.classList.remove('active');
-                loginBtn.classList.add('active');
-                signupBtn.classList.remove('active');
-            } else {
-                signupForm.classList.add('active');
-                loginForm.classList.remove('active');
-                signupBtn.classList.add('active');
-                loginBtn.classList.remove('active');
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 0;
+            background: #050505;
+            color: #777;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .auth-image {
+                min-height: 200px;
+            }
+
+            .auth-text-overlay {
+                display: none;
             }
         }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN AUTH SECTION -->
+    <div class="container auth-container">
+        <div class="auth-card row g-0">
+            <!-- Left: Image & Welcome -->
+            <div class="col-md-5 auth-image d-none d-md-block">
+                <div class="auth-text-overlay">
+                    <h2>Welcome Back!</h2>
+                    <p class="mb-4">Log in to access your race history, book sessions, and join the league.</p>
+                    <a href="signup.html" class="btn btn-outline-light rounded-0 px-4 py-2">Create Account</a>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="col-md-7 p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <h3 class="text-white">Driver Login</h3>
+                    <p class="text-secondary">Enter your credentials to access the pit lane.</p>
+                </div>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Email Address</label>
+                        <input type="email" class="form-control" placeholder="driver@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Password</label>
+                        <input type="password" class="form-control" placeholder="••••••••">
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember">
+                            <label class="form-check-label small text-secondary" for="remember">Remember Me</label>
+                        </div>
+                        <a href="#" class="small text-decoration-none" style="color: var(--primary-color);">Forgot
+                            Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-3">Log In</button>
+                </form>
+
+                <div class="text-center mb-3">
+                    <span class="text-secondary small">OR CONTINUE WITH</span>
+                </div>
+
+                <button class="social-btn">
+                    <i class="fab fa-google text-danger"></i> Google
+                </button>
+                <button class="social-btn">
+                    <i class="fab fa-facebook text-primary"></i> Facebook
+                </button>
+
+                <div class="text-center mt-4">
+                    <p class="small text-secondary">Don't have an account? <a href="signup.html"
+                            class="fw-bold text-decoration-none" style="color: var(--primary-color);">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
+            // Theme Logic
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+            themeToggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            });
+            // RTL Logic
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            htmlElement.setAttribute('dir', currentDir);
+            rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (currentDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                htmlElement.setAttribute('dir', newDir);
+                localStorage.setItem('dir', newDir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (newDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            });
+        });
     </script>
 </body>
 

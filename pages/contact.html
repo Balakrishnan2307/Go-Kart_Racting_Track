@@ -1,154 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | VELOCITY Karting</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
-        rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Contact Us - TurboTrack</title>
 
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #0a0a0a;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 59, 59, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 20%);
+            overflow-x: hidden;
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="light"] body {
+            background-color: #f0f2f5;
+            background-image: none;
+            color: #212529;
+            --glass-bg: #ffffff;
+            --glass-border: #e0e0e0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+
+
+        /* --- HERO SECTION (NEW DESIGN) --- */
+        .hero-section {
+            height: 40vh;
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://picsum.photos/seed/racingdark/1920/800.jpg') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), #0a0a0a);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* --- GRID LAYOUT SECTION --- */
+        .contact-grid-container {
+            margin-top: -80px;
+            /* Overlap hero */
+            position: relative;
+            z-index: 3;
+            padding-bottom: 80px;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            transition: transform 0.3s;
+        }
+
+        /* --- FORM STYLING (NEW) --- */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(255, 59, 59, 0.2);
+            color: white;
+        }
+
+        [data-bs-theme="light"] .form-control {
+            background: #f8f9fa;
+            border-color: #e0e0e0;
+        }
+
+        [data-bs-theme="light"] .form-control:focus {
+            background: white;
+            color: #212529;
+        }
+
+        .btn-submit {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 59, 59, 0.3);
+        }
+
+        /* --- INFO CARDS (NEW) --- */
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 59, 59, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-content h5 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .info-content p {
+            margin: 0;
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* --- MAP (ROUNDED DESIGN) --- */
+        .map-wrapper {
+            padding: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            margin-top: 30px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(80%) contrast(1.2);
+            transition: 0.5s;
+        }
+
+        .map-frame:hover iframe {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050505;
+            color: #777;
+            padding: 80px 0 40px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer h5 {
+            color: white;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        footer ul li a {
+            color: #777;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        footer ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: #1a1a1a;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: rotate(360deg);
+        }
+
+        .newsletter-input {
+            background: #1a1a1a;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            width: 70%;
+        }
+
+        .newsletter-btn {
+            background: #333;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid #1a1a1a;
+            margin-top: 50px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .contact-grid-container {
+                margin-top: 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .glass-panel {
+                margin-bottom: 30px;
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-mode">
+<body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-container">
-
-            <!-- LOGO: Image (White/Black) + Text -->
-            <a href="index.html" class="logo">
-                <!-- 
-                   1. This is the image source. 
-                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
-                -->
-                <img src="../assets/images/logo.png" width="200px" alt="Racing Car Logo">
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
             </a>
 
-            <div class="nav-right-wrapper" id="navWrapper">
-                <ul class="nav-links">
-                    <!-- DROPDOWN SECTION -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html" style="color:var(--accent-color)">Contact</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="login_signup.html">Login / Signup</a></li>
-                    <li><a href="404.html">404</a></li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
 
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
-                <div class="nav-controls">
-                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
-                        <i class="fas fa-sun"></i>
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
                     </button>
-                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
-                        <i class="fas fa-language"></i>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
                     </button>
                 </div>
             </div>
-
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
         </div>
-    </header>
-
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Get In Touch</h1>
-            <p>Ready to race? Have questions? We're here to help.</p>
+    </nav>
+    <!-- NEW HERO SECTION -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <span class="hero-tag">Pit Stop</span>
+            <h1 style="color: #e0e0e0;">Contact The <span>Crew</span></h1>
+            <p class="lead mb-0" style="opacity: 0.8;">We are ready to get you on the grid.</p>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section class="contact-section">
+    <!-- NEW GRID LAYOUT SECTION -->
+    <section class="contact-grid-container">
         <div class="container">
-            <div class="contact-grid">
+            <div class="row g-4">
 
-                <!-- Left Column: Info -->
-                <div class="contact-info">
-                    <div class="info-card">
-                        <h3>Visit Us</h3>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <!-- LEFT COLUMN: INFO -->
+                <div class="col-lg-5">
+                    <div class="glass-panel d-flex flex-column justify-content-center">
+                        <h3 class="mb-4">Headquarters</h3>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-location-arrow"></i></div>
                             <div class="info-content">
-                                <h4>Address</h4>
-                                <p>123 Speedway Blvd, Racing City, RC 90210</p>
+                                <h5>Track Location</h5>
+                                <p>123 Speedways Avenue,<br>Racing City, RC 54321</p>
                             </div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-phone-flip"></i></div>
                             <div class="info-content">
-                                <h4>Phone</h4>
+                                <h5>Phone Support</h5>
                                 <p>+1 (555) 123-4567</p>
                             </div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
                             <div class="info-content">
-                                <h4>Email</h4>
-                                <p>info@velocitykart.com</p>
+                                <h5>Email Us</h5>
+                                <p>crew@turbotrack.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="info-content">
+                                <h5>Operating Hours</h5>
+                                <p>Daily: 10:00 AM - 11:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Mini Map Preview inside Left Column -->
+                        <div class="map-wrapper mt-auto">
+                            <div class="map-frame" style="height: 200px;">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sus!4v1620302512888!5m2!1sen!2sus"
+                                    loading="lazy"></iframe>
                             </div>
                         </div>
                     </div>
-
-                    <div class="info-card">
-                        <h3>Opening Hours</h3>
-                        <p style="margin-bottom:0.5rem; display:flex; justify-content:space-between;">
-                            <strong>Mon - Thu:</strong> <span>12:00 PM - 10:00 PM</span>
-                        </p>
-                        <p style="margin-bottom:0.5rem; display:flex; justify-content:space-between;">
-                            <strong>Fri - Sun:</strong> <span>10:00 AM - 12:00 AM</span>
-                        </p>
-                        <p
-                            style="margin-bottom:0; color:var(--accent-color); font-weight:600; display:flex; justify-content:space-between;">
-                            <strong>Private Events:</strong> <span>24/7</span>
-                        </p>
-                    </div>
                 </div>
 
-                <!-- Right Column: Form -->
-                <div class="contact-form-wrapper">
-                    <div
-                        style="background-color: var(--bg-card); padding: 2.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                        <h3>Send a Message</h3>
-                        <form onsubmit="event.preventDefault(); alert('Message Sent!');">
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" placeholder="John Doe" required>
+                <!-- RIGHT COLUMN: FORM -->
+                <div class="col-lg-7">
+                    <div class="glass-panel">
+                        <h3 class="mb-4">Send Transmission</h3>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Driver Name</label>
+                                    <input type="text" class="form-control" placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" placeholder="john@example.com" required>
-                            </div>
-                            <div class="form-group">
+
+                            <div class="mb-3">
                                 <label class="form-label">Subject</label>
                                 <select class="form-control">
                                     <option>General Inquiry</option>
-                                    <option>Booking a Session</option>
-                                    <option>Corporate Events</option>
+                                    <option>Track Booking</option>
+                                    <option>Corporate Event</option>
                                     <option>Technical Support</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+
+                            <div class="mb-4">
                                 <label class="form-label">Message</label>
-                                <textarea class="form-control" placeholder="Tell us what you need..."></textarea>
+                                <textarea class="form-control" rows="6"
+                                    placeholder="Tell us what you need..."></textarea>
                             </div>
-                            <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+
+                            <button type="submit" class="btn-submit">Transmit Message <i
+                                    class="fas fa-paper-plane ms-2"></i></button>
                         </form>
                     </div>
                 </div>
@@ -157,99 +508,120 @@
         </div>
     </section>
 
-    <!-- MAP SECTION -->
-    <section class="map-section">
-        <!-- Using a generic placeholder map centered on a racing circuit area -->
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537353153169!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvoy%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1635959481000!5m2!1sen!2sin"
-            class="map-frame" allowfullscreen="" loading="lazy">
-        </iframe>
+    <!-- LARGE MAP SECTION (NEW DESIGN) -->
+    <section style="padding-bottom: 80px;">
+        <div class="container">
+            <div class="map-wrapper">
+                <div class="map-frame">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sus!4v1620302512888!5m2!1sen!2sus"
+                        loading="lazy" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <a href="#" class="logo" style="font-size: 2rem;">VELO<span>CITY</span></a>
-            <p style="color: #888; margin-top: 1rem;">The ultimate destination for speed enthusiasts.</p>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Velocity Karting. All rights reserved.</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a class="navbar-brand text-white mb-3 d-block" href="#">
+                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span> -->
+                        <img src="../assets/images/logo.png" width="200px" alt="">
+
+                    </a>
+                    <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#">Kart Rental</a></li>
+                        <li><a href="#">Track Days</a></li>
+                        <li><a href="#">Parties</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for latest news and race schedules.</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-secondary bg-dark text-white"
+                            placeholder="Your Email">
+                        <button class="btn btn-danger" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright text-white-50">
+                <p class="mb-0">&copy; 2026 Go-Kart Racing Track. All Rights Reserved. | Designed for Speed.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
 
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
+            // --- Dark Mode Logic ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme);
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
 
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
+            function setTheme(theme) {
+                htmlElement.setAttribute('data-bs-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            }
 
-                if (body.classList.contains('light-mode')) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
+            // --- RTL / LTR Logic ---
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            setDirection(currentDir);
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                setDirection(newDir);
+            });
+
+            function setDirection(dir) {
+                htmlElement.setAttribute('dir', dir);
+                localStorage.setItem('dir', dir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (dir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            }
+
+            // --- Navbar Shadow Logic ---
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
                 } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
+                    navbar.style.boxShadow = 'none';
                 }
             });
 
-            // --- RTL Toggling ---
-            const rtlToggle = document.getElementById('rtlToggle');
-            rtlToggle.addEventListener('click', () => {
-                body.classList.toggle('rtl');
-                const isRtl = body.classList.contains('rtl');
-                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
-            });
-
-            // --- Mobile Menu ---
-            const hamburger = document.getElementById('hamburger');
-            const navWrapper = document.getElementById('navWrapper');
-
-            hamburger.addEventListener('click', () => {
-                navWrapper.classList.toggle('active');
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navWrapper.classList.remove('active');
-                });
-            });
-
-            // --- Toast Utility ---
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.textContent = message;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = 'var(--accent-color)';
-                toast.style.color = 'var(--bg-primary)';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '5px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '2000';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-
-                document.body.appendChild(toast);
-
-                void toast.offsetWidth;
-                toast.style.opacity = '1';
-
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 300);
-                }, 2000);
-            }
         });
     </script>
 </body>

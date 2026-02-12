@@ -1,602 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TurboKart - Racing Dashboard</title>
+    <title>Driver Dashboard | TurboTrack</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* --- CSS VARIABLES & THEMES --- */
         :root {
-            /* Light Mode Colors */
-            --primary: #e63946;
-            /* Racing Red */
-            --secondary: #1d3557;
-            /* Deep Blue */
-            --accent: #f4a261;
-            /* Saffron/Orange */
-            --success: #2a9d8f;
-            --bg-body: #f1f5f9;
-            --bg-panel: #ffffff;
-            --bg-nav: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --slot-available: #e2e8f0;
-            --slot-selected: #1d3557;
-            --slot-booked: #cbd5e1;
-        }
-
-        /* Dark Mode Override */
-        body.dark-mode {
-            --bg-body: #0f172a;
-            --bg-panel: #1e293b;
-            --bg-nav: #1e293b;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-            --slot-available: #334155;
-            --slot-selected: #e63946;
-            --slot-booked: #1e293b;
-        }
-
-        /* --- GLOBAL RESET & TYPOGRAPHY --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --sidebar-width: 280px;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        [data-bs-theme="light"] body {
+            background-color: #f4f6f9;
+            color: #212529;
         }
 
-        button {
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
         }
 
-        ul {
-            list-style: none;
+        /* --- TOP NAVBAR --- */
+        .top-navbar {
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* --- ICONS (SVG Helpers) --- */
-        .icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            display: inline-block;
-            vertical-align: middle;
+        [data-bs-theme="light"] .top-navbar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
-        /* --- SIDEBAR NAVIGATION --- */
-        .sidebar {
-            width: 260px;
-            background-color: var(--bg-nav);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            z-index: 10;
-        }
-
-        .brand {
+        /* --- UPDATED LOGO STYLES --- */
+        .brand-logo {
+            font-weight: 900;
             font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
+            letter-spacing: -1px;
+            color: #ffffff !important;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 3rem;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.3s;
         }
 
-        .nav-links {
-            flex: 1;
+        .brand-logo:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(255, 59, 59, 0.6);
         }
 
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            color: var(--text-muted);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* Logo Icon and Span (TRACK) are now RED */
+        .brand-logo i,
+        .brand-logo span {
+            color: var(--primary-color) !important;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            background-color: var(--bg-body);
-            color: var(--primary);
+        .brand-logo i {
+            margin-right: 8px;
+            font-size: 1.2rem;
         }
 
-        .nav-item .icon {
-            margin-right: 12px;
-        }
-
-        .user-mini {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .avatar {
+        .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--primary-color);
+        }
+
+        /* --- UPDATED CONTROLS (HOVER EFFECTS) --- */
+        .nav-control-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-left: 10px;
+        }
+
+        .nav-control-btn i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .rtl-text {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        /* RTL Button Specifics */
+        #rtlToggle {
+            border-radius: 30px;
+            width: auto;
+            padding: 0 15px;
+        }
+
+        #rtlToggle .rtl-text {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        /* Hover State for Buttons */
+        .nav-control-btn:hover {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
+        }
+
+        .nav-control-btn:hover i,
+        .nav-control-btn:hover .rtl-text {
+            color: white !important;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: #0f0f0f;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 1.5rem;
+            z-index: 999;
+            overflow-y: auto;
+            transition: transform 0.3s;
+        }
+
+        [data-bs-theme="light"] .sidebar {
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .nav-link-custom {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-link-custom i {
+            width: 25px;
+            color: var(--primary-color);
+        }
+
+        .nav-link-custom:hover,
+        .nav-link-custom.active {
+            background: rgba(255, 59, 59, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-link-custom.active {
+            border-left: 4px solid var(--primary-color);
         }
 
         /* --- MAIN CONTENT AREA --- */
         .main-content {
-            flex: 1;
-            overflow-y: auto;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* --- HEADER --- */
-        header {
-            padding: 1rem 2rem;
-            background-color: var(--bg-nav);
-            /* Sticky feel */
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .theme-toggle {
-            background: var(--bg-body);
-            border: 1px solid var(--border);
-            padding: 8px;
-            border-radius: 50%;
-            color: var(--text-main);
-        }
-
-        /* --- DASHBOARD SECTIONS --- */
-        .section-container {
+            margin-left: var(--sidebar-width);
+            margin-top: 70px;
             padding: 2rem;
-            display: none;
-            /* Hidden by default */
-            animation: fadeIn 0.4s ease;
+            transition: margin-left 0.3s;
         }
 
-        .section-container.active {
-            display: block;
+        /* --- CARDS --- */
+        .dash-card {
+            background: var(--bs-body-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .dash-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Cards & Grid Layouts */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* --- DASHBOARD HOME --- */
-        .stat-card h3 {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        [data-bs-theme="light"] .dash-card {
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
-            margin: 10px 0;
-            color: var(--text-main);
+            font-family: var(--font-heading);
+            color: var(--primary-color);
         }
 
-        .stat-trend {
-            font-size: 0.85rem;
-            color: var(--success);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .track-status {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: bold;
-        }
-
-        .blink {
-            width: 12px;
-            height: 12px;
-            background: #00ff00;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-                box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
-            }
-
-            70% {
-                opacity: 0;
-                box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* --- BOOKING SYSTEM --- */
-        .booking-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        .time-slots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
-            margin-top: 1rem;
-        }
-
-        .slot {
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            background: var(--slot-available);
-            cursor: pointer;
+        .stat-label {
+            color: #888;
             font-size: 0.9rem;
-            font-weight: 600;
-            user-select: none;
-        }
-
-        .slot:hover:not(.booked) {
-            filter: brightness(0.95);
-        }
-
-        .slot.selected {
-            background: var(--slot-selected);
-            color: white;
-        }
-
-        .slot.booked {
-            background: var(--slot-booked);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            text-decoration: line-through;
-            opacity: 0.7;
-        }
-
-        .booking-summary {
-            background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .summary-total {
-            border-top: 1px solid var(--border);
-            margin-top: 1rem;
-            padding-top: 1rem;
-            font-weight: 800;
-            font-size: 1.2rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            font-weight: 700;
-            margin-top: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            /* Racing Shape */
         }
 
-        .btn-primary:hover {
-            background: #d62828;
-        }
-
-        .kart-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .kart-option {
-            flex: 1;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 10px;
+        /* --- TIME SLOTS --- */
+        .time-slot {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
             text-align: center;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: 0.3s;
         }
 
-        .kart-option.active {
-            border-color: var(--primary);
-            background: rgba(230, 57, 70, 0.05);
-            color: var(--primary);
+        [data-bs-theme="light"] .time-slot {
+            background: white;
+            border-color: #ddd;
         }
 
-        .kart-option h4 {
-            font-size: 0.9rem;
-            margin-bottom: 4px;
+        .time-slot:hover {
+            border-color: var(--primary-color);
+            background: rgba(255, 59, 59, 0.05);
         }
 
-        .kart-option p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .time-slot.booked {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: transparent;
+            cursor: not-allowed;
+            opacity: 0.5;
         }
 
         /* --- LEADERBOARD --- */
-        .leaderboard-tabs {
+        .rank-badge {
+            width: 30px;
+            height: 30px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid transparent;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        .tab-btn.active {
-            border-bottom-color: var(--primary);
-            color: var(--text-main);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-            padding: 1rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background-color: var(--bg-body);
-        }
-
-        .rank {
-            font-weight: 800;
-            width: 50px;
-            display: inline-block;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .rank-1 {
-            color: #ffd700;
-            font-size: 1.2rem;
+            background: #ffd700;
+            color: #000;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
 
-        /* Gold */
         .rank-2 {
-            color: #c0c0c0;
-            font-size: 1.1rem;
+            background: #c0c0c0;
+            color: #000;
         }
 
-        /* Silver */
         .rank-3 {
-            color: #cd7f32;
-            font-size: 1.1rem;
+            background: #cd7f32;
+            color: #fff;
         }
 
-        /* Bronze */
-
-        .lap-time {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            letter-spacing: -1px;
+        /* --- PACKAGE CARDS --- */
+        .pkg-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 0;
+            overflow: hidden;
+            transition: 0.3s;
         }
 
-        /* --- PACKAGES --- */
-        .package-card {
-            border-top: 4px solid var(--primary);
-            display: flex;
-            flex-direction: column;
+        [data-bs-theme="light"] .pkg-card {
+            background: white;
         }
 
-        .package-price {
-            font-size: 2rem;
+        .pkg-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .pkg-img {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- UPDATED AMOUNT TEXT COLOR --- */
+        .pkg-amount {
+            font-size: 1.5rem;
             font-weight: 800;
-            color: var(--text-main);
-            margin: 1rem 0;
+            color: var(--primary-color);
+            /* Changed to Red */
+            text-shadow: 0 2px 10px rgba(255, 59, 59, 0.3);
+            /* Added Glow */
         }
 
-        .package-features {
-            margin-bottom: 2rem;
-            flex: 1;
-        }
-
-        .package-features li {
-            margin-bottom: 8px;
-            display: flex;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .package-features li svg {
-            fill: var(--success);
-            width: 16px;
-        }
-
-        /* --- TOAST & MODAL --- */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--secondary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            transform: translateY(150%);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                height: auto;
-                min-height: 100vh;
-            }
-
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
             .sidebar {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                padding: 1rem;
-                overflow-x: auto;
+                transform: translateX(-100%);
+                top: 0;
+                z-index: 1001;
+                padding-top: 80px;
             }
 
-            .brand {
-                margin-bottom: 0;
-                font-size: 1.2rem;
+            .sidebar.show {
+                transform: translateX(0);
             }
 
-            .nav-links {
-                display: flex;
-                gap: 10px;
-            }
-
-            .nav-item span {
-                display: none;
-            }
-
-            /* Hide text on mobile */
-            .nav-item .icon {
-                margin-right: 0;
-                font-size: 1.2rem;
-            }
-
-            .user-mini {
-                display: none;
-            }
-
-            .booking-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .booking-summary {
-                position: static;
-                margin-top: 1.5rem;
+            .main-content {
+                margin-left: 0;
             }
         }
     </style>
@@ -604,526 +360,497 @@
 
 <body>
 
-    <!-- SIDEBAR NAVIGATION -->
-    <nav class="sidebar">
-        <div class="brand">
-            <svg class="icon" viewBox="0 0 24 24" style="fill:var(--primary); width:28px; height:28px;">
-                <path
-                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z" />
-            </svg>
-            TURBOKART
-        </div>
-        <ul class="nav-links">
-            <li class="nav-item active" onclick="showSection('dashboard', this)">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-                </svg>
-                <span>Dashboard</span>
-            </li>
-            <li class="nav-item" onclick="showSection('booking', this)">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path
-                        d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
-                </svg>
-                <span>Book Track</span>
-            </li>
-            <li class="nav-item" onclick="showSection('leaderboard', this)">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path d="M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z" />
-                </svg>
-                <span>Leaderboard</span>
-            </li>
-            <li class="nav-item" onclick="showSection('packages', this)">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                </svg>
-                <span>Packages</span>
-            </li>
-        </ul>
-        <div class="user-mini">
-            <img src="https://picsum.photos/seed/driver1/100/100" alt="User" class="avatar">
-            <div>
-                <div style="font-weight:700; font-size:0.9rem;">Alex Speed</div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Pro License</div>
+    <!-- TOP NAVBAR -->
+    <nav class="top-navbar d-flex justify-content-between align-items-center">
+        <!-- Mobile Toggle -->
+        <button class="btn btn-outline-light d-lg-none me-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+            <!-- <i class="fa-solid fa-flag-checkered"></i>TURBO<span>TRACK</span> -->
+            <img src="../assets/images/logo.png" width="200px" alt="">
+        </a>
+
+        <!-- Right Side Controls -->
+        <div class="d-flex align-items-center">
+
+            <!-- Theme/RTL Buttons -->
+            <div class="d-flex">
+                <button id="themeToggle" class="nav-control-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="rtlToggle" class="nav-control-btn" title="Toggle Direction">
+                    <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
+                </button>
+            </div>
+
+            <!-- User Profile & Logout Dropdown -->
+            <div class="dropdown ms-3">
+                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="d-none d-md-inline me-2 fw-bold text-white">Alex Driver</span>
+                    <img src="../assets/images/charc-6.jpg" class="user-avatar" alt="User">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" aria-labelledby="userDropdown"
+                    style="background: var(--bs-body-bg); min-width: 200px;">
+                    <li><a class="dropdown-item" href="#overview"><i class="fas fa-user me-2 text-muted"></i> My
+                            Profile</a></li>
+                    <li><a class="dropdown-item" href="#settings"><i class="fas fa-cog me-2 text-muted"></i>
+                            Settings</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item text-danger" href="index.html"><i class="fas fa-sign-out-alt me-2"></i>
+                            Logout</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="sidebar">
+        <ul class="list-unstyled">
+            <li><a href="#overview" class="nav-link-custom active"><i class="fas fa-tachometer-alt"></i> Overview</a>
+            </li>
+            <li><a href="#booking" class="nav-link-custom"><i class="fas fa-calendar-alt"></i> Booking Slots</a></li>
+            <li><a href="#leaderboard" class="nav-link-custom"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+            <li><a href="#packages" class="nav-link-custom"><i class="fas fa-users"></i> Group Events</a></li>
+            <li><a href="#history" class="nav-link-custom"><i class="fas fa-history"></i> Race History</a></li>
+            <li><a href="#settings" class="nav-link-custom"><i class="fas fa-wallet"></i> Payments</a></li>
+        </ul>
+
+        <!-- Support Box -->
+        <div class="mt-4 p-3 rounded" style="background: rgba(255,59,59,0.1); border: 1px solid var(--primary-color);">
+            <p class="small mb-2">Need help with a corporate booking?</p>
+            <a href="#" class="btn btn-sm btn-danger w-100 rounded-0">Contact Crew</a>
+        </div>
+    </aside>
+
     <!-- MAIN CONTENT -->
     <main class="main-content">
-        <!-- Header -->
-        <header>
-            <h1 class="page-title" id="page-title">Dashboard</h1>
-            <div class="header-actions">
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
-                    <svg class="icon" viewBox="0 0 24 24" id="theme-icon">
-                        <!-- Sun/Moon icon handled by JS or CSS switching -->
-                        <path
-                            d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />
-                    </svg>
-                </button>
-            </div>
-        </header>
+        <div class="container-fluid">
 
-        <!-- DASHBOARD SECTION -->
-        <section id="dashboard" class="section-container active">
-            <div class="track-status card" style="margin-bottom: 2rem;">
-                <div>
-                    <h2 style="margin-bottom: 5px;">Track Status: <span style="text-decoration: underline;">GREEN
-                            FLAG</span></h2>
-                    <p style="opacity: 0.9;">All circuits are operational and dry.</p>
-                </div>
-                <div class="status-indicator">
-                    <div class="blink"></div> LIVE
-                </div>
-            </div>
-
-            <div class="grid-3">
-                <div class="card stat-card">
-                    <h3>Next Race</h3>
-                    <div class="stat-value" id="countdown">00:14:50</div>
-                    <div class="stat-trend">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path
-                                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-                        </svg>
-                        Qualifying starting soon
-                    </div>
-                </div>
-                <div class="card stat-card">
-                    <h3>Your Best Lap (Circuit A)</h3>
-                    <div class="stat-value">48.21s</div>
-                    <div class="stat-trend" style="color: var(--primary);">
-                        Rank: #42 on Global Board
-                    </div>
-                </div>
-                <div class="card stat-card">
-                    <h3>Active Racers</h3>
-                    <div class="stat-value">12</div>
-                    <div class="stat-trend">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path
-                                d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                        </svg>
-                        4 slots remaining this hour
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 2rem;">
-                <h3 style="margin-bottom: 1rem;">Recent Activity</h3>
-                <ul style="font-size: 0.9rem; color: var(--text-muted);">
-                    <li
-                        style="padding: 10px 0; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between;">
-                        <span><strong>Endurance League</strong> - Heat 4 finished</span>
-                        <span>10 mins ago</span>
-                    </li>
-                    <li
-                        style="padding: 10px 0; border-bottom: 1px solid var(--border); display:flex; justify-content:space-between;">
-                        <span><strong>Corporate Event</strong> - "TechCorp" checked in</span>
-                        <span>25 mins ago</span>
-                    </li>
-                    <li style="padding: 10px 0; display:flex; justify-content:space-between;">
-                        <span><strong>Maintenance</strong> - Track B cleared</span>
-                        <span>1 hour ago</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- BOOKING SECTION -->
-        <section id="booking" class="section-container">
-            <div class="booking-layout">
-                <!-- Left: Calendar & Slots -->
-                <div>
-                    <h2 style="margin-bottom: 1rem;">Select Time Slot</h2>
-
-                    <!-- Date Strip -->
-                    <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;">
-                        <div class="card"
-                            style="padding: 10px; min-width: 80px; text-align: center; border: 2px solid var(--primary);">
-                            <div style="font-weight: bold;">Today</div>
-                            <div style="color: var(--text-muted); font-size: 0.8rem;">Oct 24</div>
-                        </div>
-                        <div class="card" style="padding: 10px; min-width: 80px; text-align: center; opacity: 0.7;">
-                            <div style="font-weight: bold;">Tue</div>
-                            <div style="color: var(--text-muted); font-size: 0.8rem;">Oct 25</div>
-                        </div>
-                        <div class="card" style="padding: 10px; min-width: 80px; text-align: center; opacity: 0.7;">
-                            <div style="font-weight: bold;">Wed</div>
-                            <div style="color: var(--text-muted); font-size: 0.8rem;">Oct 26</div>
-                        </div>
-                        <div class="card" style="padding: 10px; min-width: 80px; text-align: center; opacity: 0.7;">
-                            <div style="font-weight: bold;">Thu</div>
-                            <div style="color: var(--text-muted); font-size: 0.8rem;">Oct 27</div>
+            <!-- SECTION 1: OVERVIEW -->
+            <section id="overview" class="mb-5">
+                <h3 class="mb-4">Welcome back, Alex <span class="text-primary-custom">.</span></h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="dash-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="stat-label">Total Laps</p>
+                                    <div class="stat-value">1,240</div>
+                                </div>
+                                <i class="fas fa-road fa-2x text-muted opacity-25"></i>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Kart Type -->
-                    <div class="kart-selector">
-                        <div class="kart-option active" onclick="selectKart('junior', 25, this)">
-                            <h4>Junior Kart</h4>
-                            <p>$25 / heat</p>
-                        </div>
-                        <div class="kart-option" onclick="selectKart('pro', 35, this)">
-                            <h4>Pro Kart (20hp)</h4>
-                            <p>$35 / heat</p>
-                        </div>
-                        <div class="kart-option" onclick="selectKart('dual', 50, this)">
-                            <h4>Dual Kart</h4>
-                            <p>$50 / heat</p>
+                    <div class="col-md-4">
+                        <div class="dash-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="stat-label">Best Lap Time</p>
+                                    <div class="stat-value">42.5s</div>
+                                </div>
+                                <i class="fas fa-stopwatch fa-2x text-muted opacity-25"></i>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Time Grid -->
-                    <h3 style="font-size: 1rem; color: var(--text-muted);">Available Heats (15 mins)</h3>
-                    <div class="time-slots-grid" id="slots-grid">
-                        <!-- JS Generated Slots -->
+                    <div class="col-md-4">
+                        <div class="dash-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="stat-label">Next Booking</p>
+                                    <div class="stat-value text-success" style="font-size: 1.5rem;">Today</div>
+                                </div>
+                                <i class="fas fa-calendar-check fa-2x text-muted opacity-25"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right: Summary -->
-                <div>
-                    <div class="booking-summary">
-                        <h3 style="margin-bottom: 1rem;">Booking Summary</h3>
-                        <div class="summary-row">
-                            <span>Kart Type:</span>
-                            <span id="summary-type" style="font-weight: 600;">Junior Kart</span>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="dash-card">
+                            <h5 class="mb-4">Recent Activity</h5>
+                            <div class="table-responsive">
+                                <table class="table table-borderless align-middle" style="color: inherit;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: #888;">
+                                            <th>Track</th>
+                                            <th>Kart</th>
+                                            <th>Date</th>
+                                            <th>Laps</th>
+                                            <th>Best Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fas fa-flag-checkered text-primary-custom me-2"></i>Main
+                                                Circuit</td>
+                                            <td>Pro Kart #7</td>
+                                            <td>Oct 24, 2023</td>
+                                            <td>15</td>
+                                            <td class="fw-bold">45.2s</td>
+                                        </tr>
+                                        <tr>
+                                            <td><i class="fas fa-flag-checkered text-primary-custom me-2"></i>Technical
+                                                Loop</td>
+                                            <td>Super Kart #2</td>
+                                            <td>Oct 20, 2023</td>
+                                            <td>20</td>
+                                            <td class="fw-bold">38.9s</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="summary-row">
-                            <span>Slots Selected:</span>
-                            <span id="summary-count">0</span>
-                        </div>
-                        <div class="summary-total">
-                            <span>Total</span>
-                            <span id="summary-total">$0</span>
-                        </div>
-                        <button class="btn-primary" onclick="confirmBooking()">Confirm Booking</button>
-                        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 10px;">
-                            By clicking confirm, you agree to our track safety rules.
-                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- LEADERBOARD SECTION -->
-        <section id="leaderboard" class="section-container">
-            <div class="leaderboard-tabs">
-                <button class="tab-btn active" onclick="switchLeaderboard('circuit-a', this)">Circuit A - Grand
-                    Prix</button>
-                <button class="tab-btn" onclick="switchLeaderboard('circuit-b', this)">Circuit B - Sprint</button>
-            </div>
+            <!-- SECTION 2: BOOKING -->
+            <section id="booking" class="mb-5">
+                <h4 class="mb-4 text-primary-custom"><i class="fas fa-clock me-2"></i>Book a Heat</h4>
+                <div class="dash-card">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Select Date</label>
+                            <input type="date" class="form-control bg-transparent text-body border-secondary">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Track Configuration</label>
+                            <select class="form-select bg-transparent text-body border-secondary">
+                                <option>Main Circuit (1500m)</option>
+                                <option>Technical Loop (800m)</option>
+                                <option>Full Layout (2300m)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-muted">Kart Type</label>
+                            <select class="form-select bg-transparent text-body border-secondary">
+                                <option>Pro Kart (270cc)</option>
+                                <option>Super Kart (390cc)</option>
+                                <option>Double Kart</option>
+                            </select>
+                        </div>
+                    </div>
 
-            <div class="card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="10%">Rank</th>
-                            <th width="40%">Driver</th>
-                            <th width="25%">Best Lap</th>
-                            <th width="25%">Gap to 1st</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboard-body">
-                        <!-- JS Populated -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                    <h6 class="mb-3 mt-4">Available Time Slots</h6>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot">
+                                <div class="fw-bold fs-5">09:00 AM</div>
+                                <small class="text-success">Available</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot booked">
+                                <div class="fw-bold fs-5">10:30 AM</div>
+                                <small class="text-danger">Booked</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot">
+                                <div class="fw-bold fs-5">12:00 PM</div>
+                                <small class="text-success">Available</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot booked">
+                                <div class="fw-bold fs-5">01:30 PM</div>
+                                <small class="text-danger">Booked</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot">
+                                <div class="fw-bold fs-5">03:00 PM</div>
+                                <small class="text-success">Available</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot">
+                                <div class="fw-bold fs-5">04:30 PM</div>
+                                <small class="text-success">Available</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot booked">
+                                <div class="fw-bold fs-5">06:00 PM</div>
+                                <small class="text-danger">Booked</small>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="time-slot">
+                                <div class="fw-bold fs-5">08:00 PM</div>
+                                <small class="text-success">Available</small>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- PACKAGES SECTION -->
-        <section id="packages" class="section-container">
-            <div class="grid-3">
-                <!-- Package 1 -->
-                <div class="card package-card">
-                    <div
-                        style="background: var(--secondary); color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; align-self: flex-start; margin-bottom: 1rem;">
-                        POPULAR</div>
-                    <h3>Arrive & Drive</h3>
-                    <div class="package-price">$25</div>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Perfect for beginners. Just show up and
-                        race.</p>
-                    <ul class="package-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> 1 x 15 Minute Heat</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Safety Briefing</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Gear Included</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Lap Time Printout</li>
-                    </ul>
-                    <button class="btn-primary" style="background: var(--secondary);">Book Now</button>
+                    <div class="text-end mt-4">
+                        <button class="btn btn-danger px-5 rounded-pill">Confirm Booking ($25.00)</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: LEADERBOARD -->
+            <section id="leaderboard" class="mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="text-primary-custom"><i class="fas fa-trophy me-2"></i>Season Leaderboard</h4>
+                    <select class="form-select w-auto bg-transparent text-body border-secondary">
+                        <option>This Season</option>
+                        <option>All Time</option>
+                    </select>
                 </div>
 
-                <!-- Package 2 -->
-                <div class="card package-card">
-                    <h3>Sprint League</h3>
-                    <div class="package-price">$80</div>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Feel the adrenaline with multiple heats.
-                    </p>
-                    <ul class="package-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> 3 x 15 Minute Heats</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Full Safety Gear</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Detailed Performance Report</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Podium Ceremony</li>
-                    </ul>
-                    <button class="btn-primary">Book Now</button>
+                <div class="dash-card p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="color: inherit;">
+                            <thead class="bg-opacity-10 bg-secondary">
+                                <tr>
+                                    <th class="ps-4">Rank</th>
+                                    <th>Driver</th>
+                                    <th class="text-center">Total Laps</th>
+                                    <th class="text-end pe-4">Best Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fw-bold" style="background: rgba(255, 255, 255, 0.05);">
+                                    <td class="ps-4">
+                                        <div class="rank-badge rank-1">1</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="../assets/images/charc-5.jpg"
+                                                class="rounded-circle me-2" width="30" height="30">
+                                            Mark Johnson
+                                        </div>
+                                    </td>
+                                    <td class="text-center">450</td>
+                                    <td class="text-end pe-4">38.4s</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="rank-badge rank-2">2</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="../assets/images/charc-3.jpg"
+                                                class="rounded-circle me-2" width="30" height="30">
+                                            Sarah Connor
+                                        </div>
+                                    </td>
+                                    <td class="text-center">420</td>
+                                    <td class="text-end pe-4">39.1s</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="rank-badge rank-3">3</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="../assets/images/charc-2.jpg"
+                                                class="rounded-circle me-2" width="30" height="30">
+                                            Mike Speed
+                                        </div>
+                                    </td>
+                                    <td class="text-center">390</td>
+                                    <td class="text-end pe-4">40.2s</td>
+                                </tr>
+                                <tr class="table-active">
+                                    <td class="ps-4">
+                                        <div class="rank-badge">14</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="../assets/images/charc-1.jpg"
+                                                class="rounded-circle me-2" width="30" height="30">
+                                            You
+                                        </div>
+                                    </td>
+                                    <td class="text-center">120</td>
+                                    <td class="text-end pe-4">45.2s</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </section>
 
-                <!-- Package 3 -->
-                <div class="card package-card">
-                    <div
-                        style="background: var(--accent); color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; align-self: flex-start; margin-bottom: 1rem;">
-                        GROUPS</div>
-                    <h3>Grand Prix Event</h3>
-                    <div class="package-price">$300</div>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">The ultimate racing experience for
-                        groups (up to 8).</p>
-                    <ul class="package-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Practice + Qualifying + Final</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Private Room</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Medals for Top 3</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                            </svg> Bottle of Champagne</li>
-                    </ul>
-                    <button class="btn-primary" style="background: var(--accent);">Inquire Now</button>
+            <!-- SECTION 4: PACKAGES (UPDATED AMOUNT COLOR) -->
+            <section id="packages" class="mb-5">
+                <h4 class="mb-4 text-primary-custom"><i class="fas fa-users me-2"></i>Group & Event Packages</h4>
+                <div class="row g-4">
+                    <!-- Package 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="pkg-card">
+                            <div class="pkg-img"
+                                style="background-image: url('../assets/images/car-4.jpg');"></div>
+                            <div class="p-4">
+                                <h5>Birthday Bash</h5>
+                                <p class="text-muted small mb-3">Includes party room, pizza, and dedicated track time
+                                    for kids.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
+                                    <span class="pkg-amount">$300</span>
+                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Package 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="pkg-card" style="border: 1px solid var(--primary-color);">
+                            <div
+                                class="position-absolute top-0 end-0 bg-danger text-white px-3 py-1 rounded-bottom-start small fw-bold">
+                                POPULAR</div>
+                            <div class="pkg-img"
+                                style="background-image: url('../assets/images/car-2.jpg');">
+                            </div>
+                            <div class="p-4">
+                                <h5>Corporate Challenge</h5>
+                                <p class="text-muted small mb-3">Perfect for team building. Includes Grand Prix format
+                                    and trophies.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
+                                    <span class="pkg-amount">$850</span>
+                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Package 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="pkg-card">
+                            <div class="pkg-img"
+                                style="background-image: url('../assets/images/car-1.jpg');"></div>
+                            <div class="p-4">
+                                <h5>Stag / Hen Party</h5>
+                                <p class="text-muted small mb-3">Includes party room, pizza, and dedicated track time
+                                    for kids.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
+                                    <span class="pkg-amount">$450</span>
+                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- SECTION 5: HISTORY -->
+            <section id="history" class="mb-5">
+                <h4 class="mb-4 text-primary-custom"><i class="fas fa-history me-2"></i>Race History</h4>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="dash-card position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-success"></div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">Oct 24, 2023</span>
+                                <span class="badge bg-success">Finished</span>
+                            </div>
+                            <p class="text-muted small mb-2">Main Circuit - Heat 1</p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span><i class="fas fa-flag-checkered me-1 text-primary-custom"></i> 15 Laps</span>
+                                <span class="fw-bold">42.5s Avg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="dash-card position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-success"></div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">Oct 18, 2023</span>
+                                <span class="badge bg-success">Finished</span>
+                            </div>
+                            <p class="text-muted small mb-2">Technical Loop - Heat 2</p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span><i class="fas fa-flag-checkered me-1 text-primary-custom"></i> 20 Laps</span>
+                                <span class="fw-bold">38.9s Avg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="dash-card position-relative overflow-hidden opacity-50">
+                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-danger"></div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">Oct 10, 2023</span>
+                                <span class="badge bg-danger">Cancelled</span>
+                            </div>
+                            <p class="text-muted small mb-2">Night League - Heat 3</p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span class="text-muted small">Reason: Heavy Rain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
     </main>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="toast">
-        Booking Confirmed! See you at the track.
-    </div>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Custom JS -->
     <script>
-        /* --- STATE MANAGEMENT --- */
-        const state = {
-            currentKart: { type: 'junior', price: 25, label: 'Junior Kart' },
-            selectedSlots: [],
-            leaderboardData: {
-                'circuit-a': [
-                    { name: "Lewis H.", lap: "48.21", gap: "+0.000" },
-                    { name: "Max V.", lap: "48.45", gap: "+0.240" },
-                    { name: "Seb L.", lap: "48.90", gap: "+0.690" },
-                    { name: "Charles L.", lap: "49.12", gap: "+0.910" },
-                    { name: "Fernando A.", lap: "49.50", gap: "+1.290" },
-                ],
-                'circuit-b': [
-                    { name: "Alex Speed", lap: "35.10", gap: "+0.000" },
-                    { name: "Jenson B.", lap: "35.22", gap: "+0.120" },
-                    { name: "Kimi R.", lap: "35.40", gap: "+0.300" },
-                    { name: "Nico R.", lap: "36.01", gap: "+0.910" },
-                    { name: "Daniel R.", lap: "36.15", gap: "+1.050" },
-                ]
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
 
-        /* --- NAVIGATION LOGIC --- */
-        function showSection(sectionId, navItem) {
-            // Hide all sections
-            document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
-            // Show target section
-            document.getElementById(sectionId).classList.add('active');
-
-            // Update Nav UI
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            navItem.classList.add('active');
-
-            // Update Header Title
-            const titles = {
-                'dashboard': 'Dashboard',
-                'booking': 'Track Booking',
-                'leaderboard': 'Leaderboards',
-                'packages': 'Group Packages'
-            };
-            document.getElementById('page-title').innerText = titles[sectionId];
-
-            // Initial render if needed
-            if (sectionId === 'booking' && document.getElementById('slots-grid').innerHTML === '') {
-                renderSlots();
-            }
-            if (sectionId === 'leaderboard') {
-                renderLeaderboard('circuit-a'); // Default
-            }
-        }
-
-        /* --- THEME TOGGLE --- */
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            // Switch Icon path (Sun vs Moon) simply by swapping opacity or visibility if using SVGs
-            // For simplicity, we just rely on the CSS fill property and color change, 
-            // but let's visually indicate via the icon color changing.
-        }
-
-        /* --- BOOKING SYSTEM --- */
-        function renderSlots() {
-            const grid = document.getElementById('slots-grid');
-            grid.innerHTML = '';
-
-            // Generate slots from 9:00 to 18:00
-            const startHour = 9;
-            const endHour = 18;
-            const bookedTimes = ["10:00", "10:15", "14:30", "14:45"]; // Mock booked data
-
-            for (let h = startHour; h < endHour; h++) {
-                for (let m = 0; m < 60; m += 15) {
-                    const timeString = `${h}:${m === 0 ? '00' : m}`;
-                    const isBooked = bookedTimes.includes(timeString);
-
-                    const div = document.createElement('div');
-                    div.className = `slot ${isBooked ? 'booked' : ''}`;
-                    div.innerText = timeString;
-
-                    if (!isBooked) {
-                        div.onclick = () => toggleSlot(timeString, div);
-                    }
-
-                    grid.appendChild(div);
-                }
-            }
-        }
-
-        function selectKart(type, price, element) {
-            state.currentKart = { type, price, label: element.querySelector('h4').innerText };
-
-            // UI Update
-            document.querySelectorAll('.kart-option').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-
-            updateBookingSummary();
-        }
-
-        function toggleSlot(time, element) {
-            const index = state.selectedSlots.indexOf(time);
-
-            if (index === -1) {
-                // Add
-                state.selectedSlots.push(time);
-                element.classList.add('selected');
-            } else {
-                // Remove
-                state.selectedSlots.splice(index, 1);
-                element.classList.remove('selected');
-            }
-            updateBookingSummary();
-        }
-
-        function updateBookingSummary() {
-            document.getElementById('summary-type').innerText = state.currentKart.label;
-            document.getElementById('summary-count').innerText = state.selectedSlots.length;
-
-            const total = state.selectedSlots.length * state.currentKart.price;
-            document.getElementById('summary-total').innerText = `$${total}`;
-        }
-
-        function confirmBooking() {
-            if (state.selectedSlots.length === 0) {
-                showToast("Please select at least one time slot.");
-                return;
-            }
-
-            // Simulate processing
-            const btn = document.querySelector('.booking-summary .btn-primary');
-            const originalText = btn.innerText;
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            setTimeout(() => {
-                showToast(`Booking Confirmed for ${state.selectedSlots.length} heat(s)!`);
-                state.selectedSlots = [];
-                renderSlots(); // Reset grid
-                updateBookingSummary();
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }, 1500);
-        }
-
-        /* --- LEADERBOARD SYSTEM --- */
-        function renderLeaderboard(trackId) {
-            const tbody = document.getElementById('leaderboard-body');
-            tbody.innerHTML = '';
-
-            const data = state.leaderboardData[trackId];
-
-            data.forEach((driver, index) => {
-                const rank = index + 1;
-                const tr = document.createElement('tr');
-
-                tr.innerHTML = `
-                    <td><span class="rank rank-${rank}">${rank}</span></td>
-                    <td style="font-weight:600;">${driver.name}</td>
-                    <td class="lap-time">${driver.lap}s</td>
-                    <td style="color:var(--text-muted);">${driver.gap}</td>
-                `;
-                tbody.appendChild(tr);
+            // --- Dark Mode Logic ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme);
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
             });
-        }
 
-        function switchLeaderboard(trackId, btn) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderLeaderboard(trackId);
-        }
-
-        /* --- UTILS --- */
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Countdown Logic
-        setInterval(() => {
-            const now = new Date();
-            const end = new Date();
-            end.setHours(18, 0, 0); // End of day or target
-
-            // Simple countdown to next race simulation
-            // Just decrementing a fake counter for visual effect
-            const el = document.getElementById('countdown');
-            let [h, m, s] = el.innerText.split(':').map(Number);
-
-            if (s > 0) s--;
-            else {
-                s = 59;
-                if (m > 0) m--;
-                else {
-                    m = 59;
-                    if (h > 0) h--;
-                }
+            function setTheme(theme) {
+                htmlElement.setAttribute('data-bs-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
             }
 
-            el.innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }, 1000);
+            // --- RTL / LTR Logic ---
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            setDirection(currentDir);
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                setDirection(newDir);
+            });
 
+            function setDirection(dir) {
+                htmlElement.setAttribute('dir', dir);
+                localStorage.setItem('dir', dir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (dir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            }
+
+            // --- Sidebar Toggle (Mobile) ---
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+            });
+
+            // Close sidebar when clicking a link on mobile
+            const sidebarLinks = document.querySelectorAll('.nav-link-custom');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.remove('show');
+                    }
+                    // Set active state
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+        });
     </script>
 </body>
 

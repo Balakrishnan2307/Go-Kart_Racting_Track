@@ -120,7 +120,7 @@
             gap: 5px;
         }
 
-        /* --- HERO --- */
+        /* --- BANNER (HERO) --- */
         .page-header {
             height: 40vh;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/bloghero/1920/600.jpg') no-repeat center center/cover;
@@ -129,11 +129,26 @@
             justify-content: center;
             text-align: center;
             color: white;
+            margin-top: 30px;
         }
 
         .page-header h1 {
             font-size: 3rem;
             text-transform: uppercase;
+        }
+
+        /* --- PROMO BANNER SECTION --- */
+        .promo-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 0;
         }
 
         /* --- BLOG CARDS --- */
@@ -255,8 +270,47 @@
 
         footer h5 {
             color: white;
-            margin-bottom: 25px;
             text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer ul li a:hover {
+            color: var(--primary-color);
+            padding-inline-start: 5px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-inline-end: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
         }
 
         .copyright {
@@ -264,6 +318,7 @@
             margin-top: 50px;
             padding-top: 20px;
             text-align: center;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -273,30 +328,73 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
         <div class="container-fluid px-4">
-            <a class="navbar-brand" href="index.html"><i
-                    class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span></a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <a class="navbar-brand" href="index.html">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
                 </ul>
+
+                <!-- Toggles -->
                 <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
-                    <button id="themeToggle" class="nav-control-btn"><i class="fa-solid fa-moon"></i></button>
-                    <button id="rtlToggle" class="nav-control-btn"><i class="fa-solid fa-language"></i> <span
-                            class="rtl-text">RTL</span></button>
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- HEADER -->
+    <!-- BANNER SECTION (HERO) --> <br><br>
     <div class="page-header">
-        <div class="container">
+        <div class="container"><br>
             <h1>Racing <span class="text-primary-custom">News</span></h1>
             <p>Tips, updates, and stories from the track</p>
         </div>
@@ -312,8 +410,8 @@
                         <!-- Featured Post -->
                         <div class="col-md-12">
                             <div class="blog-card">
-                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing1/800/400.jpg"
-                                        class="blog-img" alt="Blog"></a>
+                                <a href="blog-details.html"><img src="../assets/images/track-5.jpg" class="blog-img"
+                                        alt="Blog"></a>
                                 <div class="blog-body">
                                     <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 24, 2023 | By
                                         Alex Rossi</div>
@@ -330,7 +428,7 @@
                         <!-- Post 2 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing2/400/250.jpg"
+                                <a href="blog-details.html"><img src="../assets/images/Ferrari + karting.jpg"
                                         class="blog-img" alt="Blog"></a>
                                 <div class="blog-body">
                                     <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 18, 2023</div>
@@ -346,7 +444,7 @@
                         <!-- Post 3 -->
                         <div class="col-md-6">
                             <div class="blog-card">
-                                <a href="blog-details.html"><img src="https://picsum.photos/seed/racing3/400/250.jpg"
+                                <a href="blog-details.html"><img src="../assets/images/download (1).jpg"
                                         class="blog-img" alt="Blog"></a>
                                 <div class="blog-body">
                                     <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 10, 2023</div>
@@ -360,7 +458,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br><br>
                     <!-- Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
@@ -398,8 +496,7 @@
                     <div class="widget">
                         <h3>Recent Posts</h3>
                         <div class="d-flex mb-3">
-                            <img src="https://picsum.photos/seed/small1/100/100.jpg" class="rounded me-3" width="70"
-                                alt="">
+                            <img src="../assets/images/car-5.jpg" class="rounded me-3" width="70" alt="">
                             <div>
                                 <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">How to fit a
                                     helmet</a>
@@ -407,8 +504,7 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <img src="https://picsum.photos/seed/small2/100/100.jpg" class="rounded me-3" width="70"
-                                alt="">
+                            <img src="../assets/images/car-4.jpg" class="rounded me-3" width="70" alt="">
                             <div>
                                 <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">Championship
                                     Results</a>
@@ -421,19 +517,78 @@
         </div>
     </section>
 
+    <!-- PROMO BANNER SECTION -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2><i class="fa-solid fa-trophy me-2"></i> Championship Finals are this Sunday!</h2>
+                    <p class="mb-0 mt-2">Come watch the best drivers battle for the title. Food and drinks available.
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    <a href="#contact" class="btn btn-outline-light rounded-0 px-4 py-2">View Schedule</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
-        <div class="container text-center">
-            <p>&copy; 2023 TurboTrack Racing. All Rights Reserved.</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a class="navbar-brand text-white mb-3 d-block" href="#">
+                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span> -->
+                        <img src="../assets/images/logo.png" width="200px" alt="">
+                    </a>
+                    <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#">Kart Rental</a></li>
+                        <li><a href="#">Track Days</a></li>
+                        <li><a href="#">Parties</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for latest news and race schedules.</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-secondary bg-dark text-white"
+                            placeholder="Your Email">
+                        <button class="btn btn-danger" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright text-white-50">
+                <p class="mb-0">&copy; 2026 Go-Kart Racing Track. All Rights Reserved. | Designed for Speed.</p>
+            </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Include JS logic for Theme/RTL from previous files here -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const htmlElement = document.documentElement;
-            // --- Dark Mode ---
             const themeToggleBtn = document.getElementById('themeToggle');
             const currentTheme = localStorage.getItem('theme') || 'dark';
             htmlElement.setAttribute('data-bs-theme', currentTheme);
@@ -444,7 +599,6 @@
                 localStorage.setItem('theme', newTheme);
                 themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
             });
-            // --- RTL ---
             const rtlToggleBtn = document.getElementById('rtlToggle');
             const currentDir = localStorage.getItem('dir') || 'ltr';
             htmlElement.setAttribute('dir', currentDir);

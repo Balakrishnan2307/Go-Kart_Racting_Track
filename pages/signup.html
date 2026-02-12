@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TurboTrack</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --glass-bg: rgba(20, 20, 20, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 59, 59, 0.15) 0%, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        [data-bs-theme="light"] body {
+            background-color: #f0f2f5;
+            background-image: none;
+            --glass-bg: #ffffff;
+            --glass-border: #e0e0e0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+
+        /* --- AUTH SPLIT LAYOUT --- */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 0 60px;
+        }
+
+        .auth-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .auth-image {
+            background: url('../assets/images/download\ \(1\).jpg') no-repeat center center/cover;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .auth-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.6), rgba(255, 59, 59, 0.6));
+        }
+
+        .auth-text-overlay {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            color: white;
+        }
+
+        /* --- FORM --- */
+        .form-control {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: inherit;
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-color);
+            color: inherit;
+            box-shadow: none;
+        }
+
+        [data-bs-theme="light"] .form-control {
+            background: #f8f9fa;
+            border-color: #ddd;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #d32f2f;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 0;
+            background: #050505;
+            color: #777;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .auth-image {
+                min-height: 200px;
+            }
+
+            .auth-text-overlay {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item active" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- MAIN AUTH SECTION -->
+    <div class="container auth-container">
+        <div class="auth-card row g-0">
+            <!-- Left: Image & Welcome -->
+            <div class="col-md-5 auth-image d-none d-md-block">
+                <div class="auth-text-overlay">
+                    <h2>Join The Team</h2>
+                    <p class="mb-4">Create your driver profile to start tracking your lap times and competing in
+                        leagues.</p>
+                    <a href="login.html" class="btn btn-outline-light rounded-0 px-4 py-2">Already a Member?</a>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="col-md-7 p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <h3 class="text-white">Driver Registration</h3>
+                    <p class="text-secondary">Fill in your details to get a racing license.</p>
+                </div>
+
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small text-uppercase fw-bold">First Name</label>
+                            <input type="text" class="form-control" placeholder="John">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Email Address</label>
+                        <input type="email" class="form-control" placeholder="driver@example.com">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Password</label>
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms">
+                            <label class="form-check-label small text-secondary" for="terms">
+                                I agree to the <a href="#" class="text-decoration-none"
+                                    style="color: var(--primary-color);">Terms & Conditions</a> and <a href="#"
+                                    class="text-decoration-none" style="color: var(--primary-color);">Privacy
+                                    Policy</a>.
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-3">Create Account</button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="small text-secondary">Already have an account? <a href="login_signup.html"
+                            class="fw-bold text-decoration-none" style="color: var(--primary-color);">Log In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
+            // Theme Logic
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+            themeToggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            });
+            // RTL Logic
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            htmlElement.setAttribute('dir', currentDir);
+            rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (currentDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                htmlElement.setAttribute('dir', newDir);
+                localStorage.setItem('dir', newDir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (newDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            });
+        });
+    </script>
+</body>
+
+</html>

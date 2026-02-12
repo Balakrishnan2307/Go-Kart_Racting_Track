@@ -318,11 +318,12 @@
 
 <body>
 
-    <!-- NAVBAR (Same as Home) -->
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="index.html">
-                <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span>
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -331,36 +332,51 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="about.html">About</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown">Services</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="index.html#karts">Kart Rental</a></li>
-                            <li><a class="dropdown-item" href="index.html#tracks">Track Booking</a></li>
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#gallery">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#contact">Contact</a>
                     </li>
                 </ul>
 
                 <!-- Toggles -->
                 <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
                     <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
                         <i class="fa-solid fa-moon"></i>
                     </button>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
                     <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
                         <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
                     </button>
@@ -382,8 +398,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="https://picsum.photos/seed/oldracing/600/400.jpg" alt="History"
-                        class="img-fluid rounded shadow w-100">
+                    <img src="../assets/images/car-6.jpg" alt="History" class="img-fluid rounded shadow w-100">
                 </div>
                 <div class="col-lg-6 ps-lg-5">
                     <h4 class="text-primary-custom text-uppercase">Founded in 2010</h4>
@@ -443,8 +458,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 mb-4">
-                    <img src="https://picsum.photos/seed/aerialtrack/500/600.jpg" alt="Track Aerial View"
-                        class="img-fluid rounded shadow h-100 object-fit-cover" style="min-height: 400px;">
+                    <img src="../assets/images/car-7.jpg" alt="Track Aerial View"
+                        class="img-fluid rounded shadow h-100 object-fit-cover" style="height: 200px;">
                 </div>
                 <div class="col-lg-7">
                     <h2 class="mb-4">World-Class <span class="text-primary-custom">Facilities</span></h2>
@@ -506,22 +521,22 @@
             </div>
             <div class="row g-4 text-center">
                 <div class="col-md-3 col-6">
-                    <img src="https://picsum.photos/seed/person1/300/300.jpg" alt="Team Member" class="team-img">
+                    <img src="../assets/images/charc-1.jpg" alt="Team Member" class="team-img">
                     <h5>Alex Rossi</h5>
                     <p class="text-primary-custom text-uppercase small fw-bold">Founder & Track Director</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <img src="https://picsum.photos/seed/person2/300/300.jpg" alt="Team Member" class="team-img">
+                    <img src="../assets/images/charc-2.jpg" alt="Team Member" class="team-img">
                     <h5>Sarah Jenkins</h5>
                     <p class="text-primary-custom text-uppercase small fw-bold">Head Mechanic</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <img src="https://picsum.photos/seed/person3/300/300.jpg" alt="Team Member" class="team-img">
+                    <img src="../assets/images/charc-4.jpg" alt="Team Member" class="team-img">
                     <h5>Mike "The Wall" Tyson</h5>
                     <p class="text-primary-custom text-uppercase small fw-bold">Safety Marshal</p>
                 </div>
                 <div class="col-md-3 col-6">
-                    <img src="https://picsum.photos/seed/person4/300/300.jpg" alt="Team Member" class="team-img">
+                    <img src="../assets/images/charc-5.jpg" alt="Team Member" class="team-img">
                     <h5>Emily Chen</h5>
                     <p class="text-primary-custom text-uppercase small fw-bold">Event Coordinator</p>
                 </div>
@@ -559,7 +574,8 @@
             <div class="row">
                 <div class="col-lg-4 mb-4">
                     <a class="navbar-brand text-white mb-3 d-block" href="#">
-                        <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span>
+                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span>  -->
+                        <img src="../assets/images/logo.png" width="200px" alt="">
                     </a>
                     <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
                     <div class="social-links mt-4">
@@ -599,7 +615,7 @@
             </div>
 
             <div class="copyright text-white-50">
-                <p class="mb-0">&copy; 2023 TurboTrack Racing. All Rights Reserved. | Designed for Speed.</p>
+                <p class="mb-0">&copy; 2026 Go-Kart Racing Track. All Rights Reserved. | Designed for Speed.</p>
             </div>
         </div>
     </footer>

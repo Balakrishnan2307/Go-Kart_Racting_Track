@@ -1,290 +1,465 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | VELOCITY Karting</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Racing+Sans+One&display=swap"
-        rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Coming Soon | TurboTrack</title>
 
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            background-color: #050505;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- BACKGROUND & DECORATION --- */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 59, 59, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* --- OUTLINED TYPOGRAPHY --- */
+        .outline-text {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 0.9;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            transition: 0.5s;
+        }
+
+        .outline-text:hover {
+            -webkit-text-stroke: 2px var(--primary-color);
+            color: rgba(255, 59, 59, 0.1);
+            transform: translateX(10px);
+        }
+
+        /* --- COUNTDOWN CARDS --- */
+        .countdown-wrapper {
+            display: flex;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .cd-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .cd-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cd-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .cd-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* --- FORM --- */
+        .input-launch {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px 0 0 50px;
+            padding: 15px 25px;
+            color: white;
+            width: 100%;
+        }
+
+        .input-launch:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: none;
+            color: white;
+        }
+
+        .btn-launch {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            padding: 0 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-launch:hover {
+            background: #cc0000;
+        }
+
+        /* --- IMAGE CONTAINER (RIGHT SIDE) --- */
+        .img-container {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+            filter: grayscale(40%);
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        /* Decorative Circle */
+        .circle-deco {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 59, 59, 0.3);
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            z-index: -1;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- FOOTER --- */
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 991px) {
+            .outline-text {
+                font-size: 3.5rem;
+            }
+
+            .img-container {
+                min-height: 300px;
+                margin-top: 30px;
+            }
+
+            .btn-launch {
+                border-radius: 0 0 30px 30px;
+                padding: 15px;
+            }
+
+            .input-launch {
+                border-radius: 30px 30px 0 0;
+            }
+        }
+    </style>
 </head>
 
-<body class="dark-mode">
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="container nav-container">
+<body>
 
-            <!-- LOGO: Image (White/Black) + Text -->
-            <a href="index.html" class="logo">
-                <!-- 
-                   1. This is the image source. 
-                   2. The CSS filter above forces it to be WHITE (in dark mode) or BLACK (in light mode).
-                -->
-                <img src="../assets/images/logo.png" width="200px" alt="Racing Car Logo">
+    <!-- Background Gradient -->
+    <div class="bg-gradient"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
             </a>
 
-            <div class="nav-right-wrapper" id="navWrapper">
-                <ul class="nav-links">
-                    <!-- DROPDOWN SECTION -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="indes_2.html" style="color:var(--accent-color)">Home 2</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="service.html">Services</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="login_signup.html">Login</a></li>
-                    <li><a href="404.html">404</a></li>
-                    <li><a href="coming_soon.html" style="color:var(--accent-color)">Coming Soon</a></li>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
 
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item active" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
-                <div class="nav-controls">
-                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
-                        <i class="fas fa-sun"></i>
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
                     </button>
-                    <button class="control-btn" id="rtlToggle" title="Switch Layout (RTL/LTR)">
-                        <i class="fas fa-language"></i>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
                     </button>
                 </div>
-            </div>
-
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
             </div>
         </div>
-    </header>
+    </nav> <br><br>
 
+    <!-- MAIN CONTENT --> <br>
+    <section class="hero-section">
+        <div class="container px-4">
+            <div class="row align-items-center">
 
-    <!-- HERO & COUNTDOWN SECTION -->
-    <section class="hero">
-        <canvas id="speedCanvas"></canvas>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Velocity 2.0</h1>
-            <p class="hero-subtitle">The Track Is Evolving</p>
+                <!-- LEFT COLUMN: CONTENT -->
+                <div class="col-lg-7 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <span class="badge rounded-pill bg-danger px-3 py-2">New Season Incoming</span>
+                    </div>
 
-            <!-- Countdown Timer -->
-            <div class="countdown-container" id="countdown">
-                <div class="time-box">
-                    <span class="time-number" id="days">00</span>
-                    <span class="time-label">Days</span>
+                    <h1 class="outline-text">Coming<br>Soon</h1>
+                    <h2 class="h3 fw-bold text-white mb-4">Something Fast is Approaching.</h2>
+                    <p class=" mb-5 pe-lg-5" style="color:white;">
+                        We are rebuilding the entire telemetry system and upgrading our fleet to electric super-karts.
+                        Be the first to know when the green flag drops.
+                    </p>
+
+                    <!-- COUNTDOWN -->
+                    <div class="countdown-wrapper" id="countdown">
+                        <div class="cd-card">
+                            <span class="cd-number" id="days">00</span>
+                            <span class="cd-label">Days</span>
+                        </div>
+                        <div class="cd-card">
+                            <span class="cd-number" id="hours">00</span>
+                            <span class="cd-label">Hours</span>
+                        </div>
+                        <div class="cd-card">
+                            <span class="cd-number" id="minutes">00</span>
+                            <span class="cd-label">Mins</span>
+                        </div>
+                        <div class="cd-card">
+                            <span class="cd-number" id="seconds">00</span>
+                            <span class="cd-label">Secs</span>
+                        </div>
+                    </div>
+
+                    <!-- SUBSCRIBE FORM -->
+                    <div class="input-group mb-4">
+                        <input type="email" class="input-launch form-control" placeholder="Enter your email address">
+                        <button class="btn-launch" type="button">Notify Me</button>
+                    </div>
                 </div>
-                <div class="time-box">
-                    <span class="time-number" id="hours">00</span>
-                    <span class="time-label">Hours</span>
+
+                <!-- RIGHT COLUMN: IMAGE -->
+                <div class="col-lg-5">
+                    <div class="img-container shadow-lg">
+                        <div class="circle-deco"></div>
+                        <img src="../assets/images/Race Edition Coming soon_ T-shirt.jpg" alt="Racing Wheel">
+                    </div>
                 </div>
-                <div class="time-box">
-                    <span class="time-number" id="minutes">00</span>
-                    <span class="time-label">Minutes</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="seconds">00</span>
-                    <span class="time-label">Seconds</span>
-                </div>
+
             </div>
-
-            <p>We are upgrading our karts and expanding the circuit. Be the first to know when the green flag drops.</p>
-
-            <!-- Newsletter Form -->
-            <form class="newsletter-wrapper" onsubmit="event.preventDefault(); alert('You have been notified!');">
-                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
-                <button type="submit" class="btn-submit">Notify Me</button>
-            </form>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <p style="margin: 0; color: #888;">&copy; 2023 Velocity Karting. All rights reserved.</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a class="navbar-brand text-white mb-3 d-block" href="#">
+                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span> -->
+                        <img src="../assets/images/logo.png" width="200px" alt="">
+                    </a>
+                    <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#">Kart Rental</a></li>
+                        <li><a href="#">Track Days</a></li>
+                        <li><a href="#">Parties</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for latest news and race schedules.</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-secondary bg-dark text-white"
+                            placeholder="Your Email">
+                        <button class="btn btn-danger" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright text-white-50">
+                <p class="mb-0">&copy; 2026 Go-Kart Racing Track. All Rights Reserved. | Designed for Speed.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
 
-            // --- Theme Toggling ---
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = themeToggle.querySelector('i');
-            const body = document.body;
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light-mode');
-
-                if (body.classList.contains('light-mode')) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
+            // --- Dark Mode Logic ---
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(currentTheme);
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
             });
 
-            // --- RTL Toggling ---
-            const rtlToggle = document.getElementById('rtlToggle');
-            rtlToggle.addEventListener('click', () => {
-                body.classList.toggle('rtl');
-                const isRtl = body.classList.contains('rtl');
-                showToast(isRtl ? "Switched to RTL Layout" : "Switched to LTR Layout");
+            function setTheme(theme) {
+                htmlElement.setAttribute('data-bs-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            }
+
+            // --- RTL / LTR Logic ---
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            setDirection(currentDir);
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                setDirection(newDir);
             });
 
-            // --- Mobile Menu ---
-            const hamburger = document.getElementById('hamburger');
-            const navWrapper = document.getElementById('navWrapper');
+            function setDirection(dir) {
+                htmlElement.setAttribute('dir', dir);
+                localStorage.setItem('dir', dir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (dir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            }
 
-            hamburger.addEventListener('click', () => {
-                navWrapper.classList.toggle('active');
-            });
+            // --- COUNTDOWN TIMER LOGIC ---
+            const countDownDate = new Date().getTime() + (14 * 24 * 60 * 60 * 1000); // 14 days from now
 
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navWrapper.classList.remove('active');
-                });
-            });
-
-            // --- Countdown Timer Logic ---
-            // Set date to 14 days from now for demo purposes
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 14);
-
-            function updateCountdown() {
+            const timerInterval = setInterval(function () {
                 const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    document.getElementById("countdown").innerHTML = "<h2 style='width:100%'>WE ARE LIVE!</h2>";
-                    return;
-                }
+                const distance = countDownDate - now;
 
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // Pad with zeros
                 document.getElementById("days").innerText = days < 10 ? "0" + days : days;
                 document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
                 document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
                 document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-            }
 
-            setInterval(updateCountdown, 1000);
-            updateCountdown(); // Run immediately
-
-            // --- Canvas Speed Animation (Theme Aware) ---
-            const canvas = document.getElementById('speedCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let width, height;
-            let lines = [];
-            const lineCount = 60;
-            const speed = 15;
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                initLines();
-            }
-
-            function initLines() {
-                lines = [];
-                for (let i = 0; i < lineCount; i++) {
-                    lines.push({
-                        x: Math.random() * width - width / 2,
-                        y: Math.random() * height - height / 2,
-                        z: Math.random() * width,
-                        pz: 0
-                    });
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("countdown").innerHTML = "<div class='h2 text-primary-custom'>WE ARE LIVE!</div>";
                 }
-            }
-
-            function drawLines() {
-                if (body.classList.contains('light-mode')) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
-                } else {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-                    ctx.strokeStyle = 'rgba(204, 255, 0, 0.5)';
-                }
-
-                ctx.fillRect(0, 0, width, height);
-
-                const cx = width / 2;
-                const cy = height / 2;
-                ctx.lineWidth = 2;
-
-                lines.forEach(line => {
-                    line.z -= speed;
-
-                    if (line.z <= 0) {
-                        line.z = width;
-                        line.x = Math.random() * width - width / 2;
-                        line.y = Math.random() * height - height / 2;
-                        line.pz = line.z;
-                    }
-
-                    const sx = (line.x / line.z) * width + cx;
-                    const sy = (line.y / line.z) * height + cy;
-
-                    const px = (line.x / (line.z + speed)) * width + cx;
-                    const py = (line.y / (line.z + speed)) * height + cy;
-
-                    if (sx > 0 && sx < width && sy > 0 && sy < height) {
-                        ctx.beginPath();
-                        ctx.moveTo(px, py);
-                        ctx.lineTo(sx, sy);
-                        ctx.stroke();
-                    }
-                });
-
-                requestAnimationFrame(drawLines);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            drawLines();
-
-            // --- Toast Utility ---
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.textContent = message;
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
-                toast.style.backgroundColor = 'var(--accent-color)';
-                toast.style.color = 'var(--bg-primary)';
-                toast.style.padding = '10px 20px';
-                toast.style.borderRadius = '5px';
-                toast.style.fontWeight = 'bold';
-                toast.style.zIndex = '2000';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-
-                document.body.appendChild(toast);
-
-                void toast.offsetWidth;
-                toast.style.opacity = '1';
-
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 300);
-                }, 2000);
-            }
+            }, 1000);
         });
     </script>
 </body>

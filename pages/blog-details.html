@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details - TurboTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #ff3b3b;
+            --accent-color: #ffc107;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        [data-bs-theme="dark"] body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        [data-bs-theme="light"] body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .nav-control-btn i {
+            color: var(--primary-color) !important;
+            transition: color 0.3s;
+        }
+
+        .rtl-text {
+            color: var(--accent-color) !important;
+            font-weight: 700;
+        }
+
+        .nav-control-btn:hover {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .nav-control-btn:hover i,
+        .nav-control-btn:hover .rtl-text {
+            color: white !important;
+        }
+
+        .navbar {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin: 0 10px;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-control-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: inherit;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            margin-inline-start: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- BANNER --- */
+        .page-header {
+            height: 40vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/racing1/1920/600.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+
+        /* --- PROMO BANNER --- */
+        .promo-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* --- BLOG CONTENT --- */
+        .blog-details-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .blog-meta {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .blog-quote {
+            border-left: 4px solid var(--primary-color);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .author-box {
+            background: var(--bs-body-bg);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .author-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .comment-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .comment-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333;
+            margin-right: 15px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f0f0f;
+            color: #aaa;
+            padding: 70px 0 30px;
+        }
+
+        footer h5 {
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 12px;
+        }
+
+        footer ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer ul li a:hover {
+            color: var(--primary-color);
+            padding-inline-start: 5px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-inline-end: 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#">
+                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span -->
+                <img src="../assets/images/logo.png" width="200px" alt="">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+
+                    <!-- Dropdown Option -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item active" href="index.html">Home 1</a></li>
+                            <li><a class="dropdown-item" href="indes_2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="login_signup.html">Login</a></li>
+                            <li><a class="dropdown-item" href="signup.html">SignUp</a></li>
+                            <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="404.html">404</a></li>
+                            <li><a class="dropdown-item" href="coming_soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Toggles -->
+                <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
+                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
+                    <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+
+                    <!-- RTL Toggle (Text color changed via CSS) -->
+                    <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
+                        <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- BANNER SECTION (HERO) --> <br><br><br>
+    <div class="page-header">
+        <div class="container">
+            <h1>Track Surface <span class="text-primary-custom">Update</span></h1>
+        </div>
+    </div>
+
+
+    <!-- CONTENT SECTION -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <img src="../assets/images/track-4.jpg" class="blog-details-img" alt="Track Image">
+
+                    <h1 class="mb-4">New Track Surface Installation Completed</h1>
+
+                    <div class="blog-meta d-flex align-items-center">
+                        <span class="me-4"><i class="far fa-user me-2"></i> Alex Rossi</span>
+                        <span class="me-4"><i class="far fa-calendar-alt me-2"></i> Oct 24, 2023</span>
+                        <span><i class="far fa-comments me-2"></i> 3 Comments</span>
+                    </div>
+
+                    <p>We are thrilled to announce that the track resurfacing project, which began three weeks ago, has
+                        been successfully completed. Our goal was simple: create one of the fastest, safest, and most
+                        durable surfaces for our drivers.</p>
+
+                    <h3 class="mt-4 mb-3">The Technology Behind the Asphalt</h3>
+                    <p>We utilized a specialized polymer-modified asphalt typically reserved for Formula 1 circuits.
+                        This provides significantly higher grip levels, especially in the wet, reducing braking
+                        distances and increasing cornering speeds.</p>
+
+                    <div class="blog-quote">
+                        "The grip level is insane compared to last season. I dropped two seconds off my personal best on
+                        the first day of testing. It feels like a brand new track!" <br> - <strong>Mark Johnson, League
+                            Champion</strong>
+                    </div>
+
+                    <h3 class="mt-4 mb-3">What This Means for You</h3>
+                    <p>For our casual drivers, this means a more predictable drive and less tire wear. For our racers,
+                        get ready to smash those lap records! We have already re-calibrated our timing systems to match
+                        the new surface.</p>
+
+                    <hr class="my-5">
+
+                    <!-- Author Box -->
+                    <div class="author-box">
+                        <img src="https://picsum.photos/seed/author/100/100.jpg" class="author-img" alt="Author">
+                        <div>
+                            <h4 class="mb-1">Alex Rossi</h4>
+                            <p class="text-muted small mb-0">Founder & Track Director. Former F1 mechanic with a passion
+                                for grassroots racing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <h3 class="mb-4">3 Comments</h3>
+
+                    <div class="comment-item d-flex">
+                        <div class="comment-avatar"><img src="https://picsum.photos/seed/u1/50/50"
+                                class="rounded w-100 h-100"></div>
+                        <div>
+                            <h5 class="mb-1">Sarah Jenkins</h5>
+                            <small class="text-muted d-block mb-2">Oct 25, 2023 at 10:30 AM</small>
+                            <p>Wow! Can't wait to try it out this weekend. The old surface was getting a bit bumpy.</p>
+                            <a href="#" class="btn btn-sm btn-outline-light rounded-0">Reply</a>
+                        </div>
+                    </div>
+
+                    <div class="comment-item d-flex">
+                        <div class="comment-avatar"><img src="https://picsum.photos/seed/u2/50/50"
+                                class="rounded w-100 h-100"></div>
+                        <div>
+                            <h5 class="mb-1">Mike Speed</h5>
+                            <small class="text-muted d-block mb-2">Oct 26, 2023 at 2:15 PM</small>
+                            <p>Does this mean the tire compounds will change for the winter league?</p>
+                            <a href="#" class="btn btn-sm btn-outline-light rounded-0">Reply</a>
+                        </div>
+                    </div>
+
+                    <!-- Leave a Reply Form -->
+                    <h3 class="mb-4 mt-5">Leave a Reply</h3>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control bg-transparent text-body border-secondary"
+                                    placeholder="Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control bg-transparent text-body border-secondary"
+                                    placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control bg-transparent text-body border-secondary" rows="5"
+                                placeholder="Your Comment"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger rounded-0 px-4">Post Comment</button>
+                    </form>
+
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="widget">
+                        <h3>Search</h3>
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-transparent text-body border-secondary"
+                                placeholder="Search...">
+                            <button class="btn btn-danger"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h3>Categories</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Track News</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Racing Tips</a></li>
+                            <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Events</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMO BANNER SECTION -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2><i class="fa-solid fa-gear me-2"></i> Kart Maintenance Clinic</h2>
+                    <p class="mb-0 mt-2">Join us this Saturday to learn how to tune your own racing kart. Free for
+                        members.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    <a href="#contact" class="btn btn-outline-light rounded-0 px-4 py-2">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a class="navbar-brand text-white mb-3 d-block" href="#">
+                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span> -->
+                        <img src="../assets/images/logo.png" width="200px" alt="">
+                    </a>
+                    <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#">Kart Rental</a></li>
+                        <li><a href="#">Track Days</a></li>
+                        <li><a href="#">Parties</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for latest news and race schedules.</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-secondary bg-dark text-white"
+                            placeholder="Your Email">
+                        <button class="btn btn-danger" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright text-white-50">
+                <p class="mb-0">&copy; 2026 Go-Kart Racing Track. All Rights Reserved. | Designed for Speed.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const htmlElement = document.documentElement;
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            htmlElement.setAttribute('data-bs-theme', currentTheme);
+            themeToggleBtn.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            });
+            const rtlToggleBtn = document.getElementById('rtlToggle');
+            const currentDir = localStorage.getItem('dir') || 'ltr';
+            htmlElement.setAttribute('dir', currentDir);
+            rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (currentDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            rtlToggleBtn.addEventListener('click', () => {
+                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
+                htmlElement.setAttribute('dir', newDir);
+                localStorage.setItem('dir', newDir);
+                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (newDir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            });
+        });
+    </script>
+</body>
+
+</html>

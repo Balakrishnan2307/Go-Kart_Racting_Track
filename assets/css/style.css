@@ -129,7 +129,7 @@
   /* --- HERO SECTION --- */
   .hero-section {
       height: 100vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://picsum.photos/seed/kartrace/1920/1080.jpg') no-repeat center center/cover;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/car-2.jpg') no-repeat center center/cover;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -1,359 +1,667 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go-Kart Racing Track</title>
-    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/x-icon">
-
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>VelocityTrack | Pro Go-Kart Management</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@300;400;500;700&display=swap"
         rel="stylesheet">
 
     <style>
+        /* --- Global Reset & Overflow Control --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            /* Critical for preventing width expansion */
+        }
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden !important;
+            /* Strictly prevents horizontal scroll on window */
+        }
+
+        /* --- CSS Variables --- */
         :root {
-            --primary-color: #ff3b3b;
-            --accent-color: #ffc107;
-            --font-heading: 'Montserrat', sans-serif;
-            --font-body: 'Roboto', sans-serif;
-            --sidebar-width: 280px;
+            --primary-red: #ff3e3e;
+            --primary-hover: #d92e2e;
+            --secondary: #374151;
+
+            /* Light Mode */
+            --bg-body: #f3f4f6;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --input-bg: #f9fafb;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --bg-body: #0f1115;
+            --bg-sidebar: #1a1d24;
+            --bg-card: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --input-bg: #111827;
         }
 
         body {
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-        }
-
-        [data-bs-theme="light"] body {
-            background-color: #f4f6f9;
-            color: #212529;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            /* Prevent body scroll */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1,
         h2,
         h3,
         h4,
-        h5,
-        h6 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-        }
-
-        /* --- TOP NAVBAR --- */
-        .top-navbar {
-            padding: 1rem 2rem;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-bs-theme="light"] .top-navbar {
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid #e0e0e0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        /* --- UPDATED LOGO STYLES --- */
-        .brand-logo {
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            color: #ffffff !important;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .brand-logo:hover {
-            transform: scale(1.02);
-            text-shadow: 0 0 15px rgba(255, 59, 59, 0.6);
-        }
-
-        /* Logo Icon and Span (TRACK) are now RED */
-        .brand-logo i,
-        .brand-logo span {
-            color: var(--primary-color) !important;
-        }
-
-        .brand-logo i {
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary-color);
-        }
-
-        /* --- UPDATED CONTROLS (HOVER EFFECTS) --- */
-        .nav-control-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 0.5rem;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-left: 10px;
-        }
-
-        .nav-control-btn i {
-            color: var(--primary-color);
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .rtl-text {
-            color: var(--accent-color);
-            font-weight: 700;
-            font-size: 0.8rem;
-            display: none;
-        }
-
-        /* RTL Button Specifics */
-        #rtlToggle {
-            border-radius: 30px;
-            width: auto;
-            padding: 0 15px;
-        }
-
-        #rtlToggle .rtl-text {
-            display: inline-block;
-            margin-left: 5px;
-        }
-
-        /* Hover State for Buttons */
-        .nav-control-btn:hover {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 59, 59, 0.4);
-        }
-
-        .nav-control-btn:hover i,
-        .nav-control-btn:hover .rtl-text {
-            color: white !important;
-        }
-
-        /* --- SIDEBAR --- */
-        .sidebar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            bottom: 0;
-            width: var(--sidebar-width);
-            background: #0f0f0f;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2rem 1.5rem;
-            z-index: 999;
-            overflow-y: auto;
-            transition: transform 0.3s;
-        }
-
-        [data-bs-theme="light"] .sidebar {
-            background: white;
-            border-right: 1px solid #ddd;
-        }
-
-        .nav-link-custom {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: #888;
-            text-decoration: none;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-link-custom i {
-            width: 25px;
-            color: var(--primary-color);
-        }
-
-        .nav-link-custom:hover,
-        .nav-link-custom.active {
-            background: rgba(255, 59, 59, 0.1);
-            color: var(--primary-color);
-        }
-
-        .nav-link-custom.active {
-            border-left: 4px solid var(--primary-color);
-        }
-
-        /* --- MAIN CONTENT AREA --- */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            margin-top: 70px;
-            padding: 2rem;
-            transition: margin-left 0.3s;
-        }
-
-        /* --- CARDS --- */
-        .dash-card {
-            background: var(--bs-body-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-
-        .dash-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        [data-bs-theme="light"] .dash-card {
-            border: 1px solid #eee;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            font-family: var(--font-heading);
-            color: var(--primary-color);
-        }
-
-        .stat-label {
-            color: #888;
-            font-size: 0.9rem;
+        h5 {
+            font-family: 'Russo One', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* --- TIME SLOTS --- */
-        .time-slot {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px;
+        /* --- Layout Structure --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .logo-area {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-red);
+            font-size: 1.5rem;
+        }
+
+        .logo-area i {
+            margin-right: 10px;
+        }
+
+        .logo-area span {
+            color: var(--text-main);
+            font-weight: 900;
+        }
+
+        .nav-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .nav-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .nav-scroll::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .nav-category {
+            padding: 0 24px 8px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.2s;
             cursor: pointer;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            /* Prevents text wrapping from expanding width */
         }
 
-        [data-bs-theme="light"] .time-slot {
-            background: white;
-            border-color: #ddd;
+        .nav-item:hover {
+            background-color: rgba(255, 62, 62, 0.05);
+            color: var(--primary-red);
         }
 
-        .time-slot:hover {
-            border-color: var(--primary-color);
-            background: rgba(255, 59, 59, 0.05);
+        .nav-item.active {
+            background-color: rgba(255, 62, 62, 0.1);
+            color: var(--primary-red);
+            border-right: 3px solid var(--primary-red);
         }
 
-        .time-slot.booked {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: transparent;
-            cursor: not-allowed;
-            opacity: 0.5;
+        .nav-left {
+            display: flex;
+            align-items: center;
         }
 
-        /* --- LEADERBOARD --- */
-        .rank-badge {
-            width: 30px;
-            height: 30px;
-            background: #333;
+        .nav-left i {
+            width: 24px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        .submenu {
+            background-color: rgba(0, 0, 0, 0.02);
+            display: none;
+            padding-bottom: 5px;
+        }
+
+        .dark-mode .submenu {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.open {
+            display: block;
+        }
+
+        .submenu .nav-item {
+            padding-left: 54px;
+            font-size: 0.9rem;
+        }
+
+        .chevron {
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+
+        .user-profile {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-red);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        header {
+            height: 70px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--bg-body);
+            color: var(--primary-red);
+        }
+
+        .viewport {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden !important;
+            /* FIXED: Hides horizontal overflow */
+            padding: 32px;
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .view-section {
+            display: none;
+            animation: slideUp 0.3s ease-out;
+            max-width: 100%;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Components --- */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            /* FIXED: Clips content inside card */
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .card-header h4 {
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 62, 62, 0.1);
+            color: var(--primary-red);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            /* Allows horizontal scroll for table ONLY */
+            width: 100%;
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            /* Forces scroll on small screens inside the container */
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .status-live {
+            background: rgba(255, 62, 62, 0.15);
+            color: var(--primary-red);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .status-done {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .status-warn {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
             color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 0.8rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: 2px solid var(--primary-red);
+            border-color: transparent;
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .activity-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 62, 62, 0.1);
+            color: var(--primary-red);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            flex-shrink: 0;
         }
 
-        .rank-1 {
-            background: #ffd700;
-            color: #000;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        .activity-content h5 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
         }
 
-        .rank-2 {
-            background: #c0c0c0;
-            color: #000;
+        .activity-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
-        .rank-3 {
-            background: #cd7f32;
-            color: #fff;
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 5px;
         }
 
-        /* --- PACKAGE CARDS --- */
-        .pkg-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 0;
+        /* Telemetry Bars */
+        .telemetry-row {
+            margin-bottom: 15px;
+        }
+
+        .telemetry-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .bar-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
             overflow: hidden;
-            transition: 0.3s;
         }
 
-        [data-bs-theme="light"] .pkg-card {
-            background: white;
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-red);
+            width: 0%;
+            transition: width 0.5s ease;
         }
 
-        .pkg-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-
-        .pkg-img {
-            height: 150px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* --- UPDATED AMOUNT TEXT COLOR --- */
-        .pkg-amount {
+        /* Mobile */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
             font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            /* Changed to Red */
-            text-shadow: 0 2px 10px rgba(255, 59, 59, 0.3);
-            /* Added Glow */
+            color: var(--text-main);
+            cursor: pointer;
+            margin-right: 15px;
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
             .sidebar {
-                transform: translateX(-100%);
-                top: 0;
-                z-index: 1001;
-                padding-top: 80px;
+                position: fixed;
+                left: -280px;
+                height: 100%;
+                box-shadow: var(--shadow);
+                width: 280px;
             }
 
-            .sidebar.show {
-                transform: translateX(0);
+            .sidebar.open {
+                left: 0;
             }
 
-            .main-content {
-                margin-left: 0;
+            header {
+                padding: 0 16px;
+            }
+
+            .viewport {
+                padding: 16px;
+            }
+
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -361,495 +669,1015 @@
 
 <body>
 
-    <!-- TOP NAVBAR -->
-    <nav class="top-navbar d-flex justify-content-between align-items-center">
-        <!-- Mobile Toggle -->
-        <button class="btn btn-outline-light d-lg-none me-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-
-        <!-- Logo -->
-        <a href="../index.html" class="brand-logo">
-            <!-- <i class="fa-solid fa-flag-checkered"></i>TURBO<span>TRACK</span> -->
-            <img src="../assets/images/logo.png" width="200px" alt="">
-        </a>
-
-        <!-- Right Side Controls -->
-        <div class="d-flex align-items-center">
-
-            <!-- Theme/RTL Buttons -->
-            <div class="d-flex">
-                <button id="themeToggle" class="nav-control-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-                <button id="rtlToggle" class="nav-control-btn" title="Toggle Direction">
-                    <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
-                </button>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-area">
+              <a href="../index.html">
+                <img src="../assets/images/logo.png" width="180px" alt="">
+              </a>
             </div>
 
-            <!-- User Profile & Logout Dropdown -->
-            <div class="dropdown ms-3">
-                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="d-none d-md-inline me-2 fw-bold text-white">Alex Driver</span>
-                    <img src="../assets/images/charc-6.jpg" class="user-avatar" alt="User">
+            <div class="nav-scroll">
+                <div class="nav-category">Main</div>
+                <a href="#" class="nav-item active" onclick="switchView('dashboard', this)">
+                    <div class="nav-left"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" aria-labelledby="userDropdown"
-                    style="background: var(--bs-body-bg); min-width: 200px;">
-                    <li><a class="dropdown-item" href="#overview"><i class="fas fa-user me-2 text-muted"></i> My
-                            Profile</a></li>
-                    <li><a class="dropdown-item" href="#settings"><i class="fas fa-cog me-2 text-muted"></i>
-                            Settings</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item text-danger" href="index.html"><i class="fas fa-sign-out-alt me-2"></i>
-                            Logout</a></li>
-                </ul>
+                <a href="#" class="nav-item" onclick="switchView('track-overview', this)">
+                    <div class="nav-left"><i class="fa-solid fa-map-location-dot"></i> Track Overview</div>
+                </a>
+                <a href="#" class="nav-item" onclick="switchView('live-races', this)">
+                    <div class="nav-left"><i class="fa-solid fa-video"></i> Live Races</div>
+                    <div class="pulse" style="background: var(--primary-red);"></div>
+                </a>
+
+                <div class="nav-category">Operations</div>
+                <a href="#" class="nav-item" onclick="switchView('schedule', this)">
+                    <div class="nav-left"><i class="fa-regular fa-calendar-check"></i> Race Schedule</div>
+                </a>
+                <a href="#" class="nav-item" onclick="switchView('bookings', this)">
+                    <div class="nav-left"><i class="fa-solid fa-ticket"></i> Bookings</div>
+                </a>
+
+                <div class="nav-category">Management</div>
+                <a href="#" class="nav-item" onclick="toggleSubmenu('mgmt-menu', this)">
+                    <div class="nav-left"><i class="fa-solid fa-gears"></i> Track & Race</div>
+                    <i class="fa-solid fa-chevron-down chevron" id="mgmt-chevron"></i>
+                </a>
+                <div class="submenu" id="mgmt-menu">
+                    <a href="#" class="nav-item" onclick="switchView('track-layout', this)">Track Layout</a>
+                    <a href="#" class="nav-item" onclick="switchView('race-mgmt', this)">Race Management</a>
+                    <a href="#" class="nav-item" onclick="switchView('lap-timing', this)">Lap Timing</a>
+                    <a href="#" class="nav-item" onclick="switchView('leaderboard', this)">Leaderboard</a>
+                    <a href="#" class="nav-item" onclick="switchView('results', this)">Race Results</a>
+                    <a href="#" class="nav-item" onclick="switchView('championships', this)">Championships</a>
+                    <a href="#" class="nav-item" onclick="switchView('events', this)">Event Management</a>
+                </div>
             </div>
-        </div>
-    </nav>
 
-    <!-- SIDEBAR NAVIGATION -->
-    <aside class="sidebar" id="sidebar">
-        <ul class="list-unstyled">
-            <li><a href="#overview" class="nav-link-custom active"><i class="fas fa-tachometer-alt"></i> Overview</a>
-            </li>
-            <li><a href="#booking" class="nav-link-custom"><i class="fas fa-calendar-alt"></i> Booking Slots</a></li>
-            <li><a href="#leaderboard" class="nav-link-custom"><i class="fas fa-trophy"></i> Leaderboard</a></li>
-            <li><a href="#packages" class="nav-link-custom"><i class="fas fa-users"></i> Group Events</a></li>
-            <li><a href="#history" class="nav-link-custom"><i class="fas fa-history"></i> Race History</a></li>
-            <li><a href="#settings" class="nav-link-custom"><i class="fas fa-wallet"></i> Payments</a></li>
-        </ul>
+            <div class="user-profile">
+                <img src="https://picsum.photos/seed/racer1/100/100" class="avatar" alt="Admin">
+                <div style="flex:1;">
+                    <h4 style="font-size: 0.9rem;">Alex Racer</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">Track Manager</p>
+                </div>
+                <button class="icon-btn" onclick="alert('Logged out')" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
 
-        <!-- Support Box -->
-        <div class="mt-4 p-3 rounded" style="background: rgba(255,59,59,0.1); border: 1px solid var(--primary-color);">
-            <p class="small mb-2">Need help with a corporate booking?</p>
-            <a href="#" class="btn btn-sm btn-danger w-100 rounded-0">Contact Crew</a>
-        </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-        <div class="container-fluid">
-
-            <!-- SECTION 1: OVERVIEW -->
-            <section id="overview" class="mb-5">
-                <h3 class="mb-4">Welcome back, Alex <span class="text-primary-custom">.</span></h3>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="dash-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <p class="stat-label">Total Laps</p>
-                                    <div class="stat-value">1,240</div>
-                                </div>
-                                <i class="fas fa-road fa-2x text-muted opacity-25"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dash-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <p class="stat-label">Best Lap Time</p>
-                                    <div class="stat-value">42.5s</div>
-                                </div>
-                                <i class="fas fa-stopwatch fa-2x text-muted opacity-25"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dash-card">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <p class="stat-label">Next Booking</p>
-                                    <div class="stat-value text-success" style="font-size: 1.5rem;">Today</div>
-                                </div>
-                                <i class="fas fa-calendar-check fa-2x text-muted opacity-25"></i>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div style="display:flex; align-items:center;">
+                    <button class="mobile-toggle" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h2 class="header-title" id="page-title">Dashboard</h2>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="dash-card">
-                            <h5 class="mb-4">Recent Activity</h5>
-                            <div class="table-responsive">
-                                <table class="table table-borderless align-middle" style="color: inherit;">
+                <div class="header-actions">
+                    <button class="icon-btn" onclick="toggleTheme()">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="icon-btn">
+                        <i class="fa-solid fa-bell"></i>
+                    </button>
+                    <!-- <button class="btn btn-primary" onclick="switchView('bookings')">+ New Booking</button> -->
+                </div>
+            </header>
+
+            <div class="viewport">
+
+                <!-- VIEW: Dashboard -->
+                <section id="dashboard" class="view-section active">
+                    <div class="grid-4">
+                        <div class="card stat-card">
+                            <div class="stat-info">
+                                <h3>3</h3>
+                                <p>Active Races</p>
+                            </div>
+                            <div class="stat-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Karts on Track</p>
+                            </div>
+                            <div class="stat-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-info">
+                                <h3>85°F</h3>
+                                <p>Track Temp</p>
+                            </div>
+                            <div class="stat-icon"><i class="fa-solid fa-temperature-high"></i></div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-info">
+                                <h3>$2.4k</h3>
+                                <p>Today's Revenue</p>
+                            </div>
+                            <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <!-- Live Leaderboard -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Live Leaderboard</h4>
+                                <a href="#" onclick="switchView('leaderboard')"
+                                    style="color:var(--primary-red); font-size:0.9rem; font-weight:600; text-decoration:none;">View
+                                    All</a>
+                            </div>
+                            <div class="table-container">
+                                <table>
                                     <thead>
-                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: #888;">
-                                            <th>Track</th>
+                                        <tr>
+                                            <th>Pos</th>
+                                            <th>Driver</th>
                                             <th>Kart</th>
-                                            <th>Date</th>
-                                            <th>Laps</th>
-                                            <th>Best Time</th>
+                                            <th>Best Lap</th>
+                                            <th>Gap</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><i class="fas fa-flag-checkered text-primary-custom me-2"></i>Main
-                                                Circuit</td>
-                                            <td>Pro Kart #7</td>
-                                            <td>Oct 24, 2023</td>
-                                            <td>15</td>
-                                            <td class="fw-bold">45.2s</td>
+                                            <td style="color:gold; font-weight:bold;">1</td>
+                                            <td>M. Schumacher</td>
+                                            <td>#K7</td>
+                                            <td>45.23s</td>
+                                            <td>-</td>
                                         </tr>
                                         <tr>
-                                            <td><i class="fas fa-flag-checkered text-primary-custom me-2"></i>Technical
-                                                Loop</td>
-                                            <td>Super Kart #2</td>
-                                            <td>Oct 20, 2023</td>
-                                            <td>20</td>
-                                            <td class="fw-bold">38.9s</td>
+                                            <td style="color:silver; font-weight:bold;">2</td>
+                                            <td>L. Hamilton</td>
+                                            <td>#K2</td>
+                                            <td>45.40s</td>
+                                            <td>+0.17s</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:#cd7f32; font-weight:bold;">3</td>
+                                            <td>M. Verstappen</td>
+                                            <td>#K1</td>
+                                            <td>45.55s</td>
+                                            <td>+0.32s</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>F. Alonso</td>
+                                            <td>#K5</td>
+                                            <td>45.89s</td>
+                                            <td>+0.66s</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity Feed -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Track Activity</h4>
+                            </div>
+                            <ul class="activity-feed">
+                                <li class="activity-item">
+                                    <div class="activity-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                                    <div class="activity-content">
+                                        <h5>Race #9021 Finished</h5>
+                                        <p>Sprint Race completed. Winner: Kart #7</p>
+                                        <span class="activity-time">10 mins ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon"><i class="fa-solid fa-wrench"></i></div>
+                                    <div class="activity-content">
+                                        <h5>Kart #3 Maintenance</h5>
+                                        <p>Tire change requested by pit crew.</p>
+                                        <span class="activity-time">25 mins ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon"><i class="fa-solid fa-user-plus"></i></div>
+                                    <div class="activity-content">
+                                        <h5>New Booking</h5>
+                                        <p>John Doe booked 2 karts for 14:00.</p>
+                                        <span class="activity-time">1 hour ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Full Width Section -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Live Track Map</h4>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <span style="color:var(--text-muted); font-size:0.85rem;">Condition: <b>Dry &
+                                        Fast</b></span>
+                                <span class="status-live">
+                                    <div class="pulse"></div> Live
+                                </span>
+                            </div>
+                        </div>
+                        <div
+                            style="width: 100%; height: 300px; background-color: #e5e7eb; border-radius: 8px; position: relative; overflow: hidden; background-image: radial-gradient(#374151 1px, transparent 1px); background-size: 20px 20px;">
+                            <!-- Dark mode override for map via JS or class usually, handled by var -->
+                            <style>
+                                .dark-mode .card[style*="300px"] {
+                                    background-color: #2d3748;
+                                    background-image: radial-gradient(#4a5568 1px, transparent 1px);
+                                }
+                            </style>
+
+                            <!-- Track Shape -->
+                            <div
+                                style="position: absolute; top: 50%; left: 50%; width: 200px; height: 120px; border: 15px solid var(--text-main); border-radius: 50%; transform: translate(-50%, -50%); opacity: 0.3;">
+                            </div>
+                            <!-- Karts -->
+                            <div class="kart-dot"
+                                style="position: absolute; width: 10px; height: 10px; background: var(--primary-red); border-radius: 50%; box-shadow: 0 0 10px var(--primary-red); animation: moveKart 4s linear infinite;">
+                            </div>
+                            <div class="kart-dot"
+                                style="position: absolute; width: 10px; height: 10px; background: var(--primary-red); border-radius: 50%; box-shadow: 0 0 10px var(--primary-red); animation: moveKart 4s linear infinite; animation-delay: 1.5s; top:40%;">
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        @keyframes moveKart {
+                            0% {
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+
+                            25% {
+                                top: 30%;
+                                left: 75%;
+                            }
+
+                            50% {
+                                top: 50%;
+                                left: 80%;
+                            }
+
+                            75% {
+                                top: 70%;
+                                left: 50%;
+                            }
+
+                            100% {
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+                        }
+                    </style>
+                </section>
+
+                <!-- VIEW: Track Overview -->
+                <section id="track-overview" class="view-section">
+                    <div class="grid-3">
+                        <div class="card">
+                            <h4>Specs</h4>
+                            <div style="margin-top:15px; display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                                <div>
+                                    <p style="color:var(--text-muted); font-size:0.8rem;">Length</p>
+                                    <h3 style="color:var(--primary-red);">1.2 km</h3>
+                                </div>
+                                <div>
+                                    <p style="color:var(--text-muted); font-size:0.8rem;">Turns</p>
+                                    <h3>14</h3>
+                                </div>
+                                <div>
+                                    <p style="color:var(--text-muted); font-size:0.8rem;">Width</p>
+                                    <h3>8m</h3>
+                                </div>
+                                <div>
+                                    <p style="color:var(--text-muted); font-size:0.8rem;">Surface</p>
+                                    <h3>Asphalt</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h4>Condition</h4>
+                            <div style="margin-top:15px;">
+                                <div class="telemetry-row">
+                                    <div class="telemetry-label"><span>Track Grip</span> <span>High</span></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                                <div class="telemetry-row">
+                                    <div class="telemetry-label"><span>Temperature</span> <span>85°F</span></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h4>Sector Breakdown</h4>
+                            <ul style="margin-top:15px; list-style:none;">
+                                <li
+                                    style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border-color);">
+                                    <span>Sector 1</span> <b>14.2s</b>
+                                </li>
+                                <li
+                                    style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border-color);">
+                                    <span>Sector 2</span> <b>18.5s</b>
+                                </li>
+                                <li style="display:flex; justify-content:space-between; padding:10px 0;">
+                                    <span>Sector 3</span> <b>12.5s</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4>Maintenance Log</h4>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Area</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Oct 20, 2023</td>
+                                        <td>Turn 3 Barrier</td>
+                                        <td>Replaced tires</td>
+                                        <td><span class="status-done">Done</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Oct 22, 2023</td>
+                                        <td>Start/Finish Line</td>
+                                        <td>Transponder Calibration</td>
+                                        <td><span class="status-done">Done</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Oct 25, 2023</td>
+                                        <td>Pit Lane</td>
+                                        <td>Resurface asphalt</td>
+                                        <td><span class="status-warn">Scheduled</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: Live Races -->
+                <section id="live-races" class="view-section">
+                    <div class="grid-2">
+                        <!-- Race List -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Active Sessions</h4>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Race ID</th>
+                                            <th>Type</th>
+                                            <th>Time Left</th>
+                                            <th>Drivers</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#R-9021</td>
+                                            <td>Sprint Race</td>
+                                            <td>04:20</td>
+                                            <td>8 / 10</td>
+                                            <td><span class="status-live">
+                                                    <div class="pulse"></div> Live
+                                                </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#R-9022</td>
+                                            <td>Endurance</td>
+                                            <td>18:15</td>
+                                            <td>4 / 6</td>
+                                            <td><span class="status-live">
+                                                    <div class="pulse"></div> Live
+                                                </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Live Telemetry -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Live Telemetry: Leader (#K7)</h4>
+                                <span style="color:var(--primary-red); font-weight:bold;">LIVE DATA</span>
+                            </div>
+                            <div style="margin-top:20px;">
+                                <div class="telemetry-row">
+                                    <div class="telemetry-label"><span>Speed</span> <span id="speed-val">45 mph</span>
+                                    </div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" id="speed-bar" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                                <div class="telemetry-row">
+                                    <div class="telemetry-label"><span>RPM</span> <span id="rpm-val">8,500</span></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" id="rpm-bar" style="width: 85%; background: #f59e0b;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="telemetry-row">
+                                    <div class="telemetry-label"><span>Fuel Load</span> <span>78%</span></div>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="width: 78%; background: #10b981;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:20px; display:flex; gap:10px;">
+                                    <button class="btn btn-outline" style="flex:1;">Pit Call</button>
+                                    <button class="btn btn-primary" style="flex:1;">Blue Flag</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: Bookings -->
+                <section id="bookings" class="view-section">
+                    <div class="grid-2">
+                        <!-- Booking Form -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>New Reservation</h4>
+                            </div>
+                            <form onsubmit="event.preventDefault(); alert('Booking Created!');">
+                                <div class="form-group">
+                                    <label class="form-label">Customer Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter full name">
+                                </div>
+                                <div class="grid-2" style="margin-bottom:15px; gap:15px;">
+                                    <div>
+                                        <label class="form-label">Date</label>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Time</label>
+                                        <input type="time" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kart Type</label>
+                                    <select class="form-control">
+                                        <option>Standard Kart (Adult)</option>
+                                        <option>Pro Kart (Adult)</option>
+                                        <option>Kid Kart (Junior)</option>
+                                        <option>Double Seater</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" value="1" min="1" max="10">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Notes</label>
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width:100%;">Confirm
+                                    Booking</button>
+                            </form>
+                        </div>
+
+                        <!-- Booking List -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Upcoming Reservations</h4>
+                                <div style="display:flex; gap:5px;">
+                                    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-filter"></i></button>
+                                    <button class="btn btn-outline btn-sm"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Time</th>
+                                            <th>Karts</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John Doe<br><span
+                                                    style="font-size:0.75rem; color:var(--text-muted);">Oct 25</span>
+                                            </td>
+                                            <td>14:00</td>
+                                            <td>2 Std</td>
+                                            <td>$60.00</td>
+                                            <td><span class="status-live">Confirmed</span></td>
+                                            <td><button class="btn btn-outline btn-sm">Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sarah Smith<br><span
+                                                    style="font-size:0.75rem; color:var(--text-muted);">Oct 25</span>
+                                            </td>
+                                            <td>16:30</td>
+                                            <td>1 Pro</td>
+                                            <td>$45.00</td>
+                                            <td><span class="status-done">Checked In</span></td>
+                                            <td><button class="btn btn-outline btn-sm">View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Acme Corp<br><span
+                                                    style="font-size:0.75rem; color:var(--text-muted);">Oct 26</span>
+                                            </td>
+                                            <td>10:00</td>
+                                            <td>10 Std</td>
+                                            <td>$300.00</td>
+                                            <td><span class="status-warn">Pending</span></td>
+                                            <td><button class="btn btn-outline btn-sm">Approve</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- SECTION 2: BOOKING -->
-            <section id="booking" class="mb-5">
-                <h4 class="mb-4 text-primary-custom"><i class="fas fa-clock me-2"></i>Book a Heat</h4>
-                <div class="dash-card">
-                    <div class="row mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label text-muted">Select Date</label>
-                            <input type="date" class="form-control bg-transparent text-body border-secondary">
+                <!-- VIEW: Schedule -->
+                <section id="schedule" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Race Schedule Calendar</h4>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn btn-outline btn-sm">Today</button>
+                                <button class="btn btn-primary btn-sm">This Week</button>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label text-muted">Track Configuration</label>
-                            <select class="form-select bg-transparent text-body border-secondary">
-                                <option>Main Circuit (1500m)</option>
-                                <option>Technical Loop (800m)</option>
-                                <option>Full Layout (2300m)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label text-muted">Kart Type</label>
-                            <select class="form-select bg-transparent text-body border-secondary">
-                                <option>Pro Kart (270cc)</option>
-                                <option>Super Kart (390cc)</option>
-                                <option>Double Kart</option>
-                            </select>
+                        <!-- Simple Visual Schedule -->
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Mon 23</th>
+                                        <th>Tue 24</th>
+                                        <th>Wed 25</th>
+                                        <th>Thu 26</th>
+                                        <th>Fri 27</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>09:00</td>
+                                        <td
+                                            style="background:rgba(16, 185, 129, 0.1); color:#10b981; text-align:center;">
+                                            Open Practice</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(255, 62, 62, 0.1); color:var(--primary-red); text-align:center;">
+                                            Sprint Championship</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(245, 158, 11, 0.1); color:#f59e0b; text-align:center;">
+                                            School Event</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12:00</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(16, 185, 129, 0.1); color:#10b981; text-align:center;">
+                                            Arrive & Drive</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(16, 185, 129, 0.1); color:#10b981; text-align:center;">
+                                            Arrive & Drive</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18:00</td>
+                                        <td
+                                            style="background:rgba(255, 62, 62, 0.1); color:var(--primary-red); text-align:center;">
+                                            League Night</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(255, 62, 62, 0.1); color:var(--primary-red); text-align:center;">
+                                            League Night</td>
+                                        <td></td>
+                                        <td
+                                            style="background:rgba(16, 185, 129, 0.1); color:#10b981; text-align:center;">
+                                            Night Practice</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </section>
 
-                    <h6 class="mb-3 mt-4">Available Time Slots</h6>
-                    <div class="row g-3">
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot">
-                                <div class="fw-bold fs-5">09:00 AM</div>
-                                <small class="text-success">Available</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot booked">
-                                <div class="fw-bold fs-5">10:30 AM</div>
-                                <small class="text-danger">Booked</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot">
-                                <div class="fw-bold fs-5">12:00 PM</div>
-                                <small class="text-success">Available</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot booked">
-                                <div class="fw-bold fs-5">01:30 PM</div>
-                                <small class="text-danger">Booked</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot">
-                                <div class="fw-bold fs-5">03:00 PM</div>
-                                <small class="text-success">Available</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot">
-                                <div class="fw-bold fs-5">04:30 PM</div>
-                                <small class="text-success">Available</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot booked">
-                                <div class="fw-bold fs-5">06:00 PM</div>
-                                <small class="text-danger">Booked</small>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="time-slot">
-                                <div class="fw-bold fs-5">08:00 PM</div>
-                                <small class="text-success">Available</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-end mt-4">
-                        <button class="btn btn-danger px-5 rounded-pill">Confirm Booking ($25.00)</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 3: LEADERBOARD -->
-            <section id="leaderboard" class="mb-5">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="text-primary-custom"><i class="fas fa-trophy me-2"></i>Season Leaderboard</h4>
-                    <select class="form-select w-auto bg-transparent text-body border-secondary">
-                        <option>This Season</option>
-                        <option>All Time</option>
-                    </select>
-                </div>
-
-                <div class="dash-card p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0" style="color: inherit;">
-                            <thead class="bg-opacity-10 bg-secondary">
-                                <tr>
-                                    <th class="ps-4">Rank</th>
-                                    <th>Driver</th>
-                                    <th class="text-center">Total Laps</th>
-                                    <th class="text-end pe-4">Best Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="fw-bold" style="background: rgba(255, 255, 255, 0.05);">
-                                    <td class="ps-4">
-                                        <div class="rank-badge rank-1">1</div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="../assets/images/charc-5.jpg" class="rounded-circle me-2"
-                                                width="30" height="30">
-                                            Mark Johnson
-                                        </div>
-                                    </td>
-                                    <td class="text-center">450</td>
-                                    <td class="text-end pe-4">38.4s</td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="rank-badge rank-2">2</div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="../assets/images/charc-3.jpg" class="rounded-circle me-2"
-                                                width="30" height="30">
-                                            Sarah Connor
-                                        </div>
-                                    </td>
-                                    <td class="text-center">420</td>
-                                    <td class="text-end pe-4">39.1s</td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="rank-badge rank-3">3</div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="../assets/images/charc-2.jpg" class="rounded-circle me-2"
-                                                width="30" height="30">
-                                            Mike Speed
-                                        </div>
-                                    </td>
-                                    <td class="text-center">390</td>
-                                    <td class="text-end pe-4">40.2s</td>
-                                </tr>
-                                <tr class="table-active">
-                                    <td class="ps-4">
-                                        <div class="rank-badge">14</div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="../assets/images/charc-1.jpg" class="rounded-circle me-2"
-                                                width="30" height="30">
-                                            You
-                                        </div>
-                                    </td>
-                                    <td class="text-center">120</td>
-                                    <td class="text-end pe-4">45.2s</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 4: PACKAGES (UPDATED AMOUNT COLOR) -->
-            <section id="packages" class="mb-5">
-                <h4 class="mb-4 text-primary-custom"><i class="fas fa-users me-2"></i>Group & Event Packages</h4>
-                <div class="row g-4">
-                    <!-- Package 1 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="pkg-card">
-                            <div class="pkg-img" style="background-image: url('../assets/images/car-4.jpg');"></div>
-                            <div class="p-4">
-                                <h5>Birthday Bash</h5>
-                                <p class="text-muted small mb-3">Includes party room, pizza, and dedicated track time
-                                    for kids.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
-                                    <span class="pkg-amount">$300</span>
-                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Package 2 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="pkg-card" style="border: 1px solid var(--primary-color);">
+                <!-- MANAGEMENT SUBPAGES -->
+                <section id="track-layout" class="view-section">
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>Current Layout</h4>
                             <div
-                                class="position-absolute top-0 end-0 bg-danger text-white px-3 py-1 rounded-bottom-start small fw-bold">
-                                POPULAR</div>
-                            <div class="pkg-img" style="background-image: url('../assets/images/car-2.jpg');">
+                                style="background:var(--bg-body); height:250px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:20px 0; border:2px dashed var(--border-color);">
+                                <span style="color:var(--text-muted);">Track Map Image Preview</span>
                             </div>
-                            <div class="p-4">
-                                <h5>Corporate Challenge</h5>
-                                <p class="text-muted small mb-3">Perfect for team building. Includes Grand Prix format
-                                    and trophies.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
-                                    <span class="pkg-amount">$850</span>
-                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
+                            <button class="btn btn-outline">Upload New Map</button>
+                        </div>
+                        <div class="card">
+                            <h4>Configuration</h4>
+                            <div class="form-group">
+                                <label class="form-label">Layout Name</label>
+                                <input type="text" class="form-control" value="Grand Circuit">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Active Sectors</label>
+                                <select class="form-control" multiple style="height:100px;">
+                                    <option selected>Sector 1 (High Speed)</option>
+                                    <option selected>Sector 2 (Technical)</option>
+                                    <option selected>Sector 3 (Straight)</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="race-mgmt" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Race Type Configuration</h4>
+                        </div>
+                        <div class="grid-3">
+                            <div class="card" style="border:1px solid var(--border-color); box-shadow:none;">
+                                <h4>Sprint Race</h4>
+                                <p style="color:var(--text-muted); font-size:0.9rem; margin:10px 0;">Short, intense
+                                    sessions.</p>
+                                <div class="telemetry-row">
+                                    <label class="form-label">Laps</label>
+                                    <input type="number" class="form-control" value="15">
+                                </div>
+                                <button class="btn btn-outline" style="width:100%; margin-top:10px;">Edit</button>
+                            </div>
+                            <div class="card" style="border:1px solid var(--border-color); box-shadow:none;">
+                                <h4>Endurance</h4>
+                                <p style="color:var(--text-muted); font-size:0.9rem; margin:10px 0;">Team based long
+                                    distance.</p>
+                                <div class="telemetry-row">
+                                    <label class="form-label">Minutes</label>
+                                    <input type="number" class="form-control" value="60">
+                                </div>
+                                <button class="btn btn-outline" style="width:100%; margin-top:10px;">Edit</button>
+                            </div>
+                            <div class="card"
+                                style="border:1px dashed var(--primary-red); background:rgba(255,62,62,0.05); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer;">
+                                <i class="fa-solid fa-plus"
+                                    style="font-size:2rem; color:var(--primary-red); margin-bottom:10px;"></i>
+                                <span style="font-weight:600;">Create New Type</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="lap-timing" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Raw Transponder Logs</h4>
+                        </div>
+                        <div class="table-container">
+                            <table style="font-family:monospace; font-size:0.85rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Transponder ID</th>
+                                        <th>Kart #</th>
+                                        <th>Lap Time</th>
+                                        <th>Sector 1</th>
+                                        <th>Sector 2</th>
+                                        <th>Sector 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>14:05:22.100</td>
+                                        <td>T-8821</td>
+                                        <td>#7</td>
+                                        <td>45.232</td>
+                                        <td>14.102</td>
+                                        <td>18.500</td>
+                                        <td>12.630</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14:05:22.450</td>
+                                        <td>T-9932</td>
+                                        <td>#2</td>
+                                        <td>45.410</td>
+                                        <td>14.200</td>
+                                        <td>18.510</td>
+                                        <td>12.700</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14:05:23.100</td>
+                                        <td>T-8821</td>
+                                        <td>#7</td>
+                                        <td>45.210</td>
+                                        <td>14.050</td>
+                                        <td>18.490</td>
+                                        <td>12.670</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14:05:23.500</td>
+                                        <td>T-1102</td>
+                                        <td>#5</td>
+                                        <td>46.100</td>
+                                        <td>14.500</td>
+                                        <td>18.900</td>
+                                        <td>12.700</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="leaderboard" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>All-Time Top 100</h4>
+                            <div style="display:flex; gap:10px;">
+                                <select class="form-control" style="width:auto; padding:5px 10px;">
+                                    <option>All Karts</option>
+                                    <option>Pro Karts Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Driver</th>
+                                        <th>Date</th>
+                                        <th>Kart</th>
+                                        <th>Lap Time</th>
+                                        <th>Avg Speed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Max V.</td>
+                                        <td>Oct 12, 2023</td>
+                                        <td>#K7</td>
+                                        <td style="color:var(--primary-red); font-weight:bold;">44.890s</td>
+                                        <td>58.2 mph</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Lewis H.</td>
+                                        <td>Sep 28, 2023</td>
+                                        <td>#K1</td>
+                                        <td>45.100s</td>
+                                        <td>57.9 mph</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Charles L.</td>
+                                        <td>Oct 05, 2023</td>
+                                        <td>#K3</td>
+                                        <td>45.210s</td>
+                                        <td>57.7 mph</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Fernando A.</td>
+                                        <td>Aug 15, 2023</td>
+                                        <td>#K5</td>
+                                        <td>45.330s</td>
+                                        <td>57.5 mph</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Sergio P.</td>
+                                        <td>Oct 01, 2023</td>
+                                        <td>#K2</td>
+                                        <td>45.410s</td>
+                                        <td>57.4 mph</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="results" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Race Archive</h4>
+                        </div>
+                        <div class="grid-4" style="margin-bottom:0;">
+                            <div style="border:1px solid var(--border-color); padding:15px; border-radius:8px;">
+                                <h5>Sprint Cup #4</h5>
+                                <p style="color:var(--text-muted); font-size:0.8rem;">Oct 22, 2023</p>
+                                <p style="margin:10px 0;"><b>Winner:</b> Lewis H. (#K1)</p>
+                                <button class="btn btn-outline btn-sm" style="width:100%;">View Report</button>
+                            </div>
+                            <div style="border:1px solid var(--border-color); padding:15px; border-radius:8px;">
+                                <h5>Endurance #2</h5>
+                                <p style="color:var(--text-muted); font-size:0.8rem;">Oct 15, 2023</p>
+                                <p style="margin:10px 0;"><b>Winner:</b> Team Red</p>
+                                <button class="btn btn-outline btn-sm" style="width:100%;">View Report</button>
+                            </div>
+                            <div style="border:1px solid var(--border-color); padding:15px; border-radius:8px;">
+                                <h5>Junior League</h5>
+                                <p style="color:var(--text-muted); font-size:0.8rem;">Oct 10, 2023</p>
+                                <p style="margin:10px 0;"><b>Winner:</b> Timmy K.</p>
+                                <button class="btn btn-outline btn-sm" style="width:100%;">View Report</button>
+                            </div>
+                            <div
+                                style="border:1px dashed var(--border-color); padding:15px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                                <span style="color:var(--text-muted);">Load More...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="championships" class="view-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Season 2023 Standings</h4>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pos</th>
+                                        <th>Driver</th>
+                                        <th>Races</th>
+                                        <th>Wins</th>
+                                        <th>Podiums</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i class="fa-solid fa-trophy" style="color:gold;"></i> 1</td>
+                                        <td>Lewis H.</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                        <td>8</td>
+                                        <td style="font-size:1.1rem; font-weight:bold; color:var(--primary-red);">245
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa-solid fa-trophy" style="color:silver;"></i> 2</td>
+                                        <td>Max V.</td>
+                                        <td>10</td>
+                                        <td>4</td>
+                                        <td>7</td>
+                                        <td style="font-size:1.1rem; font-weight:bold;">230</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa-solid fa-trophy" style="color:#cd7f32;"></i> 3</td>
+                                        <td>Fernando A.</td>
+                                        <td>9</td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>185</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top:20px;">
+                            <h5>Season Progress</h5>
+                            <div class="bar-bg" style="height:10px; margin-top:10px;">
+                                <div class="bar-fill"
+                                    style="width: 70%; background: linear-gradient(90deg, var(--primary-red), #f59e0b);">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Package 3 -->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="pkg-card">
-                            <div class="pkg-img" style="background-image: url('../assets/images/car-1.jpg');"></div>
-                            <div class="p-4">
-                                <h5>Stag / Hen Party</h5>
-                                <p class="text-muted small mb-3">Includes party room, pizza, and dedicated track time
-                                    for kids.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <!-- UPDATED: Changed text-white to text-primary-custom -->
-                                    <span class="pkg-amount">$450</span>
-                                    <a href="#" class="btn btn-sm btn-danger rounded-pill">Select</a>
-                                </div>
+                            <div
+                                style="display:flex; justify-content:space-between; font-size:0.8rem; margin-top:5px; color:var(--text-muted);">
+                                <span>Race 1</span>
+                                <span>Race 10 (Final)</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- SECTION 5: HISTORY -->
-            <section id="history" class="mb-5">
-                <h4 class="mb-4 text-primary-custom"><i class="fas fa-history me-2"></i>Race History</h4>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="dash-card position-relative overflow-hidden">
-                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-success"></div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="fw-bold">Oct 24, 2023</span>
-                                <span class="badge bg-success">Finished</span>
-                            </div>
-                            <p class="text-muted small mb-2">Main Circuit - Heat 1</p>
-                            <div class="d-flex justify-content-between mt-3">
-                                <span><i class="fas fa-flag-checkered me-1 text-primary-custom"></i> 15 Laps</span>
-                                <span class="fw-bold">42.5s Avg</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="dash-card position-relative overflow-hidden">
-                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-success"></div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="fw-bold">Oct 18, 2023</span>
-                                <span class="badge bg-success">Finished</span>
-                            </div>
-                            <p class="text-muted small mb-2">Technical Loop - Heat 2</p>
-                            <div class="d-flex justify-content-between mt-3">
-                                <span><i class="fas fa-flag-checkered me-1 text-primary-custom"></i> 20 Laps</span>
-                                <span class="fw-bold">38.9s Avg</span>
+                <section id="events" class="view-section">
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>Private Events</h4>
+                            <div class="activity-feed">
+                                <li class="activity-item">
+                                    <div class="activity-content">
+                                        <h5>Acme Corp Team Building</h5>
+                                        <p>Fri, Oct 27 • 20 Karts • Catering Included</p>
+                                        <button class="btn btn-outline btn-sm" style="margin-top:5px;">Manage
+                                            Details</button>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-content">
+                                        <h5>Birthday Party - Timmy</h5>
+                                        <p>Sat, Oct 28 • 10 Kids Karts • Cake Room</p>
+                                        <button class="btn btn-outline btn-sm" style="margin-top:5px;">Manage
+                                            Details</button>
+                                    </div>
+                                </li>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="dash-card position-relative overflow-hidden opacity-50">
-                            <div class="position-absolute top-0 start-0 w-100 h-2 bg-danger"></div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="fw-bold">Oct 10, 2023</span>
-                                <span class="badge bg-danger">Cancelled</span>
-                            </div>
-                            <p class="text-muted small mb-2">Night League - Heat 3</p>
-                            <div class="d-flex justify-content-between mt-3">
-                                <span class="text-muted small">Reason: Heavy Rain</span>
-                            </div>
+                        <div class="card" style="background: var(--primary-red); color: white;">
+                            <h4>Create New Event</h4>
+                            <p style="opacity:0.9; margin-bottom:20px;">Plan a corporate outing or private party.</p>
+                            <button class="btn"
+                                style="background:white; color:var(--primary-red); width:100%; font-weight:bold;">Start
+                                Planning</button>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
-    </main>
+            </div>
+        </main>
+    </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JS -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const htmlElement = document.documentElement;
+        // --- View Switching Logic ---
+        function switchView(viewId, navElement = null) {
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(sec => sec.classList.remove('active'));
 
-            // --- Dark Mode Logic ---
-            const themeToggleBtn = document.getElementById('themeToggle');
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(currentTheme);
-            themeToggleBtn.addEventListener('click', () => {
-                const newTheme = htmlElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
-            });
-
-            function setTheme(theme) {
-                htmlElement.setAttribute('data-bs-theme', theme);
-                localStorage.setItem('theme', theme);
-                themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            const target = document.getElementById(viewId);
+            if (target) {
+                target.classList.add('active');
+                const titleMap = {
+                    'dashboard': 'Dashboard', 'track-overview': 'Track Overview', 'live-races': 'Live Races',
+                    'bookings': 'Bookings', 'schedule': 'Race Schedule', 'track-layout': 'Track Layout',
+                    'race-mgmt': 'Race Management', 'lap-timing': 'Lap Timing', 'leaderboard': 'Leaderboard',
+                    'results': 'Race Results', 'championships': 'Championships', 'events': 'Event Management'
+                };
+                document.getElementById('page-title').innerText = titleMap[viewId] || 'Dashboard';
             }
 
-            // --- RTL / LTR Logic ---
-            const rtlToggleBtn = document.getElementById('rtlToggle');
-            const currentDir = localStorage.getItem('dir') || 'ltr';
-            setDirection(currentDir);
-            rtlToggleBtn.addEventListener('click', () => {
-                const newDir = htmlElement.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr';
-                setDirection(newDir);
-            });
-
-            function setDirection(dir) {
-                htmlElement.setAttribute('dir', dir);
-                localStorage.setItem('dir', dir);
-                rtlToggleBtn.innerHTML = '<i class="fa-solid fa-language"></i> <span class="rtl-text">' + (dir === 'rtl' ? 'LTR' : 'RTL') + '</span>';
+            if (navElement) {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                navElement.classList.add('active');
+                if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
             }
+        }
 
-            // --- Sidebar Toggle (Mobile) ---
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
+        function toggleSubmenu(menuId, triggerElement) {
+            const menu = document.getElementById(menuId);
+            const chevron = triggerElement.querySelector('.chevron');
+            menu.classList.toggle('open');
+            chevron.classList.toggle('rotate');
+        }
 
-            sidebarToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('show');
-            });
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-            // Close sidebar when clicking a link on mobile
-            const sidebarLinks = document.querySelectorAll('.nav-link-custom');
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 992) {
-                        sidebar.classList.remove('show');
-                    }
-                    // Set active state
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                });
-            });
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); localStorage.setItem('theme', 'light');
+            }
+        }
 
-        });
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').classList.remove('fa-moon');
+            document.getElementById('theme-icon').classList.add('fa-sun');
+        }
+
+        // Simulation for Live Telemetry
+        setInterval(() => {
+            if (document.getElementById('live-races').classList.contains('active')) {
+                const speed = Math.floor(Math.random() * (60 - 30) + 30);
+                const rpm = Math.floor(Math.random() * (10000 - 6000) + 6000);
+                document.getElementById('speed-val').innerText = speed + " mph";
+                document.getElementById('speed-bar').style.width = speed + "%";
+                document.getElementById('rpm-val').innerText = rpm.toLocaleString();
+                document.getElementById('rpm-bar').style.width = (rpm / 120) + "%";
+            }
+        }, 1000);
+
     </script>
+
 </body>
 
 </html>

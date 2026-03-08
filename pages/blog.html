@@ -29,6 +29,8 @@
         body {
             font-family: var(--font-body);
             overflow-x: hidden;
+            /* Added padding to prevent content from hiding behind fixed navbar */
+            padding-top: 80px;
         }
 
         h1,
@@ -130,7 +132,8 @@
             justify-content: center;
             text-align: center;
             color: white;
-            margin-top: 30px;
+            margin-top: 0;
+            /* Removed margin-top, handled by body padding */
         }
 
         .page-header h1 {
@@ -330,8 +333,7 @@
     <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark">
         <div class="container-fluid px-4">
             <a class="navbar-brand" href="../index.html">
-                <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span>TRACK</span> -->
-                <img src="../assets/images/logo.png" width="200px" alt="">
+                <img src="https://via.placeholder.com/200x50/ff3b3b/ffffff?text=TURBO+TRACK" width="200px" alt="Logo">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -340,8 +342,6 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-
-                    <!-- Dropdown Option -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             Home
@@ -379,12 +379,10 @@
 
                 <!-- Toggles -->
                 <div class="d-flex flex-column flex-lg-row ms-lg-3 mt-3 mt-lg-0">
-                    <!-- Dark/Light Toggle (Icon color changed via CSS) -->
                     <button id="themeToggle" class="nav-control-btn" title="Toggle Dark/Light Mode">
                         <i class="fa-solid fa-moon"></i>
                     </button>
 
-                    <!-- RTL Toggle (Text color changed via CSS) -->
                     <button id="rtlToggle" class="nav-control-btn" title="Toggle LTR/RTL">
                         <i class="fa-solid fa-language"></i> <span class="rtl-text">RTL</span>
                     </button>
@@ -393,9 +391,9 @@
         </div>
     </nav>
 
-    <!-- BANNER SECTION (HERO) --> <br><br>
+    <!-- BANNER SECTION (HERO) -->
     <div class="page-header">
-        <div class="container"><br>
+        <div class="container">
             <h1>Racing <span class="text-primary-custom">News</span></h1>
             <p>Tips, updates, and stories from the track</p>
         </div>
@@ -405,75 +403,9 @@
     <section>
         <div class="container">
             <div class="row">
-                <!-- Main Content -->
-                <div class="col-lg-8">
-                    <div class="row">
-                        <!-- Featured Post -->
-                        <div class="col-md-12">
-                            <div class="blog-card">
-                                <a href="blog-details.html"><img src="../assets/images/track-5.jpg" class="blog-img"
-                                        alt="Blog"></a>
-                                <div class="blog-body">
-                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 24, 2023 | By
-                                        Alex Rossi</div>
-                                    <a href="blog-details.html">
-                                        <h3 class="blog-title">New Track Surface Installation Completed</h3>
-                                    </a>
-                                    <p>We have officially resurfaced the main circuit with the latest high-grip asphalt.
-                                        Here is what you need to know about the new lap times.</p>
-                                    <a href="blog-details.html" class="btn-read-more">Read More <i
-                                            class="fas fa-arrow-right ms-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Post 2 -->
-                        <div class="col-md-6">
-                            <div class="blog-card">
-                                <a href="blog-details.html"><img src="../assets/images/Ferrari + karting.jpg"
-                                        class="blog-img" alt="Blog"></a>
-                                <div class="blog-body">
-                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 18, 2023</div>
-                                    <a href="blog-details.html">
-                                        <h5 class="blog-title">Top 5 Tips for Faster Cornering</h5>
-                                    </a>
-                                    <p class="small">Mastering the apex is easier said than done. Our instructors share
-                                        their secrets.</p>
-                                    <a href="blog-details.html" class="btn-read-more">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Post 3 -->
-                        <div class="col-md-6">
-                            <div class="blog-card">
-                                <a href="blog-details.html"><img src="../assets/images/download (1).jpg"
-                                        class="blog-img" alt="Blog"></a>
-                                <div class="blog-body">
-                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 10, 2023</div>
-                                    <a href="blog-details.html">
-                                        <h5 class="blog-title">Winter League Registration Open</h5>
-                                        </p>
-                                        <p class="small">Secure your spot in our competitive winter championship
-                                            starting next month.</p>
-                                        <a href="blog-details.html" class="btn-read-more">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <!-- Pagination -->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                </div>
 
-                <!-- Sidebar -->
-                <div class="col-lg-4">
+                <!-- Sidebar: Order Changed for Mobile (order-1) vs Desktop (order-lg-2) -->
+                <div class="col-lg-4 order-1 order-lg-2">
                     <!-- Search -->
                     <div class="widget">
                         <h3>Search</h3>
@@ -497,7 +429,8 @@
                     <div class="widget">
                         <h3>Recent Posts</h3>
                         <div class="d-flex mb-3">
-                            <img src="../assets/images/car-5.jpg" class="rounded me-3" width="70" alt="">
+                            <img src="https://picsum.photos/seed/recent1/70/70.jpg" class="rounded me-3" width="70"
+                                alt="">
                             <div>
                                 <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">How to fit a
                                     helmet</a>
@@ -505,7 +438,8 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <img src="../assets/images/car-4.jpg" class="rounded me-3" width="70" alt="">
+                            <img src="https://picsum.photos/seed/recent2/70/70.jpg" class="rounded me-3" width="70"
+                                alt="">
                             <div>
                                 <a href="#" class="text-decoration-none text-reset fw-bold d-block mb-1">Championship
                                     Results</a>
@@ -514,6 +448,74 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Main Content: Order Changed for Mobile (order-2) vs Desktop (order-lg-1) -->
+                <div class="col-lg-8 order-2 order-lg-1">
+                    <div class="row">
+                        <!-- Featured Post -->
+                        <div class="col-md-12">
+                            <div class="blog-card">
+                                <a href="blog-details.html"><img src="../assets/images/car-7.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 24, 2023 | By
+                                        Alex Rossi</div>
+                                    <a href="blog-details.html">
+                                        <h3 class="blog-title">New Track Surface Installation Completed</h3>
+                                    </a>
+                                    <p>We have officially resurfaced the main circuit with the latest high-grip asphalt.
+                                        Here is what you need to know about the new lap times.</p>
+                                    <a href="blog-details.html" class="btn-read-more">Read More <i
+                                            class="fas fa-arrow-right ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post 2 -->
+                        <div class="col-md-6">
+                            <div class="blog-card" style="margin-top: 30px;">
+                                <a href="blog-details.html"><img src="../assets/images/car-2.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 18, 2023</div>
+                                    <a href="blog-details.html">
+                                        <h5 class="blog-title">Top 5 Tips for Faster Cornering</h5>
+                                    </a>
+                                    <p class="small">Mastering the apex is easier said than done. Our instructors share
+                                        their secrets.</p>
+                                    <a href="blog-details.html" class="btn-read-more">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post 3 -->
+                        <div class="col-md-6">
+                            <div class="blog-card" style="margin-top: 30px;">
+                                <a href="blog-details.html"><img src="../assets/images/car-4.jpg"
+                                        class="blog-img" alt="Blog"></a>
+                                <div class="blog-body">
+                                    <div class="blog-meta"><i class="far fa-calendar-alt me-2"></i> Oct 10, 2023</div>
+                                    <a href="blog-details.html">
+                                        <h5 class="blog-title">Winter League Registration Open</h5>
+                                    </a>
+                                    <p class="small">Secure your spot in our competitive winter championship
+                                        starting next month.</p>
+                                    <a href="blog-details.html" class="btn-read-more">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </div>
     </section>
@@ -540,8 +542,8 @@
             <div class="row">
                 <div class="col-lg-4 mb-4">
                     <a class="navbar-brand text-white mb-3 d-block" href="../index.html">
-                        <!-- <i class="fa-solid fa-flag-checkered me-2"></i>TURBO<span class="text-danger">TRACK</span> -->
-                        <img src="../assets/images/logo.png" width="200px" alt="">
+                        <img src="https://via.placeholder.com/200x50/ff3b3b/ffffff?text=TURBO+TRACK" width="200px"
+                            alt="">
                     </a>
                     <p>The premier destination for Go-Kart enthusiasts. Safe, fun, and fast for the whole family.</p>
                     <div class="social-links mt-4">
